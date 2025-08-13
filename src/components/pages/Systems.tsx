@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Systems.css';
+import '../../css/Systems.css';
 
 const Systems: React.FC = () => {
   const [expandedPrinciple, setExpandedPrinciple] = useState<string | null>(null);

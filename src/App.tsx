@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React  from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import VerticalMenu from './components/menu/VerticalMenu';
 import Home from './components/pages/Home';
 import Profile from './components/pages/Profile';
 import Messages from './components/pages/Messages';
 import Settings from './components/pages/Systems';
-import './App.css';
+import './css/App.css';
 
 const App: React.FC = () => {
   const [collapsed, setCollapsed] = React.useState(false);

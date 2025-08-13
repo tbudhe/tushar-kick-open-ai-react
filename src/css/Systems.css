@@ -1,0 +1,47 @@
+.systems-container {
+  display: flex;
+  flex-direction: row; /* Horizontal alignment */
+  gap: 20px; /* Space between cards */
+  justify-content: flex-start; /* Align cards to the left */
+  align-items: flex-start; /* Align cards to the top */
+  padding: 20px;
+  margin: 0; /* Remove any default margin */
+}
+
+.system-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  background-color: #f9f9f9;
+  max-width: 300px;
+  cursor: pointer;
+  transition: box-shadow 0.3s ease;
+}
+
+.system-card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.system-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.system-card-header h4 {
+  margin: 0;
+}
+
+.toggle-arrow {
+  font-size: 18px;
+}
+
+.system-card-details {
+  margin-top: 10px;
+  text-align: left;
+}
+
+.system-card-details ul {
+  list-style-type: disc;
+  padding-left: 20px;
+}
