@@ -16,7 +16,7 @@ app.get('/api/menu', (_req, res) => {
     { label: 'Home', path: '/', icon: 'home' },
     { label: 'Profile', path: '/profile', icon: 'person' },
     { label: 'Messages', path: '/messages', icon: 'mail' },
-    { label: 'Settings', path: '/settings', icon: 'settings' }
+    { label: 'System', path: '/System', icon: 'settings' }
   ]);
 });
 
