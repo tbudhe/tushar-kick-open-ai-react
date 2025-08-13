@@ -3,8 +3,7 @@ import { NavLink } from 'react-router-dom';
 import HomeIcon from '@mui/icons-material/Home';
 import PersonIcon from '@mui/icons-material/Person';
 import MailIcon from '@mui/icons-material/Mail';
-import SettingsIcon from '@mui/icons-material/Settings'; // You can rename this icon if needed
-
+import AllInclusiveIcon from '@mui/icons-material/AllInclusive';
 interface VerticalMenuProps {
   collapsed: boolean;
   setCollapsed: React.Dispatch<React.SetStateAction<boolean>>;
@@ -38,7 +37,7 @@ const VerticalMenu: React.FC<VerticalMenuProps> = ({ collapsed, setCollapsed }) 
       </li>
       <li>
         <NavLink className="nav-link" to="/systems">
-          {collapsed ? <span title="System"><SettingsIcon /></span> : 'System'}
+          {collapsed ? <span title="System"><AllInclusiveIcon /></span> : 'System Design'}
         </NavLink>
       </li>
     </ul>
