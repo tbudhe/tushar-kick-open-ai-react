@@ -2,8 +2,10 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import HomeIcon from '@mui/icons-material/Home';
 import PersonIcon from '@mui/icons-material/Person';
-import MailIcon from '@mui/icons-material/Mail';
+import AllOutIcon from '@mui/icons-material/AllOut';
 import AllInclusiveIcon from '@mui/icons-material/AllInclusive';
+import ScienceIcon from '@mui/icons-material/Science';
+
 interface VerticalMenuProps {
   collapsed: boolean;
   setCollapsed: React.Dispatch<React.SetStateAction<boolean>>;
@@ -31,13 +33,18 @@ const VerticalMenu: React.FC<VerticalMenuProps> = ({ collapsed, setCollapsed }) 
         </NavLink>
       </li>
       <li>
-        <NavLink className="nav-link" to="/messages">
-          {collapsed ? <span title="Messages"><MailIcon /></span> : 'Messages'}
+        <NavLink className="nav-link" to="/ai">
+          {collapsed ? <span title="ai"><AllOutIcon /></span> : 'AI'}
         </NavLink>
       </li>
       <li>
         <NavLink className="nav-link" to="/systems">
-          {collapsed ? <span title="System"><AllInclusiveIcon /></span> : 'System Design'}
+          {collapsed ? <span title="Systems"><AllInclusiveIcon /></span> : 'Systems'}
+        </NavLink>
+      </li>
+      <li>
+        <NavLink className="nav-link" to="/practice-ml">
+          {collapsed ? <span title="Practice ML"><ScienceIcon /></span> : 'Practice ML'}
         </NavLink>
       </li>
     </ul>
