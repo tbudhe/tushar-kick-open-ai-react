@@ -3,8 +3,9 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import VerticalMenu from './components/menu/VerticalMenu';
 import Home from './components/pages/Home';
 import Profile from './components/pages/Profile';
-import Messages from './components/pages/Messages';
 import Settings from './components/pages/Systems';
+import AI from './components/pages/AI';
+import PracticeML from './components/pages/PracticeML';
 import './css/App.css';
 
 const App: React.FC = () => {
@@ -26,8 +27,9 @@ const App: React.FC = () => {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/profile" element={<Profile />} />
-            <Route path="/messages" element={<Messages />} />
             <Route path="/Systems" element={<Settings />} />
+            <Route path="/ai" element={<AI />} />
+            <Route path="/practice-ml" element={<PracticeML />} />
           </Routes>
         </div>
       </div>

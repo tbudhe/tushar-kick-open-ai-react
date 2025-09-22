@@ -7,7 +7,7 @@ const Profile: React.FC = () => {
         title: 'Staff Software Engineer',
         location: 'Nutley, NJ',
         email: 'tbudhe23@gmail.com',
-        phone: '+1(551)-482-6336',
+        phone: '+1(551)-XXX-XXX6',
         professionalSummary: 'Over 16 years of experience managing full project life cycles, covering architecture, analysis, design, development, testing, and implementation. Currently landed as a Staff Software Engineer with a proven track record in productivity and efficiency. Expertise in algorithm optimization, cloud computing, and scalability. Experienced in leading cross-functional teams to deliver projects on time, while meeting quality standards.',
         skills: [
             'Skilled in full stack development with JavaScript, TypeScript, Node.js, Microsoft stack, Java, Python, AI & ML etc.',
