@@ -11,6 +11,7 @@ This project is an AI-powered web application built with **React** for the front
 - [Local Development](#local-development)
 - [Available Scripts](#available-scripts)
 - [Docker Instructions](#docker-instructions)
+- [Render.com Deployment (Recommended)](#rendercom-deployment-recommended)
 - [Azure Deployment](#azure-deployment)
 - [Debugging and Logs](#debugging-and-logs)
 
@@ -127,7 +128,111 @@ Access at [http://localhost:3000](http://localhost:3000)
 
 ---
 
+## 🚀 Render.com Deployment (Recommended)
+
+Render.com offers free Docker deployments with better reliability than Azure Free tier.
+
+### Quick Deploy
+
+1. **Push your code to GitHub** (if not already done)
+   ```sh
+   git add .
+   git commit -m "Add Render deployment config"
+   git push origin main
+   ```
+
+2. **Sign up at [Render.com](https://render.com)**
+   - Use your GitHub account for easy integration
+
+3. **Create New Web Service**
+   - Click "New +" → "Web Service"
+   - Connect your GitHub repository: `tbudhe/tushar-kick-open-ai-react`
+   - Render will automatically detect `render.yaml` configuration
+
+4. **Deployment Settings** (Auto-configured via render.yaml)
+   - **Name**: gen-ai-ik-demo
+   - **Runtime**: Docker
+   - **Plan**: Free
+   - **Health Check Path**: /heartbeat
+   - **Auto-Deploy**: Yes (on git push)
+
+5. **Deploy**
+   - Click "Create Web Service"
+   - Wait 5-10 minutes for build and deployment
+   - Your app will be live at: `https://gen-ai-ik-demo.onrender.com`
+
+### Manual Configuration (Alternative)
+
+If render.yaml is not detected:
+
+```yaml
+# Runtime: Docker
+# Docker Command: (leave blank, uses CMD from Dockerfile)
+# Health Check Path: /heartbeat
+
+# Environment Variables:
+PORT=3000
+NODE_ENV=production
+```
+
+### Benefits of Render:
+- ✅ Free tier with Docker support
+- ✅ Automatic deploys from GitHub
+- ✅ SSL certificates included
+- ✅ Custom domains supported
+- ✅ Easy logs and monitoring
+- ⚠️ Note: Free tier sleeps after 15 min of inactivity (first request may be slow)
+
+---
+
 ## ☁️ Azure Deployment
+
+### ✅ Current Deployment: Azure Container Instances
+
+**Your app is live at:**
+- **URL**: http://gen-ai-ik-demo-aci.eastus2.azurecontainer.io:3000
+- **IP**: 68.220.238.0
+- **Endpoints**:
+  - Main app: http://gen-ai-ik-demo-aci.eastus2.azurecontainer.io:3000/
+  - Health: http://gen-ai-ik-demo-aci.eastus2.azurecontainer.io:3000/heartbeat
+  - API: http://gen-ai-ik-demo-aci.eastus2.azurecontainer.io:3000/api/health
+
+**Cost**: ~$1.50/month (1 CPU, 1.5GB RAM)
+
+### Manage Your Container
+
+```sh
+# View container status
+az container show \
+  --resource-group resource-group-tbudhe-ik-ai-agent \
+  --name gen-ai-container \
+  --output table
+
+# View logs
+az container logs \
+  --resource-group resource-group-tbudhe-ik-ai-agent \
+  --name gen-ai-container
+
+# Restart container
+az container restart \
+  --resource-group resource-group-tbudhe-ik-ai-agent \
+  --name gen-ai-container
+
+# Stop container
+az container stop \
+  --resource-group resource-group-tbudhe-ik-ai-agent \
+  --name gen-ai-container
+
+# Delete container
+az container delete \
+  --resource-group resource-group-tbudhe-ik-ai-agent \
+  --name gen-ai-container \
+  --yes
+```
+
+---
+
+### Alternative: Azure App Service (Requires Basic Tier)
 
 ### Step 1: Login to Azure
 
