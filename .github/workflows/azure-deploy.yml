@@ -1,0 +1,48 @@
+name: Deploy to Azure Web App
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build React app
+        run: npm run build
+
+      - name: Build TypeScript server
+        run: npm run build:server
+
+      - name: Create deployment package
+        run: |
+          mkdir deploy-package
+          cp -r dist deploy-package/
+          cp package.json deploy-package/
+          cp package-lock.json deploy-package/
+          cd deploy-package
+          zip -r ../deploy.zip .
+          cd ..
+
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: 'gen-ai-ik-demo-nodejs'
+          slot-name: 'production'
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: deploy.zip
