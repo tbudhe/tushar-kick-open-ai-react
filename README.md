@@ -4,28 +4,65 @@ This project is an AI-powered web application built with **React** for the front
 
 ---
 
-## Features
+## 📋 Table of Contents
 
-- ⚡ **AI-driven features** (customize this section with your AI use-case, e.g., chat, recommendations, etc.)
-- 🖥️ **React frontend** served from Node.js Express backend
-- 🔗 **REST API endpoints** (e.g., `/api/menu`) for dynamic data
-- 🚀 **Production-ready**: Single server for both frontend and backend
-- 🐳 **Dockerized**: Build and deploy using Docker
-- ☁️ **Azure-ready**: Easily deploy to Azure Web App with Docker support
+- [Features](#features)
+- [Prerequisites](#prerequisites)
+- [Local Development](#local-development)
+- [Available Scripts](#available-scripts)
+- [Docker Instructions](#docker-instructions)
+- [Azure Deployment](#azure-deployment)
+- [Debugging and Logs](#debugging-and-logs)
 
 ---
 
-## How to Run Locally
+## ✨ Features
 
-1. **Install dependencies**
-   ```sh
-   npm install
-   ```
-2. **Run the app**
-   ```sh
-   npm start
-   ```
-   This will start both the React frontend and Node.js backend. Visit [http://localhost:3000](http://localhost:3000) to view the app.
+- ⚡ **AI-driven features** with ML practice components
+- 🖥️ **React frontend** served from Node.js Express backend
+- 🔗 **REST API endpoints** for dynamic data
+- 🚀 **Production-ready**: Single server for both frontend and backend
+- 🐳 **Dockerized**: Build and deploy using Docker
+- ☁️ **Azure-ready**: Deploy to Azure Web App with Docker support
+- 📚 **ML Learning Hub**: Includes visual search, decision trees, regression, and optimization algorithms
+
+---
+
+## 📦 Prerequisites
+
+Before you begin, ensure you have the following installed:
+
+- **Node.js** (v20 or higher)
+- **npm** (v8 or higher)
+- **Docker** (for containerization)
+- **Azure CLI** (for Azure deployment)
+
+Install Azure CLI on macOS:
+```sh
+brew install azure-cli
+az version
+```
+
+---
+
+## 🚀 Local Development
+
+### 1. Install Dependencies
+```sh
+npm install
+```
+
+### 2. Run Development Server
+```sh
+npm start
+```
+Visit [http://localhost:3000](http://localhost:3000) to view the app.
+
+### 3. Run Production Server
+```sh
+npm run start:server
+```
+This builds both React and TypeScript server, then starts the production server.
 
 ## Available Scripts
 
@@ -66,140 +103,195 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 
 ---
 
-## Docker Instructions
+## 🐳 Docker Instructions
 
-To build and run the project using Docker, follow these steps:
+### Build Docker Image
 
-1. **Build the Docker image**
-   
-   ```sh
-      # MAC OS
-   docker build -t tbudhe-ik-ai-agent .
-      # Linux CPU on Azure
-   docker buildx build --platform linux/amd64 -t tbudhe-ik-arm6x-ai-agent .
-   ```
+#### For macOS (local testing)
+```sh
+docker build -t tbudhe-ik-ai-agent .
+```
 
-2. **Run the Docker container**
-   ```sh
-      # MAC OS
-   docker run -p 80:3000 --platform linux/amd64  tbudhe-ik-arm6x-ai-agent
-      # Linux CPU on Azure
-   docker buildx build --platform linux/amd64,linux/arm64 -t  tbudhe-ik-arm6x-ai-agent:latest --push 
-   ```
+#### For Azure (Linux AMD64)
+```sh
+docker buildx build --platform linux/amd64 -t tbudhe-ik-arm6x-ai-agent .
+```
 
-   This maps port 3000 in the container to port 3000 on your host, allowing you to access the app at [http://localhost:3000](http://localhost:3000).
+### Run Docker Container Locally
+
+```sh
+docker run -p 3000:3000 tbudhe-ik-ai-agent
+```
+
+Access at [http://localhost:3000](http://localhost:3000)
 
 ---
 
-## Azure Container Registry (ACR) Instructions
+## ☁️ Azure Deployment
 
-To install the Azure CLI on macOS using Homebrew, run the following command: `brew install azure-cli`
-
-Once the installation is complete, verify that the Azure CLI is installed by checking its version: `az version`
-
-This will display the installed version of the Azure CLI. Let me know if you need further assistance!
-
-To use Azure Container Registry (ACR) and push your Docker image:
-
-1. **Create an Azure  Resources**
-   ```sh
-   az login
-   az group create --location eastus --resource-group resource-group-tbudhe-ik-ai-agent
-   az acr create  --name azurecontainerregistryik  --resource-group resource-group-tbudhe-ik-ai-agent --sku Basic
-   az acr update -n azreglinuxik --admin-enabled true
-   az acr credential show --name azurecontainerregistryik
-   az appservice plan create  --name az-paas-service-linux-free-plan   --resource-group resource-group-tbudhe-ik-ai-agent --is-linux  --sku F1 --location eastus2
-   az acr create  --name azreglinuxik  --resource-group resource-group-tbudhe-ik-ai-agent --sku Basic
-   ```
-
-2. **Tag your Docker image for ACR**
-   ```sh
-   docker tag tbudhe-ik-arm6x-ai-agent azreglinuxik.azurecr.io/tbudhe-ik-arm6x-ai-agent
-   ```
-3. **Login to your ACR**
-   ```sh
-   az acr login --name azreglinuxik
-   ```
-4. **Push the image to ACR**
-   ```sh
-   docker push azreglinuxik.azurecr.io/tbudhe-ik-arm6x-ai-agent
-   ```
-5. **Verify the image in ACR**
-   ```sh
-   az acr repository list --name azurecontainerregistryik --output table
-   ```
-
-## Deploy to Azure Web App
-
-1. **Create the Web App**
+### Step 1: Login to Azure
 
 ```sh
+az login
+```
+
+### Step 2: Create Azure Resources
+
+```sh
+# Create Resource Group
+az group create \
+  --location eastus \
+  --resource-group resource-group-tbudhe-ik-ai-agent
+
+# Create Azure Container Registry
+az acr create \
+  --name azreglinuxik \
+  --resource-group resource-group-tbudhe-ik-ai-agent \
+  --sku Basic
+
+# Enable Admin Access
+az acr update \
+  --name azreglinuxik \
+  --admin-enabled true
+
+# Get ACR Credentials
+az acr credential show --name azreglinuxik
+
+# Create App Service Plan (Free Tier)
+az appservice plan create \
+  --name az-paas-service-linux-free-plan \
+  --resource-group resource-group-tbudhe-ik-ai-agent \
+  --is-linux \
+  --sku F1 \
+  --location eastus2
+```
+
+### Step 3: Build and Push Docker Image to ACR
+
+```sh
+# Build for Linux AMD64
+docker buildx build --platform linux/amd64 -t tbudhe-ik-arm6x-ai-agent .
+
+# Tag the image for ACR
+docker tag tbudhe-ik-arm6x-ai-agent azreglinuxik.azurecr.io/tbudhe-ik-arm6x-ai-agent
+
+# Login to ACR
+az acr login --name azreglinuxik
+
+# Push image to ACR
+docker push azreglinuxik.azurecr.io/tbudhe-ik-arm6x-ai-agent
+
+# Verify image in ACR
+az acr repository list --name azreglinuxik --output table
+```
+
+### Step 4: Create and Configure Web App
+
+```sh
+# Create Web App
 az webapp create \
   --resource-group resource-group-tbudhe-ik-ai-agent \
   --plan az-paas-service-linux-free-plan \
   --name gen-ai-ik-demo \
-  --deployment-container-image-name azurecontainerregistryik.azurecr.io/tbudhe-ik-arm6x-ai-agent
-```
+  --deployment-container-image-name azreglinuxik.azurecr.io/tbudhe-ik-arm6x-ai-agent
 
-2. **Set Web App Configuration**
-
-```sh
+# Configure App Settings
 az webapp config appsettings set \
   --resource-group resource-group-tbudhe-ik-ai-agent \
   --name gen-ai-ik-demo \
   --settings WEBSITES_PORT=3000 WEBSITE_NODE_DEFAULT_VERSION=20
-```
 
-3. **Restart the Web App**
-
-```sh
+# Restart Web App
 az webapp restart \
   --name gen-ai-ik-demo \
   --resource-group resource-group-tbudhe-ik-ai-agent
-```
 
-4. **Verify the Web App**
-
-```sh
+# Verify Web App Status
 az webapp show \
   --resource-group resource-group-tbudhe-ik-ai-agent \
   --name gen-ai-ik-demo \
   --query state
 ```
 
-5. **Access the Web App Open your browser and navigate to:**
+### Step 5: Access Your Deployed App
 
-[gen-ai-ik-demo](https://gen-ai-ik-demo.azurewebsites.net)
+🌐 [https://gen-ai-ik-demo.azurewebsites.net](https://gen-ai-ik-demo.azurewebsites.net)
 
-## Debugging and Logs
+## 🐛 Debugging and Logs
 
-1. **View Web App Logs**
+### View Live Application Logs
 ```sh
 az webapp log tail \
   --resource-group resource-group-tbudhe-ik-ai-agent \
   --name gen-ai-ik-demo
-  ```
-  2. **Check DNS Resolution**
+```
 
+### Check DNS Resolution
 ```sh
 nslookup gen-ai-ik-demo.azurewebsites.net
 ```
-3. **Assign Identity to Web App**
+
+### Configure Managed Identity (for ACR access)
 
 ```sh
-az webapp identity assign \
+# Assign Identity to Web App
+PRINCIPAL_ID=$(az webapp identity assign \
   --resource-group resource-group-tbudhe-ik-ai-agent \
   --name gen-ai-ik-demo \
-  --query principalId --output tsv
-  ```
+  --query principalId --output tsv)
 
-4.  **Grant ACR Pull Role**
-
-```sh
+# Grant ACR Pull Role
 az role assignment create \
-  --assignee <principal-id> \
-  --scope /subscriptions/<subscription-id>/resourceGroups/resource-group-tbudhe-ik-ai-agent/providers/Microsoft.ContainerRegistry/registries/azurecontainerregistryik \
+  --assignee $PRINCIPAL_ID \
+  --scope /subscriptions/<subscription-id>/resourceGroups/resource-group-tbudhe-ik-ai-agent/providers/Microsoft.ContainerRegistry/registries/azreglinuxik \
   --role "AcrPull"
 ```
+
+---
+
+## 📝 Project Structure
+
+```
+tushar-kick-open-ai-react/
+├── public/               # Static assets
+├── src/
+│   ├── components/      # React components
+│   │   ├── pages/      # Page components (AI, Home, PracticeML, etc.)
+│   │   ├── menu/       # Navigation menu
+│   │   └── cards/      # Reusable card components
+│   ├── css/            # Stylesheets
+│   ├── ml/             # ML practice resources
+│   └── App.tsx         # Main App component
+├── server/             # Server-side code
+├── server.ts           # Express server entry point
+├── Dockerfile          # Docker configuration
+└── package.json        # Dependencies and scripts
+```
+
+---
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+---
+
+## 📄 License
+
+This project is private and maintained by Tushar Budhe.
+
+---
+
+## 🔗 Useful Links
+
+- [Azure Web App](https://gen-ai-ik-demo.azurewebsites.net)
+- [Azure Portal](https://portal.azure.com)
+- [Docker Hub](https://hub.docker.com)
+- [React Documentation](https://react.dev)
+- [Express Documentation](https://expressjs.com)
 
 
