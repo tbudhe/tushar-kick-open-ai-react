@@ -3,13 +3,28 @@ import path from 'path';
 import cors from 'cors';
 
 const app = express();
-const PORT = process.env.WEBSITES_PORT || 3000;
+const PORT = parseInt(process.env.PORT || process.env.WEBSITES_PORT || '3000', 10);
 
 app.use(cors());
 
+// Health check endpoints
 app.get('/heartbeat', (_req, res) => {
-  res.send('Server is running');
+  res.status(200).json({
+    status: 'healthy',
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime(),
+    port: PORT
+  });
 });
+
+app.get('/health', (_req, res) => {
+  res.status(200).send('OK');
+});
+
+app.get('/api/health', (_req, res) => {
+  res.status(200).json({ status: 'healthy' });
+});
+
 // API endpoint for menu
 app.get('/api/menu', (_req, res) => {
   res.json([
@@ -28,6 +43,6 @@ app.get('/', (_req, res) => {
   res.sendFile(path.join(buildPath, 'index.html'));
 });
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server running on http://0.0.0.0:${PORT}`);
 });

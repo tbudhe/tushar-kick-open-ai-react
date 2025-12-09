@@ -100,6 +100,55 @@ const PracticeML: React.FC = () => {
         }
       ],
     },
+    {
+      name: 'L1 vs L2 Regression',
+      details: [
+        'L1 Regression (Lasso): Penalty = λ × Σ|βᵢ| - Uses sum of absolute values',
+        'L2 Regression (Ridge): Penalty = λ × Σβᵢ² - Uses sum of squared values',
+        'Feature Selection: L1 drives coefficients to exactly zero (automatic feature selection)',
+        'Coefficient Shrinkage: L2 shrinks coefficients towards zero but rarely makes them exactly zero',
+        'Solution Type: L1 creates sparse solutions, L2 creates dense solutions',
+        'Multicollinearity: L1 picks one from correlated features, L2 handles all correlated features well',
+        'Interpretability: L1 provides high interpretability (fewer features), L2 moderate (all features)',
+        'Computational: L1 is non-differentiable at 0, L2 is smooth and differentiable',
+        'Use L1 when: You need automatic feature selection, interpretable models, or sparse solutions',
+        'Use L2 when: You have multicollinear features, want stability, or need to keep all relevant features',
+        'Elastic Net: Combines both L1 and L2 penalties for benefits of both techniques',
+      ],
+    },
+    {
+      name: 'Overfitting vs Underfitting',
+      details: [
+        'Overfitting: Model learns training data too well, including noise and random fluctuations',
+        'Overfitting Signs: High training accuracy + Low validation/test accuracy (high variance, low bias)',
+        'Overfitting Causes: Model too complex, too many parameters, insufficient data, over-training',
+        'Overfitting Solutions: More data, regularization (L1/L2, dropout), early stopping, simpler model',
+        'Underfitting: Model too simple to capture underlying patterns in the data',
+        'Underfitting Signs: Low training accuracy + Low validation/test accuracy (high bias, low variance)',
+        'Underfitting Causes: Model too simple, insufficient training, excessive regularization, poor features',
+        'Underfitting Solutions: More complex model, more features, reduce regularization, longer training',
+        'Sweet Spot: Balance between capturing patterns and generalizing to new data',
+        'Detection: Use validation curves, learning curves, and cross-validation to identify the issue',
+        'Bias-Variance Tradeoff: Overfitting = high variance, Underfitting = high bias',
+      ],
+    },
+    {
+      name: 'Gradient Descent vs SGD vs ALS',
+      details: [
+        'Gradient Descent (Batch): Uses entire dataset per update - θ = θ - α∇J(θ)',
+        'GD Pros: Smooth convergence, guaranteed global minimum (convex functions), stable updates',
+        'GD Cons: High memory usage, slow per iteration, not suitable for large datasets',
+        'Stochastic Gradient Descent (SGD): Uses one random sample per update',
+        'SGD Pros: Low memory, fast per iteration, online learning capable, escapes local minima',
+        'SGD Cons: Noisy convergence path, oscillates around minimum, may need learning rate scheduling',
+        'Mini-batch SGD: Compromise between GD and SGD using small batches (32-512 samples)',
+        'Alternating Least Squares (ALS): Alternates optimization between parameter sets',
+        'ALS Use Case: Matrix factorization, collaborative filtering, recommender systems',
+        'ALS Method: Fix user factors → optimize item factors → fix items → optimize users',
+        'ALS Advantages: Highly parallelizable, guaranteed objective decrease, handles sparse data well',
+        'When to use: GD (small datasets), SGD (large datasets/online), ALS (matrix factorization)',
+      ],
+    },
   ];
 
   const togglePrinciple = (name: string) => {
