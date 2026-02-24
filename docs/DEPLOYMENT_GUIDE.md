@@ -1,4 +1,4 @@
-# 🚀 Deployment Guide for Render.com
+# Deployment Guide for Render.com
 
 ## Step 1: Push Code to GitHub
 
@@ -133,11 +133,11 @@ Add this to your GitHub README for one-click deploy:
 
 ## Next Steps After Deployment
 
-1. ✅ Test all endpoints
-2. ✅ Set up custom domain (if needed)
-3. ✅ Configure environment variables for production
-4. ✅ Enable monitoring and alerts
-5. ✅ Set up GitHub Actions for CI/CD (optional)
+1. Test all endpoints
+2. Set up custom domain (if needed)
+3. Configure environment variables for production
+4. Enable monitoring and alerts
+5. Set up GitHub Actions for CI/CD (optional)
 
 ---
 
@@ -145,11 +145,11 @@ Add this to your GitHub README for one-click deploy:
 
 | Platform | Free Tier | Limitations | Best For |
 |----------|-----------|-------------|----------|
-| **Render** | ✅ Yes | Sleeps after 15 min | Docker apps, demos |
-| **Azure F1** | ✅ Yes | No Docker support | Basic Node.js apps |
-| **Azure B1** | ❌ $13/month | Quota limits | Production Azure apps |
-| **Railway** | ✅ $5 credit/month | 500 hours | Full-stack apps |
-| **Fly.io** | ✅ Limited | 3 VMs max | Edge computing |
+| **Render** | Yes | Sleeps after 15 min | Docker apps, demos |
+| **Azure F1** | Yes | No Docker support | Basic Node.js apps |
+| **Azure B1** | $13/month | Quota limits | Production Azure apps |
+| **Railway** | $5 credit/month | 500 hours | Full-stack apps |
+| **Fly.io** | Limited | 3 VMs max | Edge computing |
 
 ---
 

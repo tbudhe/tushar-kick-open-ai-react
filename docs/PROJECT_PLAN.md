@@ -623,7 +623,7 @@ Monitoring:
 **Cost Estimate** (GCP):
 - Free: ~$300 first 90 days
 - After: ~$10-20/month for small project
-- ⚠️ Can spike if you exceed free tier limits
+- Can spike if you exceed free tier limits
 
 **Setup Time**: 3-4 hours learning
 
@@ -648,7 +648,7 @@ Monitoring:
 **Cost Estimate** (Azure):
 - Free: 12 months limited
 - After: ~$30-50/month minimum
-- ⚠️ Expensive compared to alternatives
+- Expensive compared to alternatives
 
 **Setup Time**: 2-3 hours
 
@@ -659,16 +659,16 @@ Monitoring:
 ### Use Case → Best Option
 
 **"I want to ship fast (1 week) and don't care about learning a big platform"**
-→ **Railway for entire project** ⭐ BEST
+→ **Railway for entire project** BEST
 
 **"I want separation of concerns and CDN for frontend"**
-→ **Vercel + Railway (current recommendation)** ✅ GOOD
+→ **Vercel + Railway (current recommendation)** GOOD
 
 **"I must use GCP (work requirement/already have credits)"**
-→ **GCP Cloud Run + Cloud Storage** ⚠️ OK (3-4 hour setup)
+→ **GCP Cloud Run + Cloud Storage** OK (3-4 hour setup)
 
 **"I must use Azure (work requirement)"**
-→ **Azure Static Web Apps + App Service** ⚠️ OK (2-3 hour setup)
+→ **Azure Static Web Apps + App Service** OK (2-3 hour setup)
 
 **"I want to learn DevOps and cloud infrastructure"**
 → **GCP or AWS** (6+ hours learning)
@@ -1866,4 +1866,4 @@ Performance:      New Relic or DataDog free tier
 4. **Deploy skeleton**: Get frontend and backend deployed before coding
 5. **Iterate daily**: Follow the 1-week plan
 
-Good luck! 🚀
+Good luck!

@@ -4,7 +4,7 @@ This project is an AI-powered web application built with **React** for the front
 
 ---
 
-## 📋 Table of Contents
+## Table of Contents
 
 - [Features](#features)
 - [Prerequisites](#prerequisites)
@@ -17,19 +17,19 @@ This project is an AI-powered web application built with **React** for the front
 
 ---
 
-## ✨ Features
+## Features
 
-- ⚡ **AI-driven features** with ML practice components
-- 🖥️ **React frontend** served from Node.js Express backend
-- 🔗 **REST API endpoints** for dynamic data
-- 🚀 **Production-ready**: Single server for both frontend and backend
-- 🐳 **Dockerized**: Build and deploy using Docker
-- ☁️ **Azure-ready**: Deploy to Azure Web App with Docker support
-- 📚 **ML Learning Hub**: Includes visual search, decision trees, regression, and optimization algorithms
+- **AI-driven features** with ML practice components
+- **React frontend** served from Node.js Express backend
+- **REST API endpoints** for dynamic data
+- **Production-ready**: Single server for both frontend and backend
+- **Dockerized**: Build and deploy using Docker
+- **Azure-ready**: Deploy to Azure Web App with Docker support
+- **ML Learning Hub**: Includes visual search, decision trees, regression, and optimization algorithms
 
 ---
 
-## 📦 Prerequisites
+## Prerequisites
 
 Before you begin, ensure you have the following installed:
 
@@ -46,7 +46,7 @@ az version
 
 ---
 
-## 🚀 Local Development
+## Local Development
 
 ### 1. Install Dependencies
 ```sh
@@ -104,7 +104,7 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 
 ---
 
-## 🐳 Docker Instructions
+## Docker Instructions
 
 ### Build Docker Image
 
@@ -128,7 +128,7 @@ Access at [http://localhost:3000](http://localhost:3000)
 
 ---
 
-## 🚀 Render.com Deployment (Recommended)
+## Render.com Deployment (Recommended)
 
 Render.com offers free Docker deployments with better reliability than Azure Free tier.
 
@@ -176,18 +176,18 @@ NODE_ENV=production
 ```
 
 ### Benefits of Render:
-- ✅ Free tier with Docker support
-- ✅ Automatic deploys from GitHub
-- ✅ SSL certificates included
-- ✅ Custom domains supported
-- ✅ Easy logs and monitoring
-- ⚠️ Note: Free tier sleeps after 15 min of inactivity (first request may be slow)
+- Free tier with Docker support
+- Automatic deploys from GitHub
+- SSL certificates included
+- Custom domains supported
+- Easy logs and monitoring
+- Note: Free tier sleeps after 15 min of inactivity (first request may be slow)
 
 ---
 
-## ☁️ Azure Deployment
+## Azure Deployment
 
-### ✅ Current Deployment: Azure Container Instances
+### Current Deployment: Azure Container Instances
 
 **Your app is live at:**
 - **URL**: http://gen-ai-ik-demo-aci.eastus2.azurecontainer.io:3000
@@ -320,9 +320,9 @@ az webapp show \
 
 ### Step 5: Access Your Deployed App
 
-🌐 [https://gen-ai-ik-demo.azurewebsites.net](https://gen-ai-ik-demo.azurewebsites.net)
+[https://gen-ai-ik-demo.azurewebsites.net](https://gen-ai-ik-demo.azurewebsites.net)
 
-## 🐛 Debugging and Logs
+## Debugging and Logs
 
 ### View Live Application Logs
 ```sh
@@ -354,7 +354,7 @@ az role assignment create \
 
 ---
 
-## 📝 Project Structure
+## Project Structure
 
 ```
 tushar-kick-open-ai-react/
@@ -375,7 +375,7 @@ tushar-kick-open-ai-react/
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
@@ -385,13 +385,13 @@ tushar-kick-open-ai-react/
 
 ---
 
-## 📄 License
+## License
 
 This project is private and maintained by Tushar Budhe.
 
 ---
 
-## 🔗 Useful Links
+## Useful Links
 
 - [Azure Web App](https://gen-ai-ik-demo.azurewebsites.net)
 - [Azure Portal](https://portal.azure.com)

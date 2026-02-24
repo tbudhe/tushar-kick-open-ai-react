@@ -1,12 +1,12 @@
-# 🚀 Azure Deployment via GitHub Actions
+# Azure Deployment via GitHub Actions
 
-## ✅ Setup Complete!
+## Setup Complete!
 
 I've created a GitHub Actions workflow that will automatically deploy your app to Azure whenever you push to the `main` branch.
 
 ---
 
-## 📋 Steps to Deploy
+## Steps to Deploy
 
 ### Step 1: Add Azure Publish Profile to GitHub Secrets
 
@@ -43,7 +43,7 @@ git push origin main
 1. Go to your GitHub repository
 2. Click the **"Actions"** tab
 3. Watch the deployment progress
-4. Once complete (✅ green checkmark), your app is live!
+4. Once complete (green checkmark), your app is live!
 
 ### Step 4: Access Your App
 
@@ -57,7 +57,7 @@ Your app will be available at:
 
 ---
 
-## 🔄 How It Works
+## How It Works
 
 1. You push code to GitHub `main` branch
 2. GitHub Actions automatically:
@@ -70,7 +70,7 @@ Your app will be available at:
 
 ---
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 ### If deployment fails:
 
@@ -96,17 +96,17 @@ sleep 30 && curl https://gen-ai-ik-demo-nodejs.azurewebsites.net/heartbeat
 
 ---
 
-## 🎯 Benefits of GitHub Actions Deployment
+## Benefits of GitHub Actions Deployment
 
-- ✅ **Automatic** - Deploy on every git push
-- ✅ **Reliable** - Bypasses Kudu issues on Free tier
-- ✅ **Trackable** - See deployment history in GitHub
-- ✅ **Repeatable** - Same process every time
-- ✅ **Free** - GitHub Actions is free for public repos
+- **Automatic** - Deploy on every git push
+- **Reliable** - Bypasses Kudu issues on Free tier
+- **Trackable** - See deployment history in GitHub
+- **Repeatable** - Same process every time
+- **Free** - GitHub Actions is free for public repos
 
 ---
 
-## ⚡ Quick Commands
+## Quick Commands
 
 ```sh
 # View publish profile
@@ -126,7 +126,7 @@ curl https://gen-ai-ik-demo-nodejs.azurewebsites.net/heartbeat
 
 ---
 
-## 📌 Important Files
+## Important Files
 
 - `.github/workflows/azure-deploy.yml` - GitHub Actions workflow
 - `azure-publish-profile.xml` - Azure credentials (don't commit this!)
@@ -135,9 +135,9 @@ curl https://gen-ai-ik-demo-nodejs.azurewebsites.net/heartbeat
 
 ---
 
-## 🔐 Security Note
+## Security Note
 
-⚠️ **Do NOT commit `azure-publish-profile.xml` to git!**
+**Do NOT commit `azure-publish-profile.xml` to git!**
 
 The file contains sensitive credentials. It's only used to create the GitHub secret.
 
@@ -150,10 +150,10 @@ echo "azure-publish-profile.xml" >> .gitignore
 
 ## Next Steps
 
-1. ✅ Copy publish profile content
-2. ✅ Add to GitHub Secrets
-3. ✅ Push code to GitHub
-4. ✅ Watch deployment in Actions tab
-5. ✅ Test your live app!
+1. Copy publish profile content
+2. Add to GitHub Secrets
+3. Push code to GitHub
+4. Watch deployment in Actions tab
+5. Test your live app!
 
 Need help? Check the GitHub Actions logs for detailed error messages.

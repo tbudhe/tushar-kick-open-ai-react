@@ -159,6 +159,43 @@ const PracticeML: React.FC = () => {
     principles.find((principle) => sectionIdMap[principle.name] === activeHash) ||
     principles[0];
 
+  const buildGroups = (details: DetailItem[]) => {
+    const groups: { title: string | null; items: DetailItem[] }[] = [];
+    let currentGroup: { title: string | null; items: DetailItem[] } | null = null;
+
+    details.forEach((detail) => {
+      if (typeof detail === 'string') {
+        const text = detail.trim();
+        if (!text) return;
+
+        if (text.endsWith(':')) {
+          currentGroup = { title: text.slice(0, -1), items: [] };
+          groups.push(currentGroup);
+          return;
+        }
+
+        if (!currentGroup) {
+          groups.push({ title: null, items: [text] });
+          return;
+        }
+
+        currentGroup.items.push(text);
+        return;
+      }
+
+      if (!currentGroup) {
+        groups.push({ title: null, items: [detail] });
+        return;
+      }
+
+      currentGroup.items.push(detail);
+    });
+
+    return groups;
+  };
+
+  const groupedDetails = buildGroups(activePrinciple.details);
+
   const renderDetail = (detail: DetailItem, index: number) => {
     if (typeof detail === 'string') {
       return <li key={index}>{detail}</li>;
@@ -189,7 +226,22 @@ const PracticeML: React.FC = () => {
           </p>
         </div>
         <ul className="content-panel-list">
-          {activePrinciple.details.map(renderDetail)}
+          {groupedDetails.map((group, index) =>
+            group.title ? (
+              <li key={`${group.title}-${index}`}>
+                <span className="content-panel-section">{group.title}</span>
+                {group.items.length > 0 && (
+                  <ul className="content-panel-sublist">
+                    {group.items.map((item, itemIndex) =>
+                      renderDetail(item, itemIndex)
+                    )}
+                  </ul>
+                )}
+              </li>
+            ) : (
+              group.items.map((item, itemIndex) => renderDetail(item, itemIndex))
+            )
+          )}
         </ul>
       </div>
     </div>

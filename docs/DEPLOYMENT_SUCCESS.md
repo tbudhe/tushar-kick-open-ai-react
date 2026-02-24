@@ -1,8 +1,8 @@
-# 🎉 Deployment Success!
+# Deployment Success!
 
-## ✅ Your App is Live on Azure Container Instances
+## Your App is Live on Azure Container Instances
 
-### 🌐 Access Your Application
+### Access Your Application
 
 **Main URL**: http://gen-ai-ik-demo-aci.eastus2.azurecontainer.io:3000
 
@@ -15,7 +15,7 @@
 
 ---
 
-## 📊 Container Details
+## Container Details
 
 - **Name**: gen-ai-container
 - **Resource Group**: resource-group-tbudhe-ik-ai-agent
@@ -28,7 +28,7 @@
 
 ---
 
-## 🔄 Update Your Deployment
+## Update Your Deployment
 
 When you make code changes:
 
@@ -54,7 +54,7 @@ az container restart \
 
 ---
 
-## 🛠️ Management Commands
+## Management Commands
 
 ### View Container Status
 ```sh
@@ -103,7 +103,7 @@ az container delete \
 
 ---
 
-## 💰 Cost Management
+## Cost Management
 
 **Current Cost**: ~$1.50/month for always-on service
 
@@ -114,7 +114,7 @@ az container delete \
 
 ---
 
-## 🎯 Test Your Deployment
+## Test Your Deployment
 
 ```sh
 # Test heartbeat
@@ -132,29 +132,29 @@ curl http://gen-ai-ik-demo-aci.eastus2.azurecontainer.io:3000/api/menu
 
 ---
 
-## ✨ Features
+## Features
 
-✅ **Always On** - Restarts automatically on failure
-✅ **Fast Deployment** - Updates in ~1 minute
-✅ **No Quota Issues** - Bypasses App Service limitations
-✅ **Cost Effective** - Only ~$1.50/month
-✅ **Docker Native** - Full container support
-✅ **Public IP** - Direct internet access
-✅ **Easy Management** - Simple Azure CLI commands
-
----
-
-## 📝 Next Steps
-
-1. ✅ Test all your app endpoints
-2. ✅ Update code and redeploy
-3. ✅ Set up monitoring in Azure Portal
-4. ✅ Configure custom domain (optional)
-5. ✅ Set up SSL/HTTPS with Azure Front Door (optional)
+- **Always On** - Restarts automatically on failure
+- **Fast Deployment** - Updates in ~1 minute
+- **No Quota Issues** - Bypasses App Service limitations
+- **Cost Effective** - Only ~$1.50/month
+- **Docker Native** - Full container support
+- **Public IP** - Direct internet access
+- **Easy Management** - Simple Azure CLI commands
 
 ---
 
-## 🔗 Useful Links
+## Next Steps
+
+1. Test all your app endpoints
+2. Update code and redeploy
+3. Set up monitoring in Azure Portal
+4. Configure custom domain (optional)
+5. Set up SSL/HTTPS with Azure Front Door (optional)
+
+---
+
+## Useful Links
 
 - Azure Portal: https://portal.azure.com
 - Container Instances Overview: Search "gen-ai-container" in portal
@@ -163,4 +163,4 @@ curl http://gen-ai-ik-demo-aci.eastus2.azurecontainer.io:3000/api/menu
 
 ---
 
-**🎉 Congratulations! Your app is successfully deployed and running on Azure!**
+**Congratulations! Your app is successfully deployed and running on Azure!**
