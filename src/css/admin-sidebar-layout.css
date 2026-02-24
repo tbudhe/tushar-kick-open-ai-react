@@ -168,6 +168,10 @@
   padding: 40px;
 }
 
+.admin-sidebar-layout.sidebar-hidden .admin-content {
+  width: 100%;
+}
+
 .content-wrapper {
   background: white;
   border-radius: 8px;
@@ -315,33 +319,28 @@
   }
 
   .sidebar-nav {
-    display: flex;
-    flex-direction: row;
-    overflow-x: auto;
-    overflow-y: hidden;
+    display: block;
+    overflow-x: hidden;
+    overflow-y: auto;
   }
 
   .nav-section {
-    display: flex;
-    gap: 12px;
-    padding: 0 20px;
-    white-space: nowrap;
-    align-items: center;
+    display: block;
+    padding: 0 0;
   }
 
   .section-title {
-    padding: 0;
+    padding: 0 20px;
   }
 
   .nav-items {
-    display: flex;
-    gap: 8px;
-    margin: 0;
+    display: block;
+    margin: 12px 0 0 0;
   }
 
   .nav-item {
-    padding: 8px 12px;
-    font-size: 13px;
+    padding: 12px 20px;
+    font-size: 14px;
   }
 
   .admin-content {

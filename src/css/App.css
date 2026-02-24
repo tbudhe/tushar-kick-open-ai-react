@@ -54,6 +54,21 @@
   overflow: hidden;
 }
 
+.vertical-menu .nav-link.with-caret {
+  justify-content: space-between;
+}
+
+.vertical-menu .submenu-caret {
+  margin-left: auto;
+  font-size: 0.9rem;
+  opacity: 0.8;
+  transition: transform 0.2s ease;
+}
+
+.vertical-menu .submenu-caret.open {
+  transform: rotate(180deg);
+}
+
 .vertical-menu .nav-link::before {
   content: '';
   position: absolute;
@@ -90,6 +105,66 @@
 .vertical-menu .nav-link.active {
   background: rgba(255, 255, 255, 0.25) !important;
   font-weight: 600;
+}
+
+.vertical-menu .nav-submenu {
+  list-style: none;
+  margin: 0.5rem 0 1rem 0;
+  padding: 0 0 0 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.vertical-menu .submenu-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: transparent;
+  border: none;
+  padding: 6px 8px;
+  margin-top: 0.5rem;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  cursor: pointer;
+}
+
+.vertical-menu .submenu-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.vertical-menu .submenu-title {
+  margin: 0.5rem 0 0.25rem 0;
+  padding: 0 0.5rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.vertical-menu .nav-sublink {
+  display: block;
+  padding: 8px 12px;
+  margin-left: 0.25rem;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.85) !important;
+  text-decoration: none;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+}
+
+.vertical-menu .nav-sublink:hover,
+.vertical-menu .nav-sublink.active {
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff !important;
+  transform: translateX(3px);
 }
 
 .collapse-btn {

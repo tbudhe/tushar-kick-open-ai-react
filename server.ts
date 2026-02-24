@@ -113,7 +113,7 @@ const buildPath = path.join(__dirname, 'dist', 'build');
 app.use(express.static(buildPath));
 
 // SPA fallback route
-app.get('/', (_req, res) => {
+app.use((_req, res) => {
   res.sendFile(path.join(buildPath, 'index.html'));
 });
 

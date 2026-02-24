@@ -20,18 +20,56 @@ export interface MenuSection {
 interface AdminSidebarLayoutProps {
   sections: MenuSection[];
   appName?: string;
+  activeId?: string;
+  showSidebar?: boolean;
 }
 
 const AdminSidebarLayout: React.FC<AdminSidebarLayoutProps> = ({
   sections,
   appName = 'Admin Dashboard',
+  activeId,
+  showSidebar = true,
 }) => {
+  const getFirstSelectableId = () => {
+    for (const section of sections) {
+      for (const item of section.items) {
+        if (item.subcategories?.length) {
+          return item.subcategories[0].id;
+        }
+        if (item.details?.length) {
+          return item.id;
+        }
+      }
+    }
+    return '';
+  };
+
+  const firstItemId = sections[0]?.items[0]?.id;
   const [expandedItems, setExpandedItems] = useState<Set<string>>(
-    new Set([sections[0]?.items[0]?.id])
+    new Set(firstItemId ? [firstItemId] : [])
   );
-  const [selectedId, setSelectedId] = useState<string>(
-    sections[0]?.items[0]?.id || ''
-  );
+  const [selectedId, setSelectedId] = useState<string>(getFirstSelectableId());
+
+  const findParentId = (id: string) => {
+    for (const section of sections) {
+      for (const item of section.items) {
+        if (item.id === id) return item.id;
+        if (item.subcategories?.some((subcat) => subcat.id === id)) {
+          return item.id;
+        }
+      }
+    }
+    return null;
+  };
+
+  React.useEffect(() => {
+    if (!activeId) return;
+    const parentId = findParentId(activeId);
+    if (parentId) {
+      setExpandedItems((prev) => new Set(prev).add(parentId));
+    }
+    setSelectedId(activeId);
+  }, [activeId]);
 
   const toggleExpand = (id: string) => {
     const newExpanded = new Set(expandedItems);
@@ -47,20 +85,46 @@ const AdminSidebarLayout: React.FC<AdminSidebarLayoutProps> = ({
     setSelectedId(id);
   };
 
-  // Find selected item and its content
-  let selectedContent: any = null;
+  // Find selected item or subcategory content
+  let selectedContent: {
+    label: string;
+    details: string[];
+    parentLabel?: string;
+    sectionTitle?: string;
+  } | null = null;
+
   for (const section of sections) {
     for (const item of section.items) {
-      if (item.id === selectedId) {
-        selectedContent = item;
+      if (item.id === selectedId && item.details) {
+        selectedContent = {
+          label: item.label,
+          details: item.details,
+          parentLabel: item.label,
+          sectionTitle: section.title,
+        };
         break;
       }
+
+      if (item.subcategories) {
+        const match = item.subcategories.find((subcat) => subcat.id === selectedId);
+        if (match) {
+          selectedContent = {
+            label: match.label,
+            details: match.details,
+            parentLabel: item.label,
+            sectionTitle: section.title,
+          };
+          break;
+        }
+      }
     }
+    if (selectedContent) break;
   }
 
   return (
-    <div className="admin-sidebar-layout">
-      <aside className="admin-sidebar">
+    <div className={`admin-sidebar-layout${showSidebar ? '' : ' sidebar-hidden'}`}>
+      {showSidebar && (
+        <aside className="admin-sidebar">
         <div className="sidebar-header">
           <div className="app-logo">
             <span className="logo-icon">A</span>
@@ -82,10 +146,17 @@ const AdminSidebarLayout: React.FC<AdminSidebarLayoutProps> = ({
                           selectedId === item.id ? 'active' : ''
                         }`}
                         onClick={() => {
-                          if (item.subcategories) {
+                          if (item.subcategories?.length) {
+                            const wasExpanded = expandedItems.has(item.id);
                             toggleExpand(item.id);
+                            if (!wasExpanded) {
+                              selectItem(item.subcategories[0].id);
+                            }
+                            return;
                           }
-                          selectItem(item.id);
+                          if (item.details?.length) {
+                            selectItem(item.id);
+                          }
                         }}
                       >
                         <span className="item-label">{item.label}</span>
@@ -124,6 +195,7 @@ const AdminSidebarLayout: React.FC<AdminSidebarLayoutProps> = ({
           ))}
         </nav>
       </aside>
+      )}
 
       <main className="admin-content">
         {selectedContent && (
@@ -131,37 +203,26 @@ const AdminSidebarLayout: React.FC<AdminSidebarLayoutProps> = ({
             <div className="content-header">
               <h1>{selectedContent.label}</h1>
               <p className="breadcrumb">
-                {appName} {selectedContent.label &&
+                {appName}
+                {selectedContent.sectionTitle &&
+                  ` / ${selectedContent.sectionTitle}`}
+                {selectedContent.parentLabel &&
+                  ` / ${selectedContent.parentLabel}`}
+                {selectedContent.label &&
                   ` / ${selectedContent.label}`}
               </p>
             </div>
 
             <div className="content-body">
-              {selectedContent.details && (
-                <div className="details-section">
-                  <ul className="details-list">
-                    {selectedContent.details.map((detail, idx) => (
-                      <li key={idx} className="detail-item">
-                        {detail}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-
-              {selectedContent.subcategories &&
-                selectedContent.subcategories.map((subcat) => (
-                  <div key={subcat.id} className="details-section">
-                    <h3>{subcat.label}</h3>
-                    <ul className="details-list">
-                      {subcat.details.map((detail, idx) => (
-                        <li key={idx} className="detail-item">
-                          {detail}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
+              <div className="details-section">
+                <ul className="details-list">
+                  {selectedContent.details.map((detail, idx) => (
+                    <li key={idx} className="detail-item">
+                      {detail}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </div>
         )}
