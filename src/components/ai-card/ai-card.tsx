@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../../css/Systems.css';
+
 
 interface AITopic {
   name: string;

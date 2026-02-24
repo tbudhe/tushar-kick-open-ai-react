@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../../css/Systems.css';
+import '../../css/vertical-sidebar-layout.css';
 
 interface LinkDetail {
   text: string;
