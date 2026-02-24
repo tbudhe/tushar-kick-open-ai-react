@@ -10,13 +10,84 @@ const Home: React.FC = () => {
 		phone: '+1(551)-XXX-XXX6',
 		professionalSummary:
 			'Over 16 years of experience managing full project life cycles, covering architecture, analysis, design, development, testing, and implementation. Currently landed as a Staff Software Engineer with a proven track record in productivity and efficiency. Expertise in algorithm optimization, cloud computing, and scalability. Experienced in leading cross-functional teams to deliver projects on time, while meeting quality standards.',
-		skills: [
-			'Skilled in full stack development with JavaScript, TypeScript, Node.js, Microsoft stack, Java, Python, AI & ML etc.',
-			'Expertise in web application development using C#, Java, ASP.NET, SQL Server, NodeJS, Python, AngularJS, Bootstrap, MVC, WCF, REST APIs, GraphQL, JavaScript, XML, XSLT, jQuery, MongoDB, HTML5, CSS, Redis, and both relational and non-relational databases.',
-			'Proficient in MEAN/MERN stacks and Microsoft technologies (.NET, C#, ASP.NET, MVC, SQL, jQuery, Web API).',
-			'Experience designing and implementing cloud solutions on AWS, Azure, Salesforce, and Google Cloud Platform.',
-			'Experience in machine learning model architecture design with AI strategy development and implementation, deep learning systems engineering, MLOps pipeline optimization, and AI consulting and client advisory, predictive analytics, and statistical modeling.',
-			'Strong analytical, problem-solving, and communication skills, with the ability to lead teams and manage multiple projects.',
+		skillGroups: [
+			{
+				title: 'Full-stack & web development',
+				items: [
+					'JavaScript',
+					'TypeScript',
+					'Node.js',
+					'Java',
+					'Kotlin',
+					'Python',
+					'HTML5',
+					'CSS',
+					'Bootstrap',
+					'AngularJS',
+					'REST APIs',
+					'SOAP APIs',
+					'GraphQL',
+					'Web API',
+					'XML',
+					'XSLT',
+					'jQuery',
+					'MongoDB',
+					'Redis',
+				],
+			},
+			{
+				title: 'Microsoft/.NET & MEAN/MERN',
+				items: [
+					'Microsoft stack',
+					'.NET',
+					'C#',
+					'ASP.NET',
+					'MVC',
+					'WCF',
+					'SQL Server',
+					'Python',
+					'MEAN',
+					'MERN',
+				],
+			},
+			{
+				title: 'Cloud platforms',
+				items: ['AWS', 'Azure', 'Salesforce', 'Google Cloud Platform'],
+			},
+			{
+				title: 'AI/ML architecture and MLOps',
+				items: [
+					'AI strategy',
+					'Deep learning engineering',
+					'MLOps pipeline optimization',
+					'AI consulting',
+					'Predictive analytics',
+					'Statistical modeling',
+				],
+			},
+			{
+				title: 'Leadership and communication',
+				items: ['Analytical thinking', 'Problem solving', 'Team leadership', 'Communication'],
+			},
+			{
+				title: 'DevOps Tools Overview',
+				items: [
+					'Docker',
+					'Kubernetes',
+					'Torbit',
+					'Looper',
+					'Jenkins',
+					'Traffic Manager',
+					'Load Balancer',
+					'CDN',
+					'DNS configuration',
+					'VNet and subnet security',
+					'IP whitelisting',
+					'Blue-Green Deployment',
+					'CI/CD Setup',
+					'Canary Deployment',
+				],
+			},
 		],
 		experience: [
 			{
@@ -46,7 +117,7 @@ const Home: React.FC = () => {
 	};
 
 	return (
-		<div className="ProfilePage" style={{ textAlign: 'left', padding: '20px' }}>
+		<div className="ProfilePage" style={{ textAlign: 'left', padding: '12px' }}>
 			<ProfileCard {...profileData} />
 		</div>
 	);

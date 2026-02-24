@@ -26,9 +26,7 @@ const SystemCard: React.FC<SystemCardProps> = ({
         </div>
       </div>
 
-      <div className="card-body">
-        <p className="card-body-text">{description}</p>
-      </div>
+      <p className="card-body-text">{description}</p>
 
       <div className="card-section">
         <h3 className="card-section-title">Core Principles</h3>

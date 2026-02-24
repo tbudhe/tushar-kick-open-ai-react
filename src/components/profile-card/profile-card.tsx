@@ -1,4 +1,6 @@
 import React from 'react';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import GitHubIcon from '@mui/icons-material/GitHub';
 import '../../styles/cards.css';
 
 interface ExperienceItem {
@@ -15,7 +17,10 @@ interface ProfileCardProps {
   email: string;
   phone: string;
   professionalSummary: string;
-  skills: string[];
+  skillGroups: {
+    title: string;
+    items: string[];
+  }[];
   experience: ExperienceItem[];
   socialLinks: {
     linkedIn: string;
@@ -30,7 +35,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
   email,
   phone,
   professionalSummary,
-  skills,
+  skillGroups,
   experience,
   socialLinks,
 }) => {
@@ -41,61 +46,61 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
           <h2 className="card-header-title">{name}</h2>
           <h3 className="card-header-subtitle">{title}</h3>
         </div>
-        <div className="card-footer">
-          <a
-            href={socialLinks.linkedIn}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="card-footer-link"
-            title="LinkedIn"
-          >
-            LinkedIn
-          </a>
-          <a
-            href={socialLinks.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="card-footer-link"
-            title="GitHub"
-          >
-            GitHub
-          </a>
+        <div className="profile-header-meta">
+          <div className="profile-meta-item">
+            <span className="profile-meta-label">Location</span>
+            <span className="profile-meta-value">{location}</span>
+          </div>
+          <div className="profile-meta-item">
+            <span className="profile-meta-label">Contact</span>
+            <span className="profile-meta-value">
+              <a href={`mailto:${email}`}>{email}</a>
+              {' | '}
+              <a href={`tel:${phone}`}>{phone}</a>
+            </span>
+          </div>
+          <div className="profile-social-links">
+            <a
+              href={socialLinks.linkedIn}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="profile-social-link"
+              title="LinkedIn"
+            >
+              <LinkedInIcon fontSize="small" />
+            </a>
+            <a
+              href={socialLinks.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="profile-social-link"
+              title="GitHub"
+            >
+              <GitHubIcon fontSize="small" />
+            </a>
+          </div>
         </div>
       </div>
 
-      <div className="card-body">
-        <div className="card-list-item">
-          <div className="card-list-item-title">Location</div>
-          <p className="card-list-item-text">{location}</p>
-        </div>
-        <div className="card-list-item">
-          <div className="card-list-item-title">Contact</div>
-          <p className="card-list-item-text">
-            <a href={`mailto:${email}`} style={{ color: 'var(--color-primary)' }}>
-              {email}
-            </a>
-            {' | '}
-            <a href={`tel:${phone}`} style={{ color: 'var(--color-primary)' }}>
-              {phone}
-            </a>
-          </p>
-        </div>
-      </div>
-
-      <div className="card-section">
+      <div className="card-section compact-section">
         <h3 className="card-section-title">Professional Summary</h3>
         <p className="card-body-text">{professionalSummary}</p>
       </div>
 
       <div className="card-section">
         <h3 className="card-section-title">Skills</h3>
-        <div className="skills-container">
-          {skills.map((skill, idx) => (
-            <span key={idx} className="skill-badge">
-              {skill}
-            </span>
-          ))}
-        </div>
+        {skillGroups.map((group, groupIndex) => (
+          <div key={groupIndex} className="skills-group">
+            <p className="skills-title">{group.title}</p>
+            <div className="skills-container">
+              {group.items.map((skill, idx) => (
+                <span key={`${groupIndex}-${idx}`} className="skill-badge">
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
 
       {experience.length > 0 && (

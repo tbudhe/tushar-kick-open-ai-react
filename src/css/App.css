@@ -1,4 +1,12 @@
 
+html,
+body,
+#root {
+  width: 100%;
+  overflow-x: hidden;
+  background: #f4f6fb;
+}
+
 .vertical-menu {
   display: flex;
   flex-direction: column;
@@ -159,6 +167,7 @@
   text-decoration: none;
   border-radius: 10px;
   transition: all 0.2s ease;
+  word-break: break-word;
 }
 
 .vertical-menu .nav-sublink.with-caret {
@@ -223,6 +232,13 @@
   margin-left: var(--sidebar-width);
   width: calc(100% - var(--sidebar-width));
   transition: margin-left 0.2s ease, width 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.main-content > * {
+  width: 100%;
 }
 
 .app-shell {

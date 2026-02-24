@@ -1,7 +1,8 @@
 .vertical-sidebar-layout {
   display: flex;
   height: calc(100vh - 60px);
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: #f4f6fb;
+  overflow-x: hidden;
 }
 
 .vertical-sidebar {
@@ -165,8 +166,8 @@
   }
 
   .sidebar-nav {
-    flex-direction: row;
-    overflow-x: auto;
+    flex-direction: column;
+    overflow-x: hidden;
   }
 
   .sidebar-item {
