@@ -24,13 +24,10 @@ async function connectDatabase() {
   try {
     console.log(`[DB] Connecting to MongoDB at: ${DATABASE_URL.split('@')[1] || 'local'}`);
     
-    await mongoose.connect(DATABASE_URL, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    await mongoose.connect(DATABASE_URL);
     
     console.log('[DB] MongoDB connected successfully!');
-    console.log(`[DB] Database: ${mongoose.connection.db?.getName()}`);
+    console.log(`[DB] Database: ${mongoose.connection.name}`);
     
     // Log available collections
     const collections = await mongoose.connection.db?.listCollections().toArray();
@@ -94,7 +91,7 @@ app.get('/api/menu', (_req, res) => {
 app.get('/api/db-status', async (_req, res) => {
   try {
     const isConnected = mongoose.connection.readyState === 1;
-    const dbName = mongoose.connection.db?.getName();
+    const dbName = mongoose.connection.name;
     const collections = await mongoose.connection.db?.listCollections().toArray();
     
     res.json({
@@ -112,7 +109,7 @@ app.get('/api/db-status', async (_req, res) => {
 });
 
 // Serve static files from React build
-const buildPath = path.join(__dirname, 'build');
+const buildPath = path.join(__dirname, 'dist', 'build');
 app.use(express.static(buildPath));
 
 // SPA fallback route

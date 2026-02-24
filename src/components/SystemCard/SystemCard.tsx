@@ -1,10 +1,10 @@
 import React from 'react';
-import './SystemCard.css';
+import '../../styles/cards.css';
 
 interface PrincipleItem {
   name: string;
   details: string;
-  gifPath?: string; // Optional prop for the GIF path
+  gifPath?: string;
 }
 
 interface SystemCardProps {
@@ -13,25 +13,40 @@ interface SystemCardProps {
   principles: PrincipleItem[];
 }
 
-const SystemCard: React.FC<SystemCardProps> = ({ title, description, principles }) => {
+const SystemCard: React.FC<SystemCardProps> = ({ 
+  title, 
+  description, 
+  principles 
+}) => {
   return (
-    <div className="system-card">
-      <h2>{title}</h2>
-      <p>{description}</p>
-      <div className="principles">
-        <h5>Principles:</h5>
-        <ul>
+    <div className="card">
+      <div className="card-header">
+        <div>
+          <h2 className="card-header-title">{title}</h2>
+        </div>
+      </div>
+
+      <div className="card-body">
+        <p className="card-body-text">{description}</p>
+      </div>
+
+      <div className="card-section">
+        <h3 className="card-section-title">Core Principles</h3>
+        <ul className="card-list">
           {principles.map((principle, idx) => (
-            <li key={idx} style={{ marginBottom: '20px' }}>
-              <strong>{principle.name}:</strong> {principle.details}
+            <li key={idx} className="card-list-item">
+              <div className="card-list-item-title">
+                {principle.name}
+              </div>
+              <p className="card-list-item-text">
+                {principle.details}
+              </p>
               {principle.gifPath && (
-                <div style={{ marginTop: '10px', textAlign: 'center' }}>
-                  <img
-                    src={principle.gifPath}
-                    alt={`${principle.name} Explanation`}
-                    style={{ maxWidth: '100%', borderRadius: '8px' }}
-                  />
-                </div>
+                <img
+                  src={principle.gifPath}
+                  alt={`${principle.name} illustration`}
+                  className="card-image"
+                />
               )}
             </li>
           ))}

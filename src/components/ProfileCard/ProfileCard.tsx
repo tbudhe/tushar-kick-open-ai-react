@@ -1,5 +1,5 @@
 import React from 'react';
-import './ProfileCard.css';
+import '../../styles/cards.css';
 
 interface ExperienceItem {
   company: string;
@@ -35,51 +35,87 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
   socialLinks,
 }) => {
   return (
-    <div className="profile-card">
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+    <div className="card">
+      <div className="card-header">
         <div>
-          <h2>{name}</h2>
-          <h4>{title}</h4>
+          <h2 className="card-header-title">{name}</h2>
+          <h3 className="card-header-subtitle">{title}</h3>
         </div>
-        <div style={{ textAlign: 'right' }}>
-          <a href={socialLinks.linkedIn} target="_blank" rel="noopener noreferrer" style={{ marginRight: '10px' }}>
-            <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn" style={{ width: '24px', verticalAlign: 'middle' }} />
+        <div className="card-footer">
+          <a
+            href={socialLinks.linkedIn}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="card-footer-link"
+            title="LinkedIn"
+          >
+            LinkedIn
           </a>
-          <a href={socialLinks.github} target="_blank" rel="noopener noreferrer">
-            <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub" style={{ width: '24px', verticalAlign: 'middle' }} />
+          <a
+            href={socialLinks.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="card-footer-link"
+            title="GitHub"
+          >
+            GitHub
           </a>
         </div>
       </div>
-      <p><strong>Location:</strong> {location}</p>
-      <p><strong>Email:</strong> <a href={`mailto:${email}`}>{email}</a></p>
-      <p><strong>Phone:</strong> <a href={`tel:${phone}`}>{phone}</a></p>
 
-      <div className="professional-summary" style={{ marginTop: '20px' }}>
-        <h5>Professional Summary:</h5>
-        <p>{professionalSummary}</p>
+      <div className="card-body">
+        <div className="card-list-item">
+          <div className="card-list-item-title">Location</div>
+          <p className="card-list-item-text">{location}</p>
+        </div>
+        <div className="card-list-item">
+          <div className="card-list-item-title">Contact</div>
+          <p className="card-list-item-text">
+            <a href={`mailto:${email}`} style={{ color: 'var(--color-primary)' }}>
+              {email}
+            </a>
+            {' | '}
+            <a href={`tel:${phone}`} style={{ color: 'var(--color-primary)' }}>
+              {phone}
+            </a>
+          </p>
+        </div>
       </div>
 
-      <div className="skills">
-        <h5>Skills:</h5>
-        <ul>
+      <div className="card-section">
+        <h3 className="card-section-title">Professional Summary</h3>
+        <p className="card-body-text">{professionalSummary}</p>
+      </div>
+
+      <div className="card-section">
+        <h3 className="card-section-title">Skills</h3>
+        <div className="skills-container">
           {skills.map((skill, idx) => (
-            <li key={idx}>{skill}</li>
+            <span key={idx} className="skill-badge">
+              {skill}
+            </span>
           ))}
-        </ul>
+        </div>
       </div>
 
-      <div className="experience">
-        <h5>Experience:</h5>
-        <ul>
-          {experience.map((job, idx) => (
-            <li key={idx}>
-              <strong>{job.company}</strong> — {job.role} ({job.duration})
-              <br />
-              <em>{job.description}</em>
-            </li>
-          ))}
-        </ul>
-      </div>
+      {experience.length > 0 && (
+        <div className="card-section">
+          <h3 className="card-section-title">Experience</h3>
+          <ul className="card-list">
+            {experience.map((exp, idx) => (
+              <li key={idx} className="card-list-item">
+                <div className="card-list-item-title">
+                  {exp.role} at {exp.company}
+                </div>
+                <p style={{ fontSize: 'var(--font-size-sm)', color: 'var(--color-text-muted)', margin: 0 }}>
+                  {exp.duration}
+                </p>
+                <p className="card-list-item-text">{exp.description}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 };
