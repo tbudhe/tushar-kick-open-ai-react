@@ -71,23 +71,18 @@
 
 /* List Items */
 .card-list {
-  list-style: none;
-  padding: 0;
+  list-style: disc;
+  padding-left: 1.25rem;
   margin: 0;
 }
 
 .card-list-item {
-  padding: var(--space-md);
-  margin-bottom: var(--space-md);
-  background-color: var(--color-bg-secondary);
-  border-radius: var(--radius-md);
-  border-left: 4px solid var(--color-primary);
-  transition: all var(--transition-fast);
-}
-
-.card-list-item:hover {
-  background-color: var(--color-bg-tertiary);
-  padding-left: calc(var(--space-md) + 4px);
+  padding: 2px 0;
+  margin-bottom: 6px;
+  background-color: transparent;
+  border-radius: 0;
+  border-left: none;
+  transition: none;
 }
 
 .card-list-item-title {

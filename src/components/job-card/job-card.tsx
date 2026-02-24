@@ -52,7 +52,7 @@ const JobCard: React.FC<CarouselProps> = ({
   const currentItem = items[currentIndex];
 
   return (
-    <div className="w-full">
+    <div className="w-full job-carousel">
       <div className="mb-6">
         <h2 className="text-2xl font-bold text-gray-800 mb-2">{title}</h2>
         <p className="text-sm text-gray-500">
@@ -60,9 +60,9 @@ const JobCard: React.FC<CarouselProps> = ({
         </p>
       </div>
 
-      <div className="carousel w-full bg-base-200 rounded-lg shadow-md overflow-hidden">
+      <div className="carousel w-full rounded-lg overflow-hidden">
         <div className="carousel-item w-full">
-          <div className="w-full p-8 flex flex-col justify-between min-h-[400px]">
+          <div className="w-full p-8 flex flex-col justify-between min-h-[360px]">
             {currentItem.image && (
               <img
                 src={currentItem.image}
@@ -84,13 +84,7 @@ const JobCard: React.FC<CarouselProps> = ({
                   )}
                 </div>
                 {currentItem.badge && (
-                  <div
-                    className={`badge badge-${
-                      currentItem.badgeColor || 'primary'
-                    } text-white px-4 py-2`}
-                  >
-                    {currentItem.badge}
-                  </div>
+                  <div className="job-carousel-badge">{currentItem.badge}</div>
                 )}
               </div>
 

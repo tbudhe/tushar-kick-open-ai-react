@@ -1,5 +1,6 @@
 import React from 'react';
-import MLCard, { DetailItem } from '../ml-card/ml-card';
+import { useLocation } from 'react-router-dom';
+import { DetailItem } from '../ml-card/ml-card';
 import '../../css/vertical-sidebar-layout.css';
 
 interface Principle {
@@ -8,6 +9,7 @@ interface Principle {
 }
 
 const PracticeML: React.FC = () => {
+  const location = useLocation();
   const principles: Principle[] = [
     {
       name: 'Business Objectives',
@@ -140,11 +142,56 @@ const PracticeML: React.FC = () => {
     },
   ];
 
+  const sectionIdMap: Record<string, string> = {
+    'Business Objectives': 'business-objectives',
+    'Key Interview Questions': 'key-interview-questions',
+    'System Components': 'system-components',
+    'Success Metrics': 'success-metrics',
+    'Visual Search - ML': 'visual-search-ml',
+    'Google Street Blurring - ML': 'google-street-blurring-ml',
+    'L1 vs L2 Regression': 'l1-vs-l2-regression',
+    'Overfitting vs Underfitting': 'overfitting-vs-underfitting',
+    'Gradient Descent vs SGD vs ALS': 'gradient-descent-vs-sgd-vs-als',
+  };
+
+  const activeHash = location.hash?.replace('#', '') || '';
+  const activePrinciple =
+    principles.find((principle) => sectionIdMap[principle.name] === activeHash) ||
+    principles[0];
+
+  const renderDetail = (detail: DetailItem, index: number) => {
+    if (typeof detail === 'string') {
+      return <li key={index}>{detail}</li>;
+    }
+
+    return (
+      <li key={index}>
+        {detail.text}
+        <a
+          href={detail.link.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="content-panel-link"
+        >
+          {detail.link.text}
+        </a>
+      </li>
+    );
+  };
+
   return (
     <div className="systems-container">
-      {principles.map((principle, idx) => (
-        <MLCard key={idx} title={principle.name} details={principle.details} />
-      ))}
+      <div className="content-panel" id={sectionIdMap[activePrinciple.name]}>
+        <div className="content-panel-header">
+          <h1>{activePrinciple.name}</h1>
+          <p className="content-panel-breadcrumb">
+            ML Practice / {activePrinciple.name}
+          </p>
+        </div>
+        <ul className="content-panel-list">
+          {activePrinciple.details.map(renderDetail)}
+        </ul>
+      </div>
     </div>
   );
 };

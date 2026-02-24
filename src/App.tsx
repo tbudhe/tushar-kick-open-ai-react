@@ -14,17 +14,16 @@ const App: React.FC = () => {
 
   return (
     <Router>
-      <div className="d-flex">
+      <div
+        className="app-shell"
+        style={
+          {
+            '--sidebar-width': collapsed ? '60px' : '220px',
+          } as React.CSSProperties
+        }
+      >
         <VerticalMenu collapsed={collapsed} setCollapsed={setCollapsed} />
-        <div
-          className="main-content"
-          style={{
-            marginLeft: collapsed ? 60 : 220,
-            transition: 'margin-left 0.2s',
-            minHeight: '100vh',
-            width: '100%',
-          }}
-        >
+        <div className="main-content">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/profile" element={<Profile />} />

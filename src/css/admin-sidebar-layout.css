@@ -219,29 +219,22 @@
 }
 
 .details-list {
-  list-style: none;
-  padding: 0;
+  list-style: disc;
+  padding-left: 1.25rem;
   margin: 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .detail-item {
-  padding: 16px;
-  background: linear-gradient(135deg, #f8f9fa 0%, #f0f1f5 100%);
-  border-left: 4px solid #667eea;
-  border-radius: 4px;
+  padding: 2px 0;
+  background: none;
+  border: none;
+  border-radius: 0;
   font-size: 14px;
   line-height: 1.6;
-  color: #34495e;
-  transition: all 0.2s ease;
-}
-
-.detail-item:hover {
-  background: linear-gradient(135deg, #f0f1f5 0%, #e8ebf0 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  color: #374151;
 }
 
 @keyframes slideIn {
@@ -358,6 +351,6 @@
   }
 
   .details-list {
-    grid-template-columns: 1fr;
+    padding-left: 1.1rem;
   }
 }

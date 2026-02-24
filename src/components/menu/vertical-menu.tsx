@@ -3,7 +3,6 @@ import { NavLink } from 'react-router-dom';
 import HomeIcon from '@mui/icons-material/Home';
 import AllOutIcon from '@mui/icons-material/AllOut';
 import AllInclusiveIcon from '@mui/icons-material/AllInclusive';
-import ScienceIcon from '@mui/icons-material/Science';
 import WorkIcon from '@mui/icons-material/Work';
 
 interface VerticalMenuProps {
@@ -13,6 +12,9 @@ interface VerticalMenuProps {
 
 const VerticalMenu: React.FC<VerticalMenuProps> = ({ collapsed, setCollapsed }) => {
   const [systemOpen, setSystemOpen] = useState(false);
+  const [aiOpen, setAiOpen] = useState(false);
+  const [aiConceptsOpen, setAiConceptsOpen] = useState(false);
+  const [mlPracticeOpen, setMlPracticeOpen] = useState(false);
   const [foundationOpen, setFoundationOpen] = useState(false);
   const [architectureOpen, setArchitectureOpen] = useState(false);
   const [backendOpen, setBackendOpen] = useState(false);
@@ -41,9 +43,109 @@ const VerticalMenu: React.FC<VerticalMenuProps> = ({ collapsed, setCollapsed }) 
         </NavLink>
       </li>
       <li>
-        <NavLink className="nav-link" to="/ai">
+        <NavLink
+          className="nav-link with-caret"
+          to="/ai"
+          onClick={() => setAiOpen((prev) => !prev)}
+        >
           {collapsed ? <span title="AI"><AllOutIcon /></span> : 'AI'}
+          {!collapsed && (
+            <span className={`submenu-caret ${aiOpen ? 'open' : ''}`}>▾</span>
+          )}
         </NavLink>
+        {!collapsed && aiOpen && (
+          <ul className="nav-submenu">
+            <li>
+              <NavLink
+                className="nav-sublink with-caret"
+                to="/ai"
+                onClick={() => setAiConceptsOpen((prev) => !prev)}
+              >
+                AI Concepts
+                <span className={`submenu-caret ${aiConceptsOpen ? 'open' : ''}`}>
+                  ▾
+                </span>
+              </NavLink>
+            </li>
+            {aiConceptsOpen && (
+              <li className="submenu-items">
+                <NavLink className="nav-sublink subitem" to="/ai#supervised-learning">
+                  Supervised Learning
+                </NavLink>
+                <NavLink className="nav-sublink subitem" to="/ai#unsupervised-learning">
+                  Unsupervised Learning
+                </NavLink>
+                <NavLink className="nav-sublink subitem" to="/ai#reinforcement-learning">
+                  Reinforcement Learning
+                </NavLink>
+                <NavLink className="nav-sublink subitem" to="/ai#agentic-vs-generative-ai">
+                  Agentic AI vs Generative AI
+                </NavLink>
+                <NavLink className="nav-sublink subitem" to="/ai#entropy-vs-gini">
+                  Entropy vs Gini Index
+                </NavLink>
+                <NavLink className="nav-sublink subitem" to="/ai#linear-regression">
+                  Linear Regression Deep Dive
+                </NavLink>
+                <NavLink className="nav-sublink subitem" to="/ai#logistic-regression">
+                  Logistic Regression Deep Dive
+                </NavLink>
+                <NavLink className="nav-sublink subitem" to="/ai#softmax-function">
+                  Softmax Function Deep Dive
+                </NavLink>
+                <NavLink className="nav-sublink subitem" to="/ai#svm-deep-dive">
+                  Support Vector Machine (SVM) Deep Dive
+                </NavLink>
+                <NavLink className="nav-sublink subitem" to="/ai#gradient-descent">
+                  Gradient Descent Deep Dive
+                </NavLink>
+              </li>
+            )}
+            <li>
+              <NavLink
+                className="nav-sublink with-caret"
+                to="/practice-ml"
+                onClick={() => setMlPracticeOpen((prev) => !prev)}
+              >
+                ML Practice
+                <span className={`submenu-caret ${mlPracticeOpen ? 'open' : ''}`}>
+                  ▾
+                </span>
+              </NavLink>
+            </li>
+            {mlPracticeOpen && (
+              <li className="submenu-items">
+                <NavLink className="nav-sublink subitem" to="/practice-ml#business-objectives">
+                  Business Objectives
+                </NavLink>
+                <NavLink className="nav-sublink subitem" to="/practice-ml#key-interview-questions">
+                  Key Interview Questions
+                </NavLink>
+                <NavLink className="nav-sublink subitem" to="/practice-ml#system-components">
+                  System Components
+                </NavLink>
+                <NavLink className="nav-sublink subitem" to="/practice-ml#success-metrics">
+                  Success Metrics
+                </NavLink>
+                <NavLink className="nav-sublink subitem" to="/practice-ml#visual-search-ml">
+                  Visual Search - ML
+                </NavLink>
+                <NavLink className="nav-sublink subitem" to="/practice-ml#google-street-blurring-ml">
+                  Google Street Blurring - ML
+                </NavLink>
+                <NavLink className="nav-sublink subitem" to="/practice-ml#l1-vs-l2-regression">
+                  L1 vs L2 Regression
+                </NavLink>
+                <NavLink className="nav-sublink subitem" to="/practice-ml#overfitting-vs-underfitting">
+                  Overfitting vs Underfitting
+                </NavLink>
+                <NavLink className="nav-sublink subitem" to="/practice-ml#gradient-descent-vs-sgd-vs-als">
+                  Gradient Descent vs SGD vs ALS
+                </NavLink>
+              </li>
+            )}
+          </ul>
+        )}
       </li>
       <li>
         <NavLink
@@ -189,11 +291,6 @@ const VerticalMenu: React.FC<VerticalMenuProps> = ({ collapsed, setCollapsed }) 
             )}
           </ul>
         )}
-      </li>
-      <li>
-        <NavLink className="nav-link" to="/practice-ml">
-          {collapsed ? <span title="Practice ML"><ScienceIcon /></span> : 'Practice ML'}
-        </NavLink>
       </li>
     </ul>
     </div>

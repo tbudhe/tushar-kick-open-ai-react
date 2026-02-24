@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useLocation } from 'react-router-dom';
 
 
 interface AITopic {
@@ -91,7 +92,7 @@ const topics: AITopic[] = [
       '   Example: Anomaly detection, irregular cluster shapes',
       '   Visual: Dense regions connected, outliers as noise',
       '',
-      '📐 PRINCIPAL COMPONENT ANALYSIS (PCA):',
+      ' PRINCIPAL COMPONENT ANALYSIS (PCA):',
       '   Formula: Y = XW where W are eigenvectors of covariance matrix',
       '   Variance Explained: λᵢ/Σλⱼ for eigenvalue λᵢ',
       '   Steps: 1) Standardize 2) Covariance matrix 3) Eigendecomposition 4) Project',
@@ -105,7 +106,7 @@ const topics: AITopic[] = [
       '   Example: High-dimensional data visualization, gene expression',
       '   Visual: Non-linear embedding preserving local structure',
       '',
-      '🛒 ASSOCIATION RULES (Market Basket):',
+      ' ASSOCIATION RULES (Market Basket):',
       '   Support: sup(A) = |A|/|D| (frequency of itemset A)',
       '   Confidence: conf(A to B) = sup(A∪B)/sup(A)',
       '   Lift: lift(A to B) = conf(A to B)/sup(B)',
@@ -120,7 +121,7 @@ const topics: AITopic[] = [
       '   Example: Image segmentation, density estimation',
       '   Visual: Overlapping Gaussian distributions forming clusters',
       '',
-      '🌐 UNIFORM MANIFOLD APPROXIMATION (UMAP):',
+      ' UNIFORM MANIFOLD APPROXIMATION (UMAP):',
       '   Theory: Riemannian manifold learning with topological data analysis',
       '   Fuzzy Simplicial Sets: Probabilistic topology representation',
       '   Optimization: Cross-entropy between high/low dimensional representations',
@@ -137,9 +138,9 @@ const topics: AITopic[] = [
   {
     name: 'Reinforcement Learning',
     details: [
-      '🎮 Definition: Agent learns optimal actions through trial-and-error interactions with environment',
-      '🏆 Goal: Maximize cumulative reward over time through optimal policy π*',
-      '🔑 Core Elements: State (S), Action (A), Reward (R), Policy (π), Value (V)',
+      ' Definition: Agent learns optimal actions through trial-and-error interactions with environment',
+      ' Goal: Maximize cumulative reward over time through optimal policy π*',
+      ' Core Elements: State (S), Action (A), Reward (R), Policy (π), Value (V)',
       '',
       ' MARKOV DECISION PROCESS (MDP):',
       '   Components: <S, A, P, R, γ> (States, Actions, Transitions, Rewards, Discount)',
@@ -154,7 +155,7 @@ const topics: AITopic[] = [
       '   Example: Game playing (Pac-Man), robot navigation',
       '   Visual: Q-table with state-action values, policy derived from max Q-values',
       '',
-      '🔄 SARSA (State-Action-Reward-State-Action):',
+      ' SARSA (State-Action-Reward-State-Action):',
       '   Update Rule: Q(s,a) ← Q(s,a) + α[r + γQ(s\',a\') - Q(s,a)]',
       '   On-Policy: Updates based on actual policy being followed',
       '   Difference from Q-Learning: Uses actual next action a\' instead of max',
@@ -169,7 +170,7 @@ const topics: AITopic[] = [
       '   Example: Atari games, complex state spaces',
       '   Visual: Neural network approximating Q-function for high-dimensional states',
       '',
-      '🎭 POLICY GRADIENT METHODS:',
+      ' POLICY GRADIENT METHODS:',
       '   REINFORCE: ∇J(θ) = E[∇log π(a|s;θ) Q^π(s,a)]',
       '   Actor-Critic: Actor updates policy, Critic estimates value function',
       '   Advantage: A(s,a) = Q(s,a) - V(s) (reduces variance)',
@@ -183,7 +184,7 @@ const topics: AITopic[] = [
       '   Example: OpenAI Five (Dota 2), robotics, continuous control',
       '   Visual: Clipped objective function preventing destructive updates',
       '',
-      '🎪 ACTOR-CRITIC METHODS:',
+      ' ACTOR-CRITIC METHODS:',
       '   Actor: ∇J(θ) = E[∇log π(a|s;θ) A(s,a)]',
       '   Critic: V(s;w) ≈ V^π(s), updated via TD learning',
       '   A3C: Asynchronous Advantage Actor-Critic with multiple workers',
@@ -191,7 +192,7 @@ const topics: AITopic[] = [
       '   Example: Complex environments, parallel training',
       '   Visual: Two networks - actor (policy) and critic (value) working together',
       '',
-      '🌟 DEEP DETERMINISTIC POLICY GRADIENT (DDPG):',
+      ' DEEP DETERMINISTIC POLICY GRADIENT (DDPG):',
       '   Deterministic Policy: μ(s;θ^μ) instead of stochastic π(a|s)',
       '   Critic Update: L = E[(r + γQ(s\',μ(s\');θ^Q) - Q(s,a;θ^Q))²]',
       '   Actor Update: ∇J = E[∇_a Q(s,a;θ^Q)|_{a=μ(s)} ∇μ(s;θ^μ)]',
@@ -216,7 +217,7 @@ const topics: AITopic[] = [
   {
     name: 'Agentic AI vs Generative AI',
     details: [
-      '🤖 AGENTIC AI (Goal-Oriented, Action-Taking):',
+      ' AGENTIC AI (Goal-Oriented, Action-Taking):',
       '   Definition: AI systems that can take autonomous actions to achieve specific goals',
       '   Core Capability: Decision-making, planning, and executing actions in environments',
       '   Architecture: Agent + Environment + Action Space + Reward Function',
@@ -224,7 +225,7 @@ const topics: AITopic[] = [
       '   Examples: Autonomous vehicles, trading bots, game-playing AI (AlphaGo)',
       '   Visual: Agent interacting with environment, taking actions based on observations',
       '',
-      '🎨 GENERATIVE AI (Content Creation):',
+      ' GENERATIVE AI (Content Creation):',
       '   Definition: AI systems that create new content (text, images, audio, code)',
       '   Core Capability: Pattern recognition and synthesis from training data',
       '   Architecture: Encoder-Decoder, Transformers, GANs, Diffusion Models',
@@ -238,7 +239,7 @@ const topics: AITopic[] = [
       '   Agentic AI: Optimize outcomes, maximize rewards, achieve objectives',
       '   Generative AI: Create realistic, diverse, high-quality content',
       '',
-      '⚙️ INTERACTION MODEL:',
+      ' INTERACTION MODEL:',
       '   Agentic AI: Interactive, real-time decision making in dynamic environments',
       '   Generative AI: One-shot or iterative content generation from prompts',
       '',
@@ -246,7 +247,7 @@ const topics: AITopic[] = [
       '   Agentic AI: Reinforcement Learning, Online Learning, Trial-and-Error',
       '   Generative AI: Supervised Learning, Self-Supervised, Large-Scale Pretraining',
       '',
-      '🎮 ENVIRONMENT:',
+      ' ENVIRONMENT:',
       '   Agentic AI: Dynamic, reactive environments (games, real world, simulations)',
       '   Generative AI: Static datasets, text corpora, image collections',
       '',
@@ -254,7 +255,7 @@ const topics: AITopic[] = [
       '   Agentic AI: Reward/utility maximization, success rate, efficiency',
       '   Generative AI: Quality, diversity, coherence, human preference',
       '',
-      '🔄 FEEDBACK LOOP:',
+      ' FEEDBACK LOOP:',
       '   Agentic AI: Immediate environment feedback, reward signals',
       '   Generative AI: Human feedback, preference learning, RLHF',
       '',
@@ -651,7 +652,7 @@ const topics: AITopic[] = [
     ]
   },
   {
-    name: '🛡️ Support Vector Machine (SVM) Deep Dive',
+    name: 'Support Vector Machine (SVM) Deep Dive',
     details: [
       ' DEFINITION & CORE CONCEPT:',
       '   Goal: Find optimal hyperplane that separates classes with maximum margin',
@@ -804,7 +805,7 @@ const topics: AITopic[] = [
     ]
   },
   {
-    name: '⛰️ Gradient Descent Deep Dive',
+    name: 'Gradient Descent Deep Dive',
     details: [
       ' DEFINITION & CORE CONCEPT:',
       '   Goal: Find minimum of cost function by iteratively moving in steepest descent direction',
@@ -1006,26 +1007,42 @@ const topics: AITopic[] = [
 ];
 
 const AICard: React.FC = () => {
-  const [expanded, setExpanded] = useState<string | null>(null);
-  const toggle = (name: string) => setExpanded(prev => prev === name ? null : name);
+  const location = useLocation();
+  const topicIdMap: Record<string, string> = {
+    'Supervised Learning': 'supervised-learning',
+    'Unsupervised Learning': 'unsupervised-learning',
+    'Reinforcement Learning': 'reinforcement-learning',
+    'Agentic AI vs Generative AI': 'agentic-vs-generative-ai',
+    'Entropy vs Gini Index': 'entropy-vs-gini',
+    'Linear Regression Deep Dive': 'linear-regression',
+    'Logistic Regression Deep Dive': 'logistic-regression',
+    'Softmax Function Deep Dive': 'softmax-function',
+    'Support Vector Machine (SVM) Deep Dive': 'svm-deep-dive',
+    'Gradient Descent Deep Dive': 'gradient-descent',
+  };
+
+  const activeHash = location.hash?.replace('#', '') || '';
+  const activeTopic =
+    topics.find((topic) => topicIdMap[topic.name] === activeHash) || topics[0];
 
   return (
     <div className="systems-container">
-      {topics.map(topic => (
-        <div key={topic.name} className="system-card" onClick={() => toggle(topic.name)}>
-          <div className="system-card-header">
-            <h4>{topic.name}</h4>
-            <span className="toggle-arrow">{expanded === topic.name ? '▲' : '▼'}</span>
-          </div>
-          {expanded === topic.name && (
-            <div className="system-card-details">
-              <ul>
-                {topic.details.map((d, i) => <li key={i}>{d}</li>)}
-              </ul>
-            </div>
-          )}
+      <div className="content-panel" id={topicIdMap[activeTopic.name]}>
+        <div className="content-panel-header">
+          <h1>{activeTopic.name}</h1>
+          <p className="content-panel-breadcrumb">
+            AI Concepts / {activeTopic.name}
+          </p>
         </div>
-      ))}
+        <ul className="content-panel-list">
+          {activeTopic.details
+            .map((detail) => detail.trim())
+            .filter((detail) => detail.length > 0)
+            .map((detail, index) => (
+              <li key={index}>{detail}</li>
+            ))}
+        </ul>
+      </div>
     </div>
   );
 };
