@@ -6,6 +6,7 @@ import Profile from './components/pages/Profile';
 import Settings from './components/pages/Systems';
 import AI from './components/pages/AI';
 import PracticeML from './components/pages/PracticeML';
+import JobSearch from './components/pages/JobSearch';
 import './css/App.css';
 
 const App: React.FC = () => {
@@ -30,6 +31,7 @@ const App: React.FC = () => {
             <Route path="/Systems" element={<Settings />} />
             <Route path="/ai" element={<AI />} />
             <Route path="/practice-ml" element={<PracticeML />} />
+            <Route path="/job-search" element={<JobSearch />} />
           </Routes>
         </div>
       </div>

@@ -5,6 +5,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import AllOutIcon from '@mui/icons-material/AllOut';
 import AllInclusiveIcon from '@mui/icons-material/AllInclusive';
 import ScienceIcon from '@mui/icons-material/Science';
+import WorkIcon from '@mui/icons-material/Work';
 
 interface VerticalMenuProps {
   collapsed: boolean;
@@ -30,6 +31,11 @@ const VerticalMenu: React.FC<VerticalMenuProps> = ({ collapsed, setCollapsed }) 
       <li>
         <NavLink className="nav-link" to="/profile">
           {collapsed ? <span title="Profile"><PersonIcon /></span> : 'Profile'}
+        </NavLink>
+      </li>
+      <li>
+        <NavLink className="nav-link" to="/job-search">
+          {collapsed ? <span title="Job Search"><WorkIcon /></span> : 'Job Search'}
         </NavLink>
       </li>
       <li>
