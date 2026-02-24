@@ -55,6 +55,15 @@ const Home: React.FC = () => {
 				items: ['AWS', 'Azure', 'Salesforce', 'Google Cloud Platform'],
 			},
 			{
+				title: 'Database core',
+				items: [
+					'Relational: replication, read replicas, failover',
+					'NoSQL: replica sets, sharding, partitioning',
+					'Indexing and query tuning',
+					'Consistency and durability tradeoffs',
+				],
+			},
+			{
 				title: 'AI/ML architecture and MLOps',
 				items: [
 					'AI strategy',
@@ -70,7 +79,7 @@ const Home: React.FC = () => {
 				items: ['Analytical thinking', 'Problem solving', 'Team leadership', 'Communication'],
 			},
 			{
-				title: 'DevOps Tools Overview',
+				title: 'DevOps Tools',
 				items: [
 					'Docker',
 					'Kubernetes',
@@ -86,6 +95,8 @@ const Home: React.FC = () => {
 					'Blue-Green Deployment',
 					'CI/CD Setup',
 					'Canary Deployment',
+					'Sticky sessions (Apache)',
+					'Docker session management',
 				],
 			},
 		],

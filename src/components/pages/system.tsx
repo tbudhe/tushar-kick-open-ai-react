@@ -187,6 +187,8 @@ const System: React.FC = () => {
             'Monitoring and Logging: System tracking.',
             'Containerization: Container-based deployment.',
             'Orchestration: Deployment automation.',
+            'Region-based traffic management: Route users to the closest region for lower latency.',
+            'Sticky sessions: Use load balancer session affinity for stateful services.',
               ],
             },
             {
