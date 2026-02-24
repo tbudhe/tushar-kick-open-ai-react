@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Carousel from '../carousel/carousel';
+import JobCard from '../job-card/job-card';
 
 interface Job {
   id: string;
@@ -192,7 +192,7 @@ const JobSearch: React.FC = () => {
 
         {/* Job Carousel */}
         <div className="bg-white rounded-lg shadow-lg p-8 mb-12">
-          <Carousel
+          <JobCard
             items={carouselItems}
             title="Featured Job Opportunities"
             autoSlide={true}

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-interface CarouselItem {
+export interface CarouselItem {
   id: string;
   title: string;
   subtitle?: string;
@@ -17,7 +17,7 @@ interface CarouselProps {
   autoSlideInterval?: number;
 }
 
-const Carousel: React.FC<CarouselProps> = ({
+const JobCard: React.FC<CarouselProps> = ({
   items,
   title,
   autoSlide = false,
@@ -140,4 +140,4 @@ const Carousel: React.FC<CarouselProps> = ({
   );
 };
 
-export default Carousel;
+export default JobCard;

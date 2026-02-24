@@ -1,15 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
+import MLCard, { DetailItem } from '../ml-card/ml-card';
 import '../../css/vertical-sidebar-layout.css';
-
-interface LinkDetail {
-  text: string;
-  link: {
-    url: string;
-    text: string;
-  };
-}
-
-type DetailItem = string | LinkDetail;
 
 interface Principle {
   name: string;
@@ -17,8 +8,6 @@ interface Principle {
 }
 
 const PracticeML: React.FC = () => {
-  const [expandedPrinciple, setExpandedPrinciple] = useState<string | null>(null);
-
   const principles: Principle[] = [
     {
       name: 'Business Objectives',
@@ -151,52 +140,10 @@ const PracticeML: React.FC = () => {
     },
   ];
 
-  const togglePrinciple = (name: string) => {
-    setExpandedPrinciple((prev) => (prev === name ? null : name));
-  };
-
   return (
     <div className="systems-container">
       {principles.map((principle, idx) => (
-        <div
-          key={idx}
-          className="system-card"
-          onClick={() => togglePrinciple(principle.name)}
-        >
-          <div className="system-card-header">
-            <h4>{principle.name}</h4>
-            <span className="toggle-arrow">
-              {expandedPrinciple === principle.name ? '▲' : '▼'}
-            </span>
-          </div>
-          {expandedPrinciple === principle.name && (
-            <div className="system-card-details">
-              <ul>
-                {principle.details.map((detail, index) => (
-                  <li key={index}>
-                    {typeof detail === 'string' ? (
-                      detail
-                    ) : (
-                      <>
-                        {detail.text}
-                        <a
-                          href={detail.link.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          style={{ color: '#667eea', textDecoration: 'none', fontWeight: '500' }}
-                          onMouseEnter={(e) => e.currentTarget.style.textDecoration = 'underline'}
-                          onMouseLeave={(e) => e.currentTarget.style.textDecoration = 'none'}
-                        >
-                          {detail.link.text}
-                        </a>
-                      </>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-        </div>
+        <MLCard key={idx} title={principle.name} details={principle.details} />
       ))}
     </div>
   );

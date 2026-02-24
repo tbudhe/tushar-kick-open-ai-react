@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import VerticalMenu from './components/menu/vertical-menu';
 import Home from './components/pages/home';
 import Profile from './components/pages/profile';
-import Settings from './components/pages/systems';
+import Settings from './components/pages/system';
 import AI from './components/pages/ai';
 import PracticeML from './components/pages/practice-ml';
 import JobSearch from './components/pages/job-search';
