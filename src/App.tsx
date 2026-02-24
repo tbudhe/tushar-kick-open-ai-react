@@ -29,7 +29,7 @@ const App: React.FC = () => {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/profile" element={<Profile />} />
-            <Route path="/Systems" element={<Settings />} />
+            <Route path="/systems" element={<Settings />} />
             <Route path="/ai" element={<AI />} />
             <Route path="/practice-ml" element={<PracticeML />} />
             <Route path="/job-search" element={<JobSearch />} />
