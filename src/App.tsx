@@ -7,7 +7,6 @@ import Settings from './components/pages/systems';
 import AI from './components/pages/ai';
 import PracticeML from './components/pages/practice-ml';
 import JobSearch from './components/pages/job-search';
-import CarouselShowcase from './components/pages/carousel-showcase';
 import './css/App.css';
 
 const App: React.FC = () => {
@@ -33,7 +32,6 @@ const App: React.FC = () => {
             <Route path="/ai" element={<AI />} />
             <Route path="/practice-ml" element={<PracticeML />} />
             <Route path="/job-search" element={<JobSearch />} />
-            <Route path="/carousel" element={<CarouselShowcase />} />
           </Routes>
         </div>
       </div>

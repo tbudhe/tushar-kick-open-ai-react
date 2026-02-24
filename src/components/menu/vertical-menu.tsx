@@ -39,11 +39,6 @@ const VerticalMenu: React.FC<VerticalMenuProps> = ({ collapsed, setCollapsed }) 
         </NavLink>
       </li>
       <li>
-        <NavLink className="nav-link" to="/carousel">
-          {collapsed ? <span title="Carousel"><AllOutIcon /></span> : 'Carousel'}
-        </NavLink>
-      </li>
-      <li>
         <NavLink className="nav-link" to="/ai">
           {collapsed ? <span title="AI"><AllOutIcon /></span> : 'AI'}
         </NavLink>
