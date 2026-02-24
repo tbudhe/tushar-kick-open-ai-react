@@ -19,7 +19,7 @@ const VerticalMenu: React.FC<VerticalMenuProps> = ({ collapsed, setCollapsed }) 
       onClick={() => setCollapsed((prev) => !prev)}
       aria-label={collapsed ? 'Expand menu' : 'Collapse menu'}
     >
-      {collapsed ? '☰' : '✕'}
+      {collapsed ? '≡' : '×'}
     </button>
     {!collapsed && <h4 className="menu-title">Menu</h4>}
     <ul className="nav nav-pills flex-column">

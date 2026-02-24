@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Carousel from '../Carousel/Carousel';
+import Carousel from '../carousel/carousel';
 
 interface Job {
   id: string;

@@ -1,12 +1,12 @@
 import React  from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import VerticalMenu from './components/menu/VerticalMenu';
-import Home from './components/pages/Home';
-import Profile from './components/pages/Profile';
-import Settings from './components/pages/Systems';
-import AI from './components/pages/AI';
-import PracticeML from './components/pages/PracticeML';
-import JobSearch from './components/pages/JobSearch';
+import VerticalMenu from './components/menu/vertical-menu';
+import Home from './components/pages/home';
+import Profile from './components/pages/profile';
+import Settings from './components/pages/systems';
+import AI from './components/pages/ai';
+import PracticeML from './components/pages/practice-ml';
+import JobSearch from './components/pages/job-search';
 import './css/App.css';
 
 const App: React.FC = () => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import ProfileCard from '../ProfileCard/ProfileCard';
+import ProfileCard from '../profile-card/profile-card';
 
 const Profile: React.FC = () => {
     const profileData = {
