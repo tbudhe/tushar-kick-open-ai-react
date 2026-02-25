@@ -1,0 +1,28 @@
+name: Set Railway Environment Variables
+
+on:
+  workflow_dispatch:
+
+jobs:
+  set-env:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Railway CLI
+        run: npm install -g @railway/cli@latest
+
+      - name: Set DATABASE_URL in Railway
+        env:
+          RAILWAY_API_KEY: ${{ secrets.RAILWAY_API_KEY }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          RAILWAY_PROJECT_ID: ${{ secrets.RAILWAY_PROJECT_ID }}
+          RAILWAY_ENVIRONMENT: ${{ secrets.RAILWAY_ENVIRONMENT }}
+        run: |
+          railway login --apiKey "$RAILWAY_API_KEY"
+          railway use "$RAILWAY_PROJECT_ID" "$RAILWAY_ENVIRONMENT" || true
+          railway variables set DATABASE_URL "$DATABASE_URL" || (
+            echo "Fallback: trying 'railway env set'"
+            railway env set DATABASE_URL "$DATABASE_URL" || true
+          )
