@@ -1,7 +1,7 @@
 import React  from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import VerticalMenu from './components/menu/vertical-menu';
-import Home from './components/pages/Home';
+import Home from './components/pages/Home.tsx';
 import Profile from './components/pages/Profile';
 import SystemPage from './components/pages/system';
 import AI from './components/pages/AI';
