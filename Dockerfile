@@ -24,8 +24,9 @@ RUN npm ci --ignore-scripts
 # Copy all source files (except node_modules and dist)
 COPY . .
 
-# Copy React build from client-build
-COPY --from=client-build /app/dist/build ./dist/build
+# Copy React build from client-build (copy full `dist` directory produced by client build)
+# This avoids nested `dist/dist/build` when the client build already places files inside `dist/`.
+COPY --from=client-build /app/dist ./dist
 
 # Compile server
 RUN npx tsc
