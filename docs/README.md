@@ -1,5 +1,7 @@
 # AI Project with React and Node.js
 
+[![Build and push Docker image](https://github.com/tbudhe/tushar-kick-open-ai-react/actions/workflows/docker-build-push.yml/badge.svg)](https://github.com/tbudhe/tushar-kick-open-ai-react/actions/workflows/docker-build-push.yml)
+
 This project is an AI-powered web application built with **React** for the frontend and **Node.js (Express, TypeScript)** for the backend. The React app is served directly from the Node.js server (`server.ts`), allowing seamless integration of API endpoints and static frontend assets.
 
 ---
