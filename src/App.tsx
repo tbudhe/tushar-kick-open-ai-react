@@ -1,10 +1,10 @@
 import React  from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import VerticalMenu from './components/menu/vertical-menu';
-import Home from './components/pages/home';
-import Profile from './components/pages/profile';
+import Home from './components/pages/Home';
+import Profile from './components/pages/Profile';
 import SystemPage from './components/pages/system';
-import AI from './components/pages/ai';
+import AI from './components/pages/AI';
 import PracticeML from './components/pages/practice-ml';
 import JobSearch from './components/pages/job-search';
 import './css/App.css';
