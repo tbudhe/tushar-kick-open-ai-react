@@ -5,7 +5,8 @@ WORKDIR /app
 
 # Copy only package files first for better caching
 COPY package.json package-lock.json* ./
-RUN npm install
+# Install without running lifecycle scripts (postinstall will run later explicitly)
+RUN npm install --ignore-scripts
 
 # Copy the rest of the files and build React
 COPY . .
