@@ -26,7 +26,20 @@ echo "Installing Railway CLI..."
 npm install -g @railway/cli@latest
 
 echo "Logging into Railway..."
-railway login --apiKey "$RAILWAY_API_KEY"
+# Try non-interactive login methods supported by different CLI versions.
+# Attempt --apiKey, then --token, then fall back to interactive login.
+if [ -n "${RAILWAY_API_KEY:-}" ]; then
+  if railway login --apiKey "$RAILWAY_API_KEY" 2>/dev/null; then
+    echo "Logged in with --apiKey"
+  elif railway login --token "$RAILWAY_API_KEY" 2>/dev/null; then
+    echo "Logged in with --token"
+  else
+    echo "Non-interactive login failed; attempting interactive login..."
+    railway login || true
+  fi
+else
+  railway login || true
+fi
 
 echo "Selecting project/environment..."
 echo "Using project: ${RAILWAY_PROJECT_NAME} (${RAILWAY_PROJECT_ID})"
@@ -35,14 +48,48 @@ railway use "$RAILWAY_PROJECT_ID" "$RAILWAY_ENVIRONMENT" || true
 
 echo "Setting DATABASE_URL..."
 echo "Railway service id (optional): ${RAILWAY_SERVICE_ID}"
-railway variables set DATABASE_URL "$DATABASE_URL" || (
-  echo "Fallback: trying 'railway env set'"
-  railway env set DATABASE_URL "$DATABASE_URL" || true
-)
+set_var_with_variants() {
+  local key="$1"; shift
+  local value="$1"; shift
+
+  local cmds=(
+    "railway variables set \"$key\" \"$value\""
+    "railway variables:set \"$key\" \"$value\""
+    "railway env set \"$key\" \"$value\""
+    "railway env variables set \"$key\" \"$value\""
+    "railway environment variables set \"$key\" \"$value\""
+    "railway environment variable set \"$key\" \"$value\""
+    "railway variables add \"$key\" \"$value\""
+    "railway variable set \"$key\" \"$value\""
+  )
+
+  for c in "${cmds[@]}"; do
+    echo "Trying: $c"
+    if bash -c "$c" >/tmp/railway-cmd.out 2>/tmp/railway-cmd.err; then
+      echo "Success: $c"
+      return 0
+    else
+      echo "Failed: $c"
+      sed -n '1,200p' /tmp/railway-cmd.err
+    fi
+  done
+
+  echo "All CLI variants failed for setting $key"
+  return 1
+}
+
+if set_var_with_variants "DATABASE_URL" "$DATABASE_URL"; then
+  echo "DATABASE_URL set successfully"
+else
+  echo "Could not set DATABASE_URL via Railway CLI variants"
+fi
 
 echo "Setting helpful metadata (public domain) as RAILWAY_PUBLIC_DOMAIN (non-secret)"
-railway variables set RAILWAY_PUBLIC_DOMAIN "$RAILWAY_PUBLIC_DOMAIN" || true
+if set_var_with_variants "RAILWAY_PUBLIC_DOMAIN" "$RAILWAY_PUBLIC_DOMAIN"; then
+  echo "RAILWAY_PUBLIC_DOMAIN set successfully"
+else
+  echo "Could not set RAILWAY_PUBLIC_DOMAIN via Railway CLI variants"
+fi
 
 echo "Done."
 
-echo "Done."
