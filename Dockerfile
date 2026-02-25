@@ -17,7 +17,8 @@ FROM node:20-slim AS server-build
 WORKDIR /app
 
 COPY package.json package-lock.json* ./
-RUN npm install --production
+# Skip lifecycle scripts here (postinstall would run before sources copied)
+RUN npm install --production --ignore-scripts
 
 # Copy all source files (except node_modules and dist)
 COPY . .
