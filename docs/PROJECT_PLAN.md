@@ -247,12 +247,12 @@ git push origin main
 
 ## DAY 1 Checklist
 
-- [ ] Architecture diagram created and saved to `docs/`
+ - [x] Architecture diagram created and saved to `docs/`
 - [ ] MongoDB Atlas account created
 - [ ] Free cluster created
 - [ ] Database user created
 - [ ] Connection string added to `.env`
-- [ ] `.env` added to `.gitignore`
+ - [x] `.env` added to `.gitignore`
 - [ ] Connection tested locally
 - [ ] Railway account created
 - [ ] GitHub integration connected
@@ -260,7 +260,7 @@ git push origin main
 - [ ] Code deployed to Railway
 - [ ] Health endpoint tested (returns OK)
 - [ ] API endpoints tested (returns menu)
-- [ ] `.env.example` documented
+ - [x] `.env.example` documented
 - [ ] All changes committed and pushed
 
 ---

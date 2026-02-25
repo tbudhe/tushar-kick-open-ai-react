@@ -111,22 +111,48 @@ app.get('/api/db-status', async (_req, res) => {
 
 // Serve static files from React build
 // Probe several likely locations because different build/deploy setups
-// may place the React build at different paths (e.g. /app/dist/build,
-// /app/dist/dist/build, /app/build, etc.). Choose the first existing one.
+// may place the React build at different paths. Choose the first location
+// where an index.html is present.
 const candidateBuildPaths = [
+  // Common when server compiled into dist and build files are next to server
   path.join(__dirname, 'build'),
   path.join(__dirname, 'dist', 'build'),
+  path.join(__dirname, 'dist'),
+  path.join(__dirname, '..', 'dist'),
+  path.join(__dirname, '..', 'build'),
+  path.join(__dirname),
+  // From project root when running without compilation
   path.join(process.cwd(), 'dist', 'build'),
-  path.join(process.cwd(), 'build')
+  path.join(process.cwd(), 'dist'),
+  path.join(process.cwd(), 'build'),
+  process.cwd()
 ];
 
-let buildPath = candidateBuildPaths.find(p => fs.existsSync(p));
-if (!buildPath) {
-  // If none exists, default to __dirname/build so logs point to where we looked
-  buildPath = path.join(__dirname, 'build');
+let buildPath: string | undefined;
+let indexPath: string | undefined;
+
+for (const candidate of candidateBuildPaths) {
+  const candidateIndex = path.join(candidate, 'index.html');
+  if (fs.existsSync(candidateIndex)) {
+    buildPath = candidate;
+    indexPath = candidateIndex;
+    break;
+  }
+  // also check candidate/build/index.html (some setups nest another 'build')
+  const nestedIndex = path.join(candidate, 'build', 'index.html');
+  if (fs.existsSync(nestedIndex)) {
+    buildPath = path.join(candidate, 'build');
+    indexPath = nestedIndex;
+    break;
+  }
 }
 
-const indexPath = path.join(buildPath, 'index.html');
+if (!buildPath || !indexPath) {
+  // default to __dirname/build to keep prior behavior and informative logs
+  buildPath = path.join(__dirname, 'build');
+  indexPath = path.join(buildPath, 'index.html');
+}
+
 const indexExists = fs.existsSync(indexPath);
 console.log(`[SERVER] Candidate build paths: ${candidateBuildPaths.join(', ')}`);
 console.log(`[SERVER] Using buildPath: ${buildPath}`);
@@ -136,7 +162,7 @@ app.use(express.static(buildPath));
 
 // SPA fallback route with defensive behavior
 app.use((_req, res) => {
-  if (indexExists) {
+  if (indexExists && indexPath) {
     res.sendFile(indexPath);
   } else {
     res.status(404).send(
