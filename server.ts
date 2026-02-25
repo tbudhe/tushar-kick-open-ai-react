@@ -1,5 +1,6 @@
 import express from 'express';
 import path from 'path';
+import fs from 'fs';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
@@ -109,12 +110,39 @@ app.get('/api/db-status', async (_req, res) => {
 });
 
 // Serve static files from React build
-const buildPath = path.join(__dirname, 'dist', 'build');
+// Probe several likely locations because different build/deploy setups
+// may place the React build at different paths (e.g. /app/dist/build,
+// /app/dist/dist/build, /app/build, etc.). Choose the first existing one.
+const candidateBuildPaths = [
+  path.join(__dirname, 'build'),
+  path.join(__dirname, 'dist', 'build'),
+  path.join(process.cwd(), 'dist', 'build'),
+  path.join(process.cwd(), 'build')
+];
+
+let buildPath = candidateBuildPaths.find(p => fs.existsSync(p));
+if (!buildPath) {
+  // If none exists, default to __dirname/build so logs point to where we looked
+  buildPath = path.join(__dirname, 'build');
+}
+
+const indexPath = path.join(buildPath, 'index.html');
+const indexExists = fs.existsSync(indexPath);
+console.log(`[SERVER] Candidate build paths: ${candidateBuildPaths.join(', ')}`);
+console.log(`[SERVER] Using buildPath: ${buildPath}`);
+console.log(`[SERVER] index.html exists: ${indexExists} -> ${indexPath}`);
+
 app.use(express.static(buildPath));
 
-// SPA fallback route
+// SPA fallback route with defensive behavior
 app.use((_req, res) => {
-  res.sendFile(path.join(buildPath, 'index.html'));
+  if (indexExists) {
+    res.sendFile(indexPath);
+  } else {
+    res.status(404).send(
+      `index.html not found. Looked at: ${candidateBuildPaths.join(', ')}`
+    );
+  }
 });
 
 // ============================================
