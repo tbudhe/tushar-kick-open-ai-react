@@ -1,0 +1,466 @@
+{
+	"openapi": "3.0.0",
+	"components": {
+		"examples": {},
+		"headers": {},
+		"parameters": {},
+		"requestBodies": {},
+		"responses": {},
+		"schemas": {
+			"MenuItem": {
+				"properties": {
+					"label": {
+						"type": "string"
+					},
+					"path": {
+						"type": "string"
+					},
+					"icon": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"label",
+					"path",
+					"icon"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"DbStatusResponse": {
+				"properties": {
+					"connected": {
+						"type": "boolean"
+					},
+					"database": {
+						"type": "string"
+					},
+					"collections": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"url": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"connected",
+					"database",
+					"collections",
+					"url"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ParsedResumeData": {
+				"properties": {
+					"fullName": {
+						"type": "string",
+						"nullable": true
+					},
+					"email": {
+						"type": "string",
+						"nullable": true
+					},
+					"phone": {
+						"type": "string",
+						"nullable": true
+					},
+					"summary": {
+						"type": "string",
+						"nullable": true
+					},
+					"skills": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"experience": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"education": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"fullName",
+					"email",
+					"phone",
+					"summary",
+					"skills",
+					"experience",
+					"education"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ParseResumeSuccessResponse": {
+				"properties": {
+					"success": {
+						"type": "boolean",
+						"enum": [
+							true
+						],
+						"nullable": false
+					},
+					"source": {
+						"type": "string",
+						"enum": [
+							"claude",
+							"fallback"
+						]
+					},
+					"fileName": {
+						"type": "string"
+					},
+					"parsedData": {
+						"$ref": "#/components/schemas/ParsedResumeData"
+					}
+				},
+				"required": [
+					"success",
+					"source",
+					"fileName",
+					"parsedData"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ErrorResponse": {
+				"properties": {
+					"error": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"error"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ParseResumeRequest": {
+				"properties": {
+					"resumeText": {
+						"type": "string"
+					},
+					"fileName": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"resumeText"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"HeartbeatResponse": {
+				"properties": {
+					"status": {
+						"type": "string",
+						"enum": [
+							"healthy"
+						],
+						"nullable": false
+					},
+					"timestamp": {
+						"type": "string"
+					},
+					"uptime": {
+						"type": "number",
+						"format": "double"
+					},
+					"port": {
+						"type": "number",
+						"format": "double"
+					},
+					"database": {
+						"type": "string",
+						"enum": [
+							"connected",
+							"disconnected"
+						]
+					},
+					"environment": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"status",
+					"timestamp",
+					"uptime",
+					"port",
+					"database",
+					"environment"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"HealthResponse": {
+				"properties": {
+					"status": {
+						"type": "string",
+						"enum": [
+							"healthy",
+							"degraded"
+						]
+					},
+					"database": {
+						"type": "string",
+						"enum": [
+							"connected",
+							"disconnected"
+						]
+					},
+					"timestamp": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"status",
+					"database",
+					"timestamp"
+				],
+				"type": "object",
+				"additionalProperties": false
+			}
+		},
+		"securitySchemes": {}
+	},
+	"info": {
+		"title": "Job Search Automation API",
+		"version": "0.1.0",
+		"description": "REST API contract for job search automation workflows including health checks, system metadata, and resume parsing.",
+		"contact": {}
+	},
+	"paths": {
+		"/api/menu": {
+			"get": {
+				"operationId": "GetMenu",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/MenuItem"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"System"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/api/db-status": {
+			"get": {
+				"operationId": "GetDbStatus",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/DbStatusResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"System"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/api/parse-resume": {
+			"post": {
+				"operationId": "ParseResume",
+				"responses": {
+					"200": {
+						"description": "Parsed",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ParseResumeSuccessResponse"
+								},
+								"examples": {
+									"Example 1": {
+										"value": {
+											"success": true,
+											"source": "fallback",
+											"fileName": "sample.txt",
+											"parsedData": {
+												"fullName": "Alex Johnson",
+												"email": "alex.johnson@example.com",
+												"phone": "+1 415 555 1290",
+												"summary": null,
+												"skills": [
+													"React",
+													"TypeScript",
+													"Node.js"
+												],
+												"experience": [
+													"Senior Engineer at CloudNova"
+												],
+												"education": [
+													"B.S. Computer Science"
+												]
+											}
+										}
+									}
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid input",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorResponse"
+								}
+							}
+						}
+					},
+					"413": {
+						"description": "Payload too large",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorResponse"
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "Server error",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Resume"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/ParseResumeRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/health": {
+			"get": {
+				"operationId": "GetHealth",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "string"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Health"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/heartbeat": {
+			"get": {
+				"operationId": "GetHeartbeat",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/HeartbeatResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Health"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/api/health": {
+			"get": {
+				"operationId": "GetApiHealth",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/HealthResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Health"
+				],
+				"security": [],
+				"parameters": []
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "/"
+		}
+	],
+	"tags": [
+		{
+			"name": "Health",
+			"description": "Service heartbeat and readiness endpoints."
+		},
+		{
+			"name": "System",
+			"description": "System-level metadata endpoints such as menu and database diagnostics."
+		},
+		{
+			"name": "Resume",
+			"description": "Resume parsing endpoints for extracting structured candidate profile data."
+		}
+	]
+}

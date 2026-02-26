@@ -1,0 +1,33 @@
+{
+  "entryFile": "server.ts",
+  "noImplicitAdditionalProperties": "silently-remove-extras",
+  "controllerPathGlobs": [
+    "backend/src/contracts/controllers/*.ts"
+  ],
+  "spec": {
+    "outputDirectory": "backend/openapi",
+    "specVersion": 3,
+    "name": "Job Search Automation API",
+    "version": "0.1.0",
+    "description": "REST API contract for job search automation workflows including health checks, system metadata, and resume parsing.",
+    "basePath": "/",
+    "tags": [
+      {
+        "name": "Health",
+        "description": "Service heartbeat and readiness endpoints."
+      },
+      {
+        "name": "System",
+        "description": "System-level metadata endpoints such as menu and database diagnostics."
+      },
+      {
+        "name": "Resume",
+        "description": "Resume parsing endpoints for extracting structured candidate profile data."
+      }
+    ],
+    "securityDefinitions": {}
+  },
+  "routes": {
+    "routesDir": "backend/src/contracts/generated"
+  }
+}
