@@ -38,18 +38,6 @@ app.use(express.urlencoded({ extended: true }));
 async function connectDatabase() {
   try {
     const DATABASE_URL = getDatabaseUrl();
-    const dbEnvDiagnostics = {
-      DATABASE_URL: !!process.env.DATABASE_URL,
-      MONGODB_URI: !!process.env.MONGODB_URI,
-      MONGO_URI: !!process.env.MONGO_URI,
-      MONGO_URL: !!process.env.MONGO_URL,
-      DATABASEURI: !!process.env.DATABASEURI,
-      DATABASEURL: !!process.env.DATABASEURL,
-      database_url: !!process.env.database_url,
-    };
-
-    console.log(`[DB] Environment: ${NODE_ENV}`);
-    console.log(`[DB] Env key presence: ${JSON.stringify(dbEnvDiagnostics)}`);
 
     if (!DATABASE_URL) {
       console.error('[DB] Missing MongoDB connection string.');
@@ -196,9 +184,11 @@ if (!buildPath || !indexPath) {
 }
 
 const indexExists = fs.existsSync(indexPath);
-console.log(`[SERVER] Candidate build paths: ${candidateBuildPaths.join(', ')}`);
-console.log(`[SERVER] Using buildPath: ${buildPath}`);
-console.log(`[SERVER] index.html exists: ${indexExists} -> ${indexPath}`);
+if (NODE_ENV !== 'production') {
+  console.log(`[SERVER] Candidate build paths: ${candidateBuildPaths.join(', ')}`);
+  console.log(`[SERVER] Using buildPath: ${buildPath}`);
+  console.log(`[SERVER] index.html exists: ${indexExists} -> ${indexPath}`);
+}
 
 app.use(express.static(buildPath));
 
