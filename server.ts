@@ -10,12 +10,22 @@ dotenv.config();
 
 const app = express();
 const PORT = parseInt(process.env.PORT || process.env.WEBSITES_PORT || '3000', 10);
-const DATABASE_URL =
-  process.env.DATABASE_URL ||
-  process.env.MONGODB_URI ||
-  process.env.MONGO_URI ||
-  '';
 const NODE_ENV = process.env.NODE_ENV || 'development';
+
+function getDatabaseUrl() {
+  const candidates = [
+    process.env.DATABASE_URL,
+    process.env.MONGODB_URI,
+    process.env.MONGO_URI,
+    process.env.MONGO_URL,
+    process.env.DATABASEURI,
+    process.env.DATABASEURL,
+    process.env.database_url,
+  ];
+
+  const firstMatch = candidates.find((value) => typeof value === 'string' && value.trim().length > 0);
+  return firstMatch?.trim() || '';
+}
 
 // Middleware
 app.use(cors());
@@ -27,6 +37,20 @@ app.use(express.urlencoded({ extended: true }));
 // ============================================
 async function connectDatabase() {
   try {
+    const DATABASE_URL = getDatabaseUrl();
+    const dbEnvDiagnostics = {
+      DATABASE_URL: !!process.env.DATABASE_URL,
+      MONGODB_URI: !!process.env.MONGODB_URI,
+      MONGO_URI: !!process.env.MONGO_URI,
+      MONGO_URL: !!process.env.MONGO_URL,
+      DATABASEURI: !!process.env.DATABASEURI,
+      DATABASEURL: !!process.env.DATABASEURL,
+      database_url: !!process.env.database_url,
+    };
+
+    console.log(`[DB] Environment: ${NODE_ENV}`);
+    console.log(`[DB] Env key presence: ${JSON.stringify(dbEnvDiagnostics)}`);
+
     if (!DATABASE_URL) {
       console.error('[DB] Missing MongoDB connection string.');
       console.error('[DB] Set one of: DATABASE_URL, MONGODB_URI, or MONGO_URI');
@@ -108,6 +132,7 @@ app.get('/api/menu', (_req, res) => {
 // API endpoint to check database connection
 app.get('/api/db-status', async (_req, res) => {
   try {
+    const DATABASE_URL = getDatabaseUrl();
     const isConnected = mongoose.connection.readyState === 1;
     const dbName = mongoose.connection.name;
     const collections = await mongoose.connection.db?.listCollections().toArray();
