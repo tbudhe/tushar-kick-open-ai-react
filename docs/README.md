@@ -12,6 +12,7 @@ This project is an AI-powered web application built with **React** for the front
 - [Prerequisites](#prerequisites)
 - [Local Development](#local-development)
 - [Available Scripts](#available-scripts)
+- [Railway Deployment](#railway-deployment)
 - [Docker Instructions](#docker-instructions)
 - [Render.com Deployment (Recommended)](#rendercom-deployment-recommended)
 - [Azure Deployment](#azure-deployment)
@@ -57,15 +58,33 @@ npm install
 
 ### 2. Run Development Server
 ```sh
-npm start
+npm run dev
 ```
 Visit [http://localhost:3000](http://localhost:3000) to view the app.
 
 ### 3. Run Production Server
 ```sh
-npm run start:server
+npm run serve
 ```
-This builds both React and TypeScript server, then starts the production server.
+This builds frontend + server and starts the compiled Node server.
+
+### 4. Validate Database Connection
+```sh
+npm run test:db
+```
+
+---
+
+## Railway Deployment
+
+Use the finalized runbook:
+
+- `docs/RAILWAY_DEPLOYMENT.md`
+
+Day-1 handoff docs:
+
+- `docs/DAY1_COMPLETION.md`
+- `docs/DAY1_VERIFICATION.md`
 
 ## Available Scripts
 

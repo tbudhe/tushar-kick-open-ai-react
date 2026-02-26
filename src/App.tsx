@@ -1,7 +1,7 @@
-import React  from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import VerticalMenu from './components/menu/vertical-menu';
-import Home from './components/pages/Home.tsx';
+import Home from './components/pages/Home';
 import Profile from './components/pages/profile';
 import SystemPage from './components/pages/system';
 import AI from './components/pages/ai';
@@ -39,15 +39,4 @@ const App: React.FC = () => {
 };
 
 export default App;
-
-/* Remove or comment out this block in App.css 
-.flex-grow-1 {
-  margin-left: 220px;
-  transition: margin-left 0.2s;
-}
-
-.vertical-menu.collapsed ~ .flex-grow-1 {
-  margin-left: 60px;
-}
-*/
 
