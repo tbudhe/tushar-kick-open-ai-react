@@ -19,10 +19,17 @@ Build a beginner-friendly job-search automation agent that searches for jobs, ta
 - [x] **10 min**: Deploy to Railway (COMPLETED)
 
 ### DAY 2: Resume Parser (1 hour)
-- **20 min**: Build resume upload component (React)
-- **20 min**: Create `/api/parse-resume` endpoint (Node.js)
-- **15 min**: Integrate Claude API to extract resume data
-- **5 min**: Test with sample resume
+
+#### Tasks Completed
+- [x] **20 min**: Build resume upload component (React)
+- [x] **20 min**: Create `/api/parse-resume` endpoint (Node.js)
+- [x] **15 min**: Integrate Claude API to extract resume data
+- [x] **5 min**: Test with sample resume
+
+#### Day 2 Notes
+- Resume parser now supports both pasted text and multipart file upload.
+- Backend extraction supports `.txt`, `.md`, `.json`, `.rtf`, `.pdf`, and `.docx` (`.doc` returns guidance to convert).
+- API contract is documented in Swagger at `/api/docs/`.
 
 ### DAY 3: Job Search Integration (1 hour)
 - **25 min**: Add job search UI (search bar, filters)
@@ -80,7 +87,7 @@ USER
 
   | Option | Setup Time | Operational Overhead | Current Use |
   |--------|------------|----------------------|-------------|
-  | Railway (single platform) | 10-15 min | Low | ✅ Active |
+  | Railway (single platform) | 10-15 min | Low |  Active |
   | Vercel + Railway | 15-25 min | Low-Medium | Optional later |
 
   ### Recommended Operating Model
@@ -107,7 +114,7 @@ USER
 
   - `https://gen-ai-ik-demo-production-0c69.up.railway.app`
   );
-  
+
   return { tailoredResume, jobAnalysis, applicationEmail };
 }
 ```
@@ -452,12 +459,12 @@ import { DashboardLayout, DataTable, FileUploader } from '@ai-platform/shared-ui
 
 - **Frontend on Vercel**: Optimized for React, CDN included, free tier is generous.
 - **Backend on Railway**: Node.js is optimized, cheaper than Vercel for APIs.
-    <FileUploader 
-      accept=".pdf" 
+    <FileUploader
+      accept=".pdf"
       onUpload={handleResumeUpload}
       label="Upload Your Resume"
     />
-    <DataTable 
+    <DataTable
       columns={['Title', 'Company', 'Match %', 'Actions']}
       data={jobs}
       onRowClick={handleJobSelect}
@@ -473,7 +480,7 @@ import { DashboardLayout, DataTable, MetricsCard } from '@ai-platform/shared-ui'
 export const WalmartDashboard = () => (
   <DashboardLayout projectName="Item Recommendation">
     <MetricsCard title="Recommendations Generated" value={1250} />
-    <DataTable 
+    <DataTable
       columns={['Product', 'Match %', 'Category', 'Actions']}
       data={recommendations}
       onRowClick={handleProductSelect}
@@ -500,7 +507,7 @@ interface LLMRequest {
 
 export const callClaude = async (request: LLMRequest) => {
   const client = new Anthropic();
-  
+
   const response = await client.messages.create({
     model: 'claude-3-5-sonnet-20241022',
     max_tokens: request.maxTokens || 2000,
@@ -509,7 +516,7 @@ export const callClaude = async (request: LLMRequest) => {
       content: request.prompt
     }]
   });
-  
+
   return response.content[0].text;
 };
 ```
@@ -521,7 +528,7 @@ import { callClaude } from '@ai-platform/shared-api';
 
 export const tailorResume = async (resume: string, jobDesc: string) => {
   const prompt = `Tailor resume for: ${jobDesc}\n\nResume: ${resume}`;
-  return await callClaude({ 
+  return await callClaude({
     prompt,
     maxTokens: 2000
   });
@@ -536,7 +543,7 @@ import { callClaude } from '@ai-platform/shared-api';
 export const generateRecommendations = async (userProfile: any, products: any[]) => {
   const prompt = `Given user profile: ${JSON.stringify(userProfile)}\n` +
                  `Recommend from: ${JSON.stringify(products)}`;
-  return await callClaude({ 
+  return await callClaude({
     prompt,
     maxTokens: 1500
   });
@@ -633,7 +640,7 @@ export const NavBar: React.FC<NavBarProps> = ({ currentProject, projects }) => (
     <div style={styles.brand}>AI Platform</div>
     <div style={styles.projects}>
       {projects.map(project => (
-        <Link 
+        <Link
           key={project.path}
           to={project.path}
           style={{
@@ -649,7 +656,7 @@ export const NavBar: React.FC<NavBarProps> = ({ currentProject, projects }) => (
 );
 
 const styles = {
-  navbar: { 
+  navbar: {
     display: 'flex',
     padding: '1rem',
     backgroundColor: '#1a1a1a',
@@ -1106,7 +1113,7 @@ const tailorResume = async (originalResume, jobDescription) => {
     messages: [{
       role: 'user',
       content: `Tailor this resume for the following job:
-      
+
 RESUME:
 ${originalResume}
 
@@ -1116,7 +1123,7 @@ ${jobDescription}
 Rewrite the resume to highlight relevant skills and experience.`
     }]
   });
-  
+
   return response.content[0].text;
 };
 ```
