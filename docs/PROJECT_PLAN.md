@@ -61,6 +61,75 @@ Build a beginner-friendly job-search automation agent that searches for jobs, ta
 - **15 min**: Final deployment + README
 - **10 min**: Portfolio documentation
 
+### AI Agent Learning Curve (When to Use Which Technology)
+
+Use this as a phased learning path while implementing the 7-day plan.
+
+#### Stage 1: Foundation (Day 2-3)
+- **Primary focus**: API design, parsing, and workflow basics
+- **Tech**: Existing Express services + Claude/fallback logic
+- **Goal**: Understand end-to-end AI feature delivery before orchestration frameworks
+
+#### Stage 2: Chain Abstractions (Day 3-4, optional entry)
+- **Tech**: LangChain
+- **Use for**: Prompt templates, model wrappers, and reusable tool calling blocks
+- **Goal**: Standardize LLM calls before introducing graph orchestration
+
+#### Stage 3: Agent Orchestration (Day 4-5, core)
+- **Tech**: LangGraph
+- **Use for**: Multi-step agent workflow with state and branching
+- **Suggested graph nodes**:
+  1. Resume Ingestion
+  2. Job Fetch
+  3. Match Scoring
+  4. Resume Tailoring
+  5. Outreach Draft
+  6. Persistence + Status Update
+- **Goal**: Build a true agentic pipeline, not just isolated API calls
+
+#### Stage 4: Memory and Retrieval (Day 5-6)
+- **Tech**: Vector DB + RAG
+- **Use for**:
+  - Retrieving relevant past resumes and tailored versions
+  - Matching new job descriptions with historical successful applications
+  - Reusing strongest bullets and context for generation
+- **Goal**: Add long-term memory and retrieval-driven generation quality
+
+#### Stage 5: Automation + Scale (Day 6-7)
+- **Tech combination**: LangGraph + RAG + scheduler (cron)
+- **Use for**: Daily autonomous runs, human-in-the-loop approvals, retries, and notifications
+- **Goal**: Production-style agent behavior with observability and control
+
+#### Suggested Priority Order
+1. LangGraph
+2. Vector DB
+3. RAG
+4. LangChain (where abstraction helps maintainability)
+
+This order keeps learning practical: first workflow control, then memory, then retrieval optimization.
+
+#### Learning Curve Checklist (Day-wise)
+
+- [x] **Day 1**: Full-stack foundation (React + Express + DB + deployment basics)
+- [x] **Day 2**: Resume parsing foundation (LLM + fallback parser)
+- [ ] **Day 3**: Job search integration and tool-ready service boundaries
+- [ ] **Day 4**: Introduce LangGraph for multi-step agent workflow
+- [ ] **Day 5**: Add decision logic for apply tracking + agent actions
+- [ ] **Day 6**: Add Vector DB and RAG memory retrieval
+- [ ] **Day 7**: Production polish (observability, retries, cost controls)
+
+#### Technology Introduction Timeline
+
+| Day | Focus | Technology |
+|-----|-------|------------|
+| Day 1 | Full-stack baseline and deployment workflow | React + Express + MongoDB + Railway |
+| Day 2 | Parse and structure data | Claude API + fallback parser |
+| Day 3 | Integrate job workflow tools | Express services (tool boundaries) |
+| Day 4 | Orchestrate agent state flow | LangGraph |
+| Day 5 | Compose reusable model/tool calls | LangChain (optional abstraction) |
+| Day 6 | Retrieval memory + context reuse | Vector DB + RAG |
+| Day 7 | Automation hardening | Scheduler (cron) + observability |
+
 ---
 
 ## DAY 1 Detailed Execution Guide

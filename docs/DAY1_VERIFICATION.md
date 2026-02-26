@@ -43,6 +43,19 @@ Day 1 foundation is complete, deployed, and stable.
 
 ---
 
+## Day 1 Learning Curve Note (Full-Stack Foundation)
+
+Day 1 learning goal is full-stack baseline readiness:
+
+- React frontend structure and routing
+- Express + TypeScript backend startup
+- MongoDB connectivity and environment wiring
+- Docker/Railway deployment workflow and health checks
+
+This Day 1 baseline is the foundation for agentic AI phases in later days.
+
+---
+
 ## Day 2 Handoff
 
 Recommended start sequence:
