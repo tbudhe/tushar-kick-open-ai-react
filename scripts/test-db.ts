@@ -13,13 +13,23 @@ import * as dotenv from 'dotenv';
 // Load environment variables
 dotenv.config();
 
-const DATABASE_URL = process.env.DATABASE_URL || 'mongodb://localhost:27017/jobagent';
+const DATABASE_URL =
+  process.env.DATABASE_URL ||
+  process.env.MONGODB_URI ||
+  process.env.MONGO_URI ||
+  '';
 const NODE_ENV = process.env.NODE_ENV || 'development';
 
 async function testConnection() {
   console.log('\n' + '='.repeat(60));
   console.log('DATABASE CONNECTION TEST');
   console.log('='.repeat(60) + '\n');
+
+  if (!DATABASE_URL) {
+    console.error('Missing MongoDB connection string.');
+    console.error('Set one of: DATABASE_URL, MONGODB_URI, or MONGO_URI');
+    process.exit(1);
+  }
 
   console.log(`Environment: ${NODE_ENV}`);
   console.log(`Database URL: ${DATABASE_URL.includes('@') ? DATABASE_URL.split('@')[1] : DATABASE_URL}\n`);
@@ -111,6 +121,8 @@ async function testConnection() {
     console.error('\nDebug info:');
     console.error(`  - NODE_ENV: ${NODE_ENV}`);
     console.error(`  - DATABASE_URL configured: ${!!process.env.DATABASE_URL}`);
+    console.error(`  - MONGODB_URI configured: ${!!process.env.MONGODB_URI}`);
+    console.error(`  - MONGO_URI configured: ${!!process.env.MONGO_URI}`);
     
     process.exit(1);
   } finally {

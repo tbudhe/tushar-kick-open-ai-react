@@ -10,7 +10,11 @@ dotenv.config();
 
 const app = express();
 const PORT = parseInt(process.env.PORT || process.env.WEBSITES_PORT || '3000', 10);
-const DATABASE_URL = process.env.DATABASE_URL || 'mongodb://localhost:27017/jobagent';
+const DATABASE_URL =
+  process.env.DATABASE_URL ||
+  process.env.MONGODB_URI ||
+  process.env.MONGO_URI ||
+  '';
 const NODE_ENV = process.env.NODE_ENV || 'development';
 
 // Middleware
@@ -23,7 +27,20 @@ app.use(express.urlencoded({ extended: true }));
 // ============================================
 async function connectDatabase() {
   try {
-    console.log(`[DB] Connecting to MongoDB at: ${DATABASE_URL.split('@')[1] || 'local'}`);
+    if (!DATABASE_URL) {
+      console.error('[DB] Missing MongoDB connection string.');
+      console.error('[DB] Set one of: DATABASE_URL, MONGODB_URI, or MONGO_URI');
+
+      if (NODE_ENV === 'production') {
+        console.error('[DB] CRITICAL: Cannot start in production without database');
+        process.exit(1);
+      }
+
+      console.warn('[DB] Development mode: Continuing without database');
+      return false;
+    }
+
+    console.log(`[DB] Connecting to MongoDB at: ${DATABASE_URL.split('@')[1] || 'configured-host'}`);
     
     await mongoose.connect(DATABASE_URL);
     
@@ -99,7 +116,7 @@ app.get('/api/db-status', async (_req, res) => {
       connected: isConnected,
       database: dbName || 'unknown',
       collections: collections?.map(c => c.name) || [],
-      url: DATABASE_URL.split('@')[1] || 'local'
+      url: DATABASE_URL ? DATABASE_URL.split('@')[1] || 'configured-host' : 'not-configured'
     });
   } catch (error) {
     res.status(500).json({
