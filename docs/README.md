@@ -14,8 +14,6 @@ This project is an AI-powered web application built with **React** for the front
 - [Available Scripts](#available-scripts)
 - [Railway Deployment](#railway-deployment)
 - [Docker Instructions](#docker-instructions)
-- [Render.com Deployment (Recommended)](#rendercom-deployment-recommended)
-- [Azure Deployment](#azure-deployment)
 - [Debugging and Logs](#debugging-and-logs)
 
 ---
@@ -27,7 +25,7 @@ This project is an AI-powered web application built with **React** for the front
 - **REST API endpoints** for dynamic data
 - **Production-ready**: Single server for both frontend and backend
 - **Dockerized**: Build and deploy using Docker
-- **Azure-ready**: Deploy to Azure Web App with Docker support
+- **Railway-ready**: Deploy with Docker and managed service variables
 - **ML Learning Hub**: Includes visual search, decision trees, regression, and optimization algorithms
 
 ---
@@ -39,13 +37,6 @@ Before you begin, ensure you have the following installed:
 - **Node.js** (v20 or higher)
 - **npm** (v8 or higher)
 - **Docker** (for containerization)
-- **Azure CLI** (for Azure deployment)
-
-Install Azure CLI on macOS:
-```sh
-brew install azure-cli
-az version
-```
 
 ---
 
@@ -75,16 +66,16 @@ npm run test:db
 
 ---
 
-## Railway Deployment
+## Documentation Links
 
 Use the finalized runbook:
 
-- `docs/RAILWAY_DEPLOYMENT.md`
+- [Railway Deployment Guide](./RAILWAY_DEPLOYMENT.md)
 
 Day-1 handoff docs:
 
-- `docs/DAY1_COMPLETION.md`
-- `docs/DAY1_VERIFICATION.md`
+- [Day 1 Completion](./DAY1_COMPLETION.md)
+- [Day 1 Verification](./DAY1_VERIFICATION.md)
 
 ## Available Scripts
 
@@ -92,11 +83,17 @@ In the project directory, you can run:
 
 ### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Runs the compiled production server (`node dist/server.js`).
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Build first with `npm run build && npm run build:server`.
+
+### `npm run dev`
+
+Runs the React development server.
+
+### `npm run serve`
+
+Builds frontend + server and starts the compiled production server.
 
 ### `npm test`
 
@@ -129,14 +126,9 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 
 ### Build Docker Image
 
-#### For macOS (local testing)
+#### Standard build
 ```sh
 docker build -t tbudhe-ik-ai-agent .
-```
-
-#### For Azure (Linux AMD64)
-```sh
-docker buildx build --platform linux/amd64 -t tbudhe-ik-arm6x-ai-agent .
 ```
 
 ### Run Docker Container Locally
@@ -149,228 +141,43 @@ Access at [http://localhost:3000](http://localhost:3000)
 
 ---
 
-## Render.com Deployment (Recommended)
+## Railway Deployment
 
-Render.com offers free Docker deployments with better reliability than Azure Free tier.
+Primary deployment target is Railway.
 
-### Quick Deploy
+Live URL:
 
-1. **Push your code to GitHub** (if not already done)
-   ```sh
-   git add .
-   git commit -m "Add Render deployment config"
-   git push origin main
-   ```
+- `https://gen-ai-ik-demo-production-0c69.up.railway.app`
 
-2. **Sign up at [Render.com](https://render.com)**
-   - Use your GitHub account for easy integration
+Primary endpoints:
 
-3. **Create New Web Service**
-   - Click "New +" → "Web Service"
-   - Connect your GitHub repository: `tbudhe/tushar-kick-open-ai-react`
-   - Render will automatically detect `render.yaml` configuration
+- `/`
+- `/health`
+- `/heartbeat`
+- `/api/health`
+- `/api/menu`
 
-4. **Deployment Settings** (Auto-configured via render.yaml)
-   - **Name**: gen-ai-ik-demo
-   - **Runtime**: Docker
-   - **Plan**: Free
-   - **Health Check Path**: /heartbeat
-   - **Auto-Deploy**: Yes (on git push)
+Detailed runbook:
 
-5. **Deploy**
-   - Click "Create Web Service"
-   - Wait 5-10 minutes for build and deployment
-   - Your app will be live at: `https://gen-ai-ik-demo.onrender.com`
-
-### Manual Configuration (Alternative)
-
-If render.yaml is not detected:
-
-```yaml
-# Runtime: Docker
-# Docker Command: (leave blank, uses CMD from Dockerfile)
-# Health Check Path: /heartbeat
-
-# Environment Variables:
-PORT=3000
-NODE_ENV=production
-```
-
-### Benefits of Render:
-- Free tier with Docker support
-- Automatic deploys from GitHub
-- SSL certificates included
-- Custom domains supported
-- Easy logs and monitoring
-- Note: Free tier sleeps after 15 min of inactivity (first request may be slow)
-
----
-
-## Azure Deployment
-
-### Current Deployment: Azure Container Instances
-
-**Your app is live at:**
-- **URL**: http://gen-ai-ik-demo-aci.eastus2.azurecontainer.io:3000
-- **IP**: 68.220.238.0
-- **Endpoints**:
-  - Main app: http://gen-ai-ik-demo-aci.eastus2.azurecontainer.io:3000/
-  - Health: http://gen-ai-ik-demo-aci.eastus2.azurecontainer.io:3000/heartbeat
-  - API: http://gen-ai-ik-demo-aci.eastus2.azurecontainer.io:3000/api/health
-
-**Cost**: ~$1.50/month (1 CPU, 1.5GB RAM)
-
-### Manage Your Container
-
-```sh
-# View container status
-az container show \
-  --resource-group resource-group-tbudhe-ik-ai-agent \
-  --name gen-ai-container \
-  --output table
-
-# View logs
-az container logs \
-  --resource-group resource-group-tbudhe-ik-ai-agent \
-  --name gen-ai-container
-
-# Restart container
-az container restart \
-  --resource-group resource-group-tbudhe-ik-ai-agent \
-  --name gen-ai-container
-
-# Stop container
-az container stop \
-  --resource-group resource-group-tbudhe-ik-ai-agent \
-  --name gen-ai-container
-
-# Delete container
-az container delete \
-  --resource-group resource-group-tbudhe-ik-ai-agent \
-  --name gen-ai-container \
-  --yes
-```
-
----
-
-### Alternative: Azure App Service (Requires Basic Tier)
-
-### Step 1: Login to Azure
-
-```sh
-az login
-```
-
-### Step 2: Create Azure Resources
-
-```sh
-# Create Resource Group
-az group create \
-  --location eastus \
-  --resource-group resource-group-tbudhe-ik-ai-agent
-
-# Create Azure Container Registry
-az acr create \
-  --name azreglinuxik \
-  --resource-group resource-group-tbudhe-ik-ai-agent \
-  --sku Basic
-
-# Enable Admin Access
-az acr update \
-  --name azreglinuxik \
-  --admin-enabled true
-
-# Get ACR Credentials
-az acr credential show --name azreglinuxik
-
-# Create App Service Plan (Free Tier)
-az appservice plan create \
-  --name az-paas-service-linux-free-plan \
-  --resource-group resource-group-tbudhe-ik-ai-agent \
-  --is-linux \
-  --sku F1 \
-  --location eastus2
-```
-
-### Step 3: Build and Push Docker Image to ACR
-
-```sh
-# Build for Linux AMD64
-docker buildx build --platform linux/amd64 -t tbudhe-ik-arm6x-ai-agent .
-
-# Tag the image for ACR
-docker tag tbudhe-ik-arm6x-ai-agent azreglinuxik.azurecr.io/tbudhe-ik-arm6x-ai-agent
-
-# Login to ACR
-az acr login --name azreglinuxik
-
-# Push image to ACR
-docker push azreglinuxik.azurecr.io/tbudhe-ik-arm6x-ai-agent
-
-# Verify image in ACR
-az acr repository list --name azreglinuxik --output table
-```
-
-### Step 4: Create and Configure Web App
-
-```sh
-# Create Web App
-az webapp create \
-  --resource-group resource-group-tbudhe-ik-ai-agent \
-  --plan az-paas-service-linux-free-plan \
-  --name gen-ai-ik-demo \
-  --deployment-container-image-name azreglinuxik.azurecr.io/tbudhe-ik-arm6x-ai-agent
-
-# Configure App Settings
-az webapp config appsettings set \
-  --resource-group resource-group-tbudhe-ik-ai-agent \
-  --name gen-ai-ik-demo \
-  --settings WEBSITES_PORT=3000 WEBSITE_NODE_DEFAULT_VERSION=20
-
-# Restart Web App
-az webapp restart \
-  --name gen-ai-ik-demo \
-  --resource-group resource-group-tbudhe-ik-ai-agent
-
-# Verify Web App Status
-az webapp show \
-  --resource-group resource-group-tbudhe-ik-ai-agent \
-  --name gen-ai-ik-demo \
-  --query state
-```
-
-### Step 5: Access Your Deployed App
-
-[https://gen-ai-ik-demo.azurewebsites.net](https://gen-ai-ik-demo.azurewebsites.net)
+- `docs/RAILWAY_DEPLOYMENT.md`
 
 ## Debugging and Logs
 
-### View Live Application Logs
+### Railway logs
 ```sh
-az webapp log tail \
-  --resource-group resource-group-tbudhe-ik-ai-agent \
-  --name gen-ai-ik-demo
+railway logs --latest --lines 200
 ```
 
-### Check DNS Resolution
+### Railway deployments
 ```sh
-nslookup gen-ai-ik-demo.azurewebsites.net
+railway deployment list
 ```
 
-### Configure Managed Identity (for ACR access)
-
+### Health validation
 ```sh
-# Assign Identity to Web App
-PRINCIPAL_ID=$(az webapp identity assign \
-  --resource-group resource-group-tbudhe-ik-ai-agent \
-  --name gen-ai-ik-demo \
-  --query principalId --output tsv)
-
-# Grant ACR Pull Role
-az role assignment create \
-  --assignee $PRINCIPAL_ID \
-  --scope /subscriptions/<subscription-id>/resourceGroups/resource-group-tbudhe-ik-ai-agent/providers/Microsoft.ContainerRegistry/registries/azreglinuxik \
-  --role "AcrPull"
+curl https://gen-ai-ik-demo-production-0c69.up.railway.app/health
+curl https://gen-ai-ik-demo-production-0c69.up.railway.app/heartbeat
+curl https://gen-ai-ik-demo-production-0c69.up.railway.app/api/health
 ```
 
 ---
@@ -414,8 +221,8 @@ This project is private and maintained by Tushar Budhe.
 
 ## Useful Links
 
-- [Azure Web App](https://gen-ai-ik-demo.azurewebsites.net)
-- [Azure Portal](https://portal.azure.com)
+- [Railway App](https://gen-ai-ik-demo-production-0c69.up.railway.app)
+- [Railway](https://railway.app)
 - [Docker Hub](https://hub.docker.com)
 - [React Documentation](https://react.dev)
 - [Express Documentation](https://expressjs.com)

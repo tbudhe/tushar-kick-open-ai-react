@@ -14,9 +14,9 @@ Build a beginner-friendly job-search automation agent that searches for jobs, ta
 - [x] **15 min**: Set up Express backend skeleton (DONE)
 
 #### Tasks for Today
-- **15 min**: Design system architecture diagram (REQUIRED)
-- **20 min**: Set up MongoDB Atlas database (REQUIRED)
-- **10 min**: Deploy to Railway (REQUIRED)
+- [x] **15 min**: Design system architecture diagram (COMPLETED)
+- [x] **20 min**: Set up MongoDB Atlas database (COMPLETED)
+- [x] **10 min**: Deploy to Railway (COMPLETED)
 
 ### DAY 2: Resume Parser (1 hour)
 - **20 min**: Build resume upload component (React)
@@ -72,310 +72,40 @@ USER
   |
   v
 [React Frontend - Vercel]
-  |
-  | HTTP/JSON
-  v
-[Express Backend - Railway]
-  |
-  +---> [MongoDB Atlas Database]
-  |
-  +---> [Claude API] (resume tailoring)
-  |
-  +---> [Job Search API] (LinkedIn/Indeed)
-  |
-  +---> [Gmail API] (send applications)
-  |
-  v
-[Cron Jobs / Scheduling]
-```
+  ## Deployment Strategy (Final)
 
-**Save this** to: `docs/architecture.md` or image to `docs/architecture.png`
+  ### Platform Decision
 
-### Step 2: Set Up MongoDB Atlas (20 min)
+  This project uses Railway as the active deployment target.
 
-MongoDB Atlas is where you'll store all data (jobs, resumes, applications).
+  | Option | Setup Time | Operational Overhead | Current Use |
+  |--------|------------|----------------------|-------------|
+  | Railway (single platform) | 10-15 min | Low | ✅ Active |
+  | Vercel + Railway | 15-25 min | Low-Medium | Optional later |
 
-#### 2a: Create MongoDB Account
-```bash
-# 1. Go to: https://www.mongodb.com/cloud/atlas
-# 2. Click "Sign Up" 
-# 3. Create account with email/Google
-# 4. Verify email
-```
+  ### Recommended Operating Model
 
-#### 2b: Create Free Cluster
-```bash
-# 1. Click "Create" → "Database"
-# 2. Select FREE tier
-# 3. Choose region: US-East (fastest for USA users)
-# 4. Name: "job-agent-cluster" or your choice
-# 5. Click "Create Cluster" (wait 5-10 min)
-```
+  1. Keep backend + static frontend on Railway for now.
+  2. Use MongoDB Atlas as external managed database.
+  3. Keep CI focused on build/test + Docker image publish.
 
-#### 2c: Create Database User
-```bash
-# 1. Go to "Security" → "Database Access"
-# 2. Click "Add New Database User"
-# 3. Username: admin (or your choice)
-# 4. Password: Generate strong password (copy it!)
-# 5. Click "Add User"
-```
+  ### Railway Standard Setup
 
-#### 2d: Get Connection String
-```bash
-# 1. Go to "Clusters" → "Connect"
-# 2. Choose "Drivers" → "Node.js"
-# 3. Copy connection string: mongodb+srv://admin:PASSWORD@...
-# Replace PASSWORD with your actual password
-```
+  1. Push `main` to GitHub.
+  2. Railway deploys from `Dockerfile`.
+  3. Set variables in Railway service:
+     - `DATABASE_URL`
+     - `NODE_ENV=production`
+     - Feature/API secrets as needed
+  4. Validate endpoints:
+     - `/health`
+     - `/heartbeat`
+     - `/api/health`
+     - `/api/menu`
 
-#### 2e: Set Environment Variable
-```bash
-# In your project root, create/update .env file:
-DATABASE_URL=mongodb+srv://admin:YOUR_PASSWORD@job-agent-cluster.mongodb.net/jobagent?retryWrites=true&w=majority
+  ### Current Production URL
 
-# Add to .gitignore (IMPORTANT - don't commit passwords!)
-echo ".env" >> .gitignore
-```
-
-#### 2f: Verify Connection
-```bash
-# Install MongoDB client (optional, for testing)
-npm install mongodb --save-dev
-
-# Create test-db.js
-const { MongoClient } = require('mongodb');
-
-const uri = process.env.DATABASE_URL;
-const client = new MongoClient(uri);
-
-(async () => {
-  try {
-    await client.connect();
-    console.log("Connected to MongoDB!");
-    await client.close();
-  } catch (error) {
-    console.error("Connection failed:", error);
-  }
-})();
-
-# Run test
-node test-db.js
-
-# Delete test-db.js after verification
-rm test-db.js
-```
-
-### Step 3: Deploy to Railway (10 min)
-
-Railway is your backend hosting (free $5/month credit).
-
-#### 3a: Create Railway Account
-```bash
-# 1. Go to: https://railway.app
-# 2. Click "Start Project"
-# 3. Sign up with GitHub
-# 4. Authorize Railway to access your repos
-```
-
-#### 3b: Create New Project
-```bash
-# 1. Click "New Project"
-# 2. Select "Deploy from GitHub"
-# 3. Find and select: "tushar-kick-open-ai-react"
-# 4. Railway auto-detects it's a Node.js project
-```
-
-#### 3c: Add Environment Variables
-```bash
-# In Railway Dashboard:
-# 1. Click "Variables"
-# 2. Add each variable:
-
-DATABASE_URL=mongodb+srv://admin:PASSWORD@...
-CLAUDE_API_KEY=sk-ant-...  (get from Anthropic)
-JWT_SECRET=your-secret-key-here
-NODE_ENV=production
-PORT=3000
-```
-
-#### 3d: Deploy
-```bash
-# Railway auto-deploys on git push
-# Push your code to GitHub:
-git add .
-git commit -m "Day 1: Initial setup with MongoDB and Railway"
-git push origin main
-
-# Wait 2-3 minutes for deployment
-# Check status in Railway dashboard
-```
-
-#### 3e: Get Deployment URL
-```bash
-# Once deployed:
-# Go to Railway Dashboard → Project → Deployments
-# Copy the URL: https://your-project-name.up.railway.app
-
-# Test it works:
-curl https://your-project-name.up.railway.app/health
-# Should return: OK
-
-# Test API:
-curl https://your-project-name.up.railway.app/api/menu
-# Should return: [{"label":"Home","path":"/"}...]
-```
-
-### Step 4: Update .env.example (Documentation)
-```bash
-# Create/update .env.example so others know what vars are needed:
-DATABASE_URL=mongodb+srv://user:password@cluster.mongodb.net/jobagent
-CLAUDE_API_KEY=sk-ant-...
-JWT_SECRET=your-secret-key
-NODE_ENV=production
-PORT=3000
-```
-
-### Step 5: Commit Everything
-```bash
-git add .
-git commit -m "Day 1: Architecture diagram, MongoDB setup, Railway deployment"
-git push origin main
-```
-
----
-
-## DAY 1 Checklist
-
- - [x] Architecture diagram created and saved to `docs/`
-- [ ] MongoDB Atlas account created
-- [ ] Free cluster created
-- [ ] Database user created
-- [ ] Connection string added to `.env`
- - [x] `.env` added to `.gitignore`
-- [ ] Connection tested locally
-- [ ] Railway account created
-- [ ] GitHub integration connected
-- [ ] Environment variables set in Railway
-- [ ] Code deployed to Railway
-- [ ] Health endpoint tested (returns OK)
-- [ ] API endpoints tested (returns menu)
- - [x] `.env.example` documented
-- [ ] All changes committed and pushed
-
----
-
-## Building a Simple Agent as a Beginner
-
-An **agent** is a system that autonomously makes decisions and takes actions. Here's the simplest version:
-
-```
-User Input → LLM Decision Logic → Action Execution → Repeat
-```
-
-### Beginner-Friendly Agent Architecture
-
-```typescript
-// Simple agent pseudocode
-const agent = async (jobDescription: string) => {
-  // Step 1: LLM analyzes job
-  const jobAnalysis = await claude.analyze(jobDescription);
-  
-  // Step 2: LLM tailors resume
-  const tailoredResume = await claude.tailor(myResume, jobAnalysis);
-  
-  // Step 3: Agent decides: should I apply?
-  const shouldApply = jobAnalysis.matchScore > 0.7;
-  
-  // Step 4: Take action
-  if (shouldApply) {
-    await sendApplication(tailoredResume, jobDescription);
-  }
-};
-```
-
-**Key Insight**: Don't overthink agents. Start with a **linear workflow**, then add decision logic.
-
-### Agent Workflow for Job Search
-
-```
-1. User uploads resume
-   ↓
-2. Fetch job listings from API
-   ↓
-3. For each job:
-   a. Extract key requirements (Claude)
-   b. Analyze resume match score
-   c. Tailor resume if match > 70%
-   d. Generate application email
-   e. Send application (or store as draft)
-   ↓
-4. Log application in database
-   ↓
-5. Send user notification
-```
-
----
-
-## n8n vs Claude: Which Tool?
-
-| Aspect | n8n | Claude API |
-|--------|-----|-----------|
-| **Best For** | No-code workflows | Custom AI logic |
-| **Learning Curve** | Visual/easy | Requires coding |
-| **Control** | Limited | Full control |
-| **Cost** | Free tier limited | Pay per API call |
-| **Agent Building** | Can do basic agents | Better for complex logic |
-
-### Recommendation for You
-**Use Claude API** (not n8n) because:
-- You already know React + Node.js
-- You need precise resume tailoring logic
-- More cost-effective for frequent API calls
-- Better for job matching logic
-
-### When to Use n8n
-- If you want **zero-code** workflow automation
-- For scheduling tasks without backend code
-- If you want to avoid writing backend logic
-
----
-
-## Beginner-Friendly Agent Tools (Ranked)
-
-| Tool | Use Case | Free Tier | Difficulty |
-|------|----------|-----------|-----------|
-| **Claude API** | Resume tailoring, job analysis | $5 credit | Easy |
-| **OpenAI API** | Similar to Claude | $5 credit | Easy |
-| **n8n** | No-code workflows | Generous | Very Easy |
-| **Zapier** | Basic automation | Limited | Very Easy |
-| **Hugging Face** | Simpler models | Free | Medium |
-| **LangChain** | Agent framework | Free | Medium-Hard |
-
-### My Pick for You
-**Claude API + Node.js** (you already have the skills)
-
----
-
-## Combining OpenAI, Gemini, and Claude
-
-**Yes, you can combine them!** Here's how:
-
-### Example: Multi-LLM Job Agent
-
-```typescript
-// Example: Use different LLMs for different tasks
-async function analyzeJob(jobDescription) {
-  // Use Claude for resume tailoring (best at nuance)
-  const tailoredResume = await claude.tailor(resume, jobDescription);
-  
-  // Use Gemini for job analysis (cheaper)
-  const jobAnalysis = await gemini.analyze(jobDescription);
-  
-  // Use OpenAI for application email (strong copywriting)
-  const applicationEmail = await openai.generateEmail(
-    tailoredResume,
-    jobAnalysis
+  - `https://gen-ai-ik-demo-production-0c69.up.railway.app`
   );
   
   return { tailoredResume, jobAnalysis, applicationEmail };
@@ -519,339 +249,36 @@ gsutil -m cp -r dist gs://your-bucket/
 
 ## Single Cloud Provider vs Multi-Cloud Deployment
 
-### Why NOT Azure or GCP for This Project?
+### Current Decision (Day 1 Complete)
 
-**Short Answer**: They're overkill for a portfolio project. You'll spend more time learning infrastructure than building features.
+Use Railway as the deployment target for this project.
 
-| Factor | Azure | GCP | AWS | Railway | Vercel |
-|--------|-------|-----|-----|---------|--------|
-| **Free Tier** | Limited | $300 credit | Limited | $5/month | Generous |
-| **Learning Curve** | Steep | Medium | Very Steep | Easy | Very Easy |
-| **Setup Time** | 2-3 hours | 1-2 hours | 2-3 hours | 10 minutes | 5 minutes |
-| **Best For** | Enterprise | Scale | Enterprise | Startups | Startups |
-| **Maintenance** | High | Medium | High | Low | Low |
-| **Cost at Scale** | $100+/mo | $50+/mo | $100+/mo | ~$20/mo | ~$15/mo |
-| **Good for Portfolio** | NO | MAYBE | NO | YES | YES |
+### Why this is locked in
 
-### Why Azure/GCP Are Bad for This Project
+- Deployment is already validated in production.
+- Healthcheck endpoints are stable.
+- Environment variable workflow is documented and repeatable.
+- Lowest operational overhead for Day 2 feature work.
 
-**Azure:**
-- NO Steeper learning curve than Railway
-- NO More expensive after free trial
-- NO Requires Azure DevOps knowledge
-- NO Overkill for a simple agent
-- NO Harder to set up CI/CD
-- YES Great if you work for a Microsoft company
+### Supported deployment patterns
 
-**GCP:**
-- NO Generous free tier BUT expires after 12 months
-- NO Pricing gets confusing quickly (per-request, per-GB, per-hour)
-- NO Cloud Functions/Run has cold start issues
-- NO Requires learning GCP-specific tools
-- NO More DevOps setup needed
-- YES Good for large-scale projects
+1. Railway-only (current)
+2. Optional future split: Vercel frontend + Railway backend
 
-**AWS:**
-- NO Cheapest per unit BUT minimum costs add up fast
-- NO Extremely steep learning curve
-- NO Requires AWS certification knowledge for best practices
-- NO NOT beginner-friendly
-- YES Industry standard for production apps
+### Standard deployment checklist
 
-### Best Single-Cloud Provider Options
+1. Push latest `main` to GitHub
+2. Ensure Railway variables are set (`DATABASE_URL`, `NODE_ENV`, required secrets)
+3. Wait for auto-deploy
+4. Verify:
+   - `GET /health`
+   - `GET /heartbeat`
+   - `GET /api/health`
+   - `GET /api/menu`
 
-#### Option 1: **Railway (RECOMMENDED for this project)**
-Deploy **entire project on Railway**:
+### Active production URL
 
-```bash
-# 1 Platform for everything
-Railway = Frontend + Backend + Database + Cron Jobs
-```
-
-**Why Railway is Best**:
-- YES $5 credit/month lasts ~1 year for small projects
-- YES 5-minute setup (literally copy GitHub URL)
-- YES Auto-deploys on git push
-- YES Built-in environment variables
-- YES Database hosting included
-- YES No DevOps knowledge needed
-- YES Perfect for portfolios
-
-**Setup**:
-```bash
-# 1. Push code to GitHub
-# 2. Connect GitHub to Railway
-# 3. Railway auto-deploys
-# That's it!
-```
-
-#### Option 2: **Vercel + Railway (HYBRID - Current Recommendation)**
-This is what I recommended because:
-- **Frontend on Vercel**: Optimized for React, CDN included, free tier is generous
-- **Backend on Railway**: Node.js is optimized, cheaper than Vercel for APIs
-
-**Why Hybrid is Better Than Single Cloud**:
-- YES Each service optimized for its job
-- YES Easier to debug (separate dashboards)
-- YES Better performance (CDN for frontend)
-- YES No vendor lock-in
-- YES Still super simple to manage
-
-#### Option 3: **Full GCP (If you must use GCP)**
-
-If you want ONE provider AND willing to learn GCP:
-
-```yaml
-# Deploy entire project on GCP
-Frontend:
-  - Cloud Storage + CDN
-  - Build: gcloud builds
-  
-Backend:
-  - Cloud Run (containers)
-  - Cloud Scheduler (cron)
-  - Cloud Tasks (queues)
-  
-Database:
-  - Firestore or Cloud SQL
-  
-Monitoring:
-  - Cloud Logging
-  - Cloud Monitoring
-```
-
-**Cost Estimate** (GCP):
-- Free: ~$300 first 90 days
-- After: ~$10-20/month for small project
-- Can spike if you exceed free tier limits
-
-**Setup Time**: 3-4 hours learning
-
-#### Option 4: **Full Azure (If you must use Azure)**
-
-```yaml
-# Deploy entire project on Azure
-Frontend:
-  - Static Web Apps
-  
-Backend:
-  - App Service (Node.js)
-  - Azure Functions (cron)
-  
-Database:
-  - Cosmos DB or SQL Server
-  
-Monitoring:
-  - Application Insights
-```
-
-**Cost Estimate** (Azure):
-- Free: 12 months limited
-- After: ~$30-50/month minimum
-- Expensive compared to alternatives
-
-**Setup Time**: 2-3 hours
-
----
-
-## Recommendation Matrix
-
-### Use Case → Best Option
-
-**"I want to ship fast (1 week) and don't care about learning a big platform"**
-→ **Railway for entire project** BEST
-
-**"I want separation of concerns and CDN for frontend"**
-→ **Vercel + Railway (current recommendation)** GOOD
-
-**"I must use GCP (work requirement/already have credits)"**
-→ **GCP Cloud Run + Cloud Storage** OK (3-4 hour setup)
-
-**"I must use Azure (work requirement)"**
-→ **Azure Static Web Apps + App Service** OK (2-3 hour setup)
-
-**"I want to learn DevOps and cloud infrastructure"**
-→ **GCP or AWS** (6+ hours learning)
-
----
-
-## Complete Single-Cloud Setup: Railway
-
-Here's how to deploy **everything on Railway** (1 platform):
-
-### Step 1: Prepare Your Project Structure
-```
-job-agent-monorepo/
-├── package.json (root)
-├── server.ts (Node.js backend)
-├── src/ (React frontend)
-├── .env.example
-├── Procfile (optional)
-└── railway.toml (configuration)
-```
-
-### Step 2: Create `railway.toml`
-```toml
-[build]
-builder = "nixpacks"
-
-[deploy]
-restartPolicyType = "on_failure"
-restartPolicyMaxRetries = 5
-```
-
-### Step 3: Set Environment Variables in Railway Dashboard
-```
-DATABASE_URL=mongodb+srv://user:pass@cluster.mongodb.net/jobagent
-CLAUDE_API_KEY=sk-ant-...
-JWT_SECRET=your-secret-key
-NODE_ENV=production
-PORT=8000
-```
-
-### Step 4: Connect GitHub → Railway
-```bash
-# 1. Create Railway account (free)
-# 2. Create new project
-# 3. Select "Deploy from GitHub"
-# 4. Authorize and select repo
-# 5. Railway auto-deploys!
-# Deploy URL: https://your-project-name.up.railway.app
-```
-
-### Step 5: Add Database (MongoDB)
-```bash
-# In Railway dashboard:
-# 1. Click "+ Add Service"
-# 2. Select "MongoDB"
-# 3. Railway creates database automatically
-# 4. DATABASE_URL auto-populated
-# Done!
-```
-
-### Step 6: Deploy Frontend + Backend on Same Railway Instance
-```bash
-# Modify package.json scripts:
-"start": "npm run build && npm run build:server && node dist/server.js"
-
-# Railway runs this on deploy:
-# 1. npm install
-# 2. npm run start
-# 3. Server serves React build + API
-```
-
-**Total Setup Time**: 15 minutes
-**Total Cost**: $0/month (for 1 year with $5 credit)
-
----
-
-## Cost Comparison: Full Year Scenario
-
-**Scenario**: Job Search Agent running 1 year, 100 job searches/day
-
-### Railway Everywhere
-```
-Month 1-12: $5 credit/month = $60 credit
-Usage: ~$5-10/month
-Total Cost: $0 (free tier covers)
-Setup: 15 min
-```
-
-### Vercel + Railway
-```
-Frontend (Vercel): Free tier ($0)
-Backend (Railway): $5 credit/month
-Database: MongoDB Atlas free tier ($0)
-Total Cost: $0 (first year)
-Setup: 20 min
-```
-
-### Full GCP
-```
-Month 1-3: $300 credit
-Month 4-12: ~$15/month = $135
-Total Cost: $135 (but $300 credit covers)
-Setup: 3-4 hours
-```
-
-### Full Azure
-```
-Month 1-12: 12-month free tier (~$300 value)
-After: ~$40/month minimum
-Total Cost: $0 (first year)
-Setup: 2-3 hours
-```
-
-### AWS
-```
-Month 1+: ~$10-20/month
-Setup: 4-6 hours
-Learning curve: Steep
-```
-
----
-
-## My Final Recommendation
-
-### For Your 1-Week Project
-
-**Deploy Everything on Railway**:
-- YES Fastest setup (15 min)
-- YES Zero maintenance
-- YES All-in-one dashboard
-- YES Free for 1 year
-- YES Perfect for portfolio
-- YES Scales easily later
-
-**Why Not Azure/GCP for This**:
-1. **Learning overhead**: Spend 2-3 hours learning when you could be coding
-2. **Maintenance complexity**: More dashboards, more settings, more confusion
-3. **Cost**: Free tier limited, overages add up
-4. **Overkill**: Enterprise tools for a portfolio project
-5. **Deployment**: Takes 30+ minutes vs 5 minutes on Railway
-
-**When to Switch to GCP/Azure Later**:
-- When project gets 1M+ monthly users
-- When you need specific enterprise features
-- When your company requires it
-- When you want to learn cloud infrastructure
-
----
-
-## Quick Decision Tree
-
-```
-Do you want to ship TODAY and focus on features?
-├─ YES → Use Railway for everything
-│
-Do you want CDN + optimization for frontend?
-├─ YES → Use Vercel + Railway (current recommendation)
-│
-Do you MUST use GCP (work requirement)?
-├─ YES → Use GCP Cloud Run + Cloud Storage
-│
-Do you MUST use Azure (work requirement)?
-├─ YES → Use Azure App Service + Static Web Apps
-│
-Do you want to learn cloud infrastructure?
-└─ YES → Use AWS or GCP (expect 6+ hours learning)
-```
-
----
-
-## Next Steps
-
-### If Using Railway for Everything:
-
-1. **Sign up**: https://railway.app (free)
-2. **Create project**: Click "New Project"
-3. **Connect GitHub**: Select your repo
-4. **Add MongoDB**: Click "+ Add Service" → MongoDB
-5. **Set env vars**: Copy from `.env.example`
-6. **Deploy**: Push to GitHub, Railway auto-deploys
-7. **Done**: Your app is live!
-
-**No DevOps knowledge needed. No infrastructure to manage. Just code.**
+- `https://gen-ai-ik-demo-production-0c69.up.railway.app`
 
 ---
 
@@ -1023,8 +450,8 @@ export { NavBar } from './NavBar';
 ```tsx
 import { DashboardLayout, DataTable, FileUploader } from '@ai-platform/shared-ui';
 
-export const JobSearchDashboard = () => (
-  <DashboardLayout projectName="Job Search Agent">
+- **Frontend on Vercel**: Optimized for React, CDN included, free tier is generous.
+- **Backend on Railway**: Node.js is optimized, cheaper than Vercel for APIs.
     <FileUploader 
       accept=".pdf" 
       onUpload={handleResumeUpload}

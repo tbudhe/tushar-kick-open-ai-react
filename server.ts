@@ -9,7 +9,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const app = express();
-const PORT = parseInt(process.env.PORT || process.env.WEBSITES_PORT || '3000', 10);
+const PORT = parseInt(process.env.PORT || '3000', 10);
 const NODE_ENV = process.env.NODE_ENV || 'development';
 
 function getDatabaseUrl() {

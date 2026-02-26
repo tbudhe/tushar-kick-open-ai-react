@@ -1,4 +1,4 @@
-# Deployment Guide for Render.com
+# Deployment Guide for Railway
 
 ## Step 1: Push Code to GitHub
 
@@ -52,39 +52,39 @@ git push origin main
 
 ---
 
-## Step 2: Deploy to Render.com
+## Step 2: Deploy to Railway
 
-1. **Go to [render.com](https://render.com)** and sign up using GitHub
+1. **Go to [railway.app](https://railway.app)** and sign up using GitHub
 
 2. **Connect GitHub Repository**
-   - Click "New +" button
-   - Select "Web Service"
+   - Click "New Project"
+   - Select "Deploy from GitHub Repo"
    - Connect your GitHub account if not already connected
    - Select repository: `tbudhe/tushar-kick-open-ai-react`
 
-3. **Configure Service** (Auto-filled from render.yaml)
+3. **Configure Service**
    - **Name**: gen-ai-ik-demo
-   - **Region**: Oregon (US West)
    - **Branch**: main
    - **Runtime**: Docker
-   - **Plan**: Free
+   - **Health Check Path**: `/heartbeat`
    
-4. **Advanced Settings** (Already in render.yaml)
-   - Health Check Path: `/heartbeat`
-   - Auto-Deploy: Yes
+4. **Environment Variables**
+   - `DATABASE_URL=<mongodb+srv://...>`
+   - `NODE_ENV=production`
+   - `JWT_SECRET=<secret>`
 
-5. **Click "Create Web Service"**
+5. **Click "Deploy"**
 
 6. **Wait for Deployment** (5-10 minutes)
    - Watch the build logs
    - Status will change to "Live" when ready
 
 7. **Access Your App**
-   - URL: `https://gen-ai-ik-demo.onrender.com`
+    - URL: `https://gen-ai-ik-demo-production-0c69.up.railway.app`
    - Test endpoints:
-     - `https://gen-ai-ik-demo.onrender.com/`
-     - `https://gen-ai-ik-demo.onrender.com/heartbeat`
-     - `https://gen-ai-ik-demo.onrender.com/health`
+       - `https://gen-ai-ik-demo-production-0c69.up.railway.app/`
+       - `https://gen-ai-ik-demo-production-0c69.up.railway.app/heartbeat`
+       - `https://gen-ai-ik-demo-production-0c69.up.railway.app/health`
 
 ---
 
@@ -92,7 +92,7 @@ git push origin main
 
 ```sh
 # Test heartbeat endpoint
-curl https://gen-ai-ik-demo.onrender.com/heartbeat
+curl https://gen-ai-ik-demo-production-0c69.up.railway.app/heartbeat
 
 # Expected response:
 # {
@@ -109,24 +109,25 @@ curl https://gen-ai-ik-demo.onrender.com/heartbeat
 
 ### If deployment fails:
 
-1. **Check Build Logs** in Render dashboard
+1. **Check Build Logs** in Railway dashboard
 2. **Common issues:**
    - Missing dependencies → Check package.json
    - Port binding → Server should use `process.env.PORT`
    - Build timeout → Free tier has 15 min limit
 
-### If app sleeps (Free tier):
-- First request after 15 min inactivity takes ~30 seconds
-- Upgrade to paid plan ($7/month) for always-on service
+### If healthcheck fails:
+- Verify `/heartbeat` returns HTTP 200
+- Verify `DATABASE_URL` is set in Railway variables
+- Run `railway logs --latest --lines 200`
 
 ---
 
-## Alternative: Quick Deploy Button
+## Railway CLI Shortcuts
 
-Add this to your GitHub README for one-click deploy:
-
-```markdown
-[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/tbudhe/tushar-kick-open-ai-react)
+```sh
+railway status
+railway deployment list
+railway logs --latest --lines 200
 ```
 
 ---
@@ -145,16 +146,13 @@ Add this to your GitHub README for one-click deploy:
 
 | Platform | Free Tier | Limitations | Best For |
 |----------|-----------|-------------|----------|
-| **Render** | Yes | Sleeps after 15 min | Docker apps, demos |
-| **Azure F1** | Yes | No Docker support | Basic Node.js apps |
-| **Azure B1** | $13/month | Quota limits | Production Azure apps |
-| **Railway** | $5 credit/month | 500 hours | Full-stack apps |
+| **Railway** | $5 credit/month | usage-based credits | Full-stack apps |
 | **Fly.io** | Limited | 3 VMs max | Edge computing |
 
 ---
 
 ## Support
 
-- Render Docs: https://render.com/docs
-- Community: https://community.render.com
-- Status: https://status.render.com
+- Railway Docs: https://docs.railway.com
+- Railway App: https://railway.app
+- Railway Status: https://status.railway.com

@@ -1,4 +1,4 @@
-# Quick Start: Push to GitHub & Deploy
+# Quick Start: Push to GitHub & Deploy (Railway)
 
 ## 1. Push to GitHub (Choose ONE method)
 
@@ -28,21 +28,21 @@ git push origin main
 
 ---
 
-## 2. Deploy to Render
+## 2. Deploy to Railway
 
-1. Go to **https://render.com** → Sign up with GitHub
-2. Click **"New +"** → **"Web Service"**
-3. Select **`tbudhe/tushar-kick-open-ai-react`** repository
-4. Click **"Create Web Service"** (settings auto-configured!)
-5. Wait 5-10 minutes
-6. Access at: **`https://gen-ai-ik-demo.onrender.com`**
+1. Go to **https://railway.app** → Sign in with GitHub
+2. Click **"New Project"** → **"Deploy from GitHub Repo"**
+3. Select **`tbudhe/tushar-kick-open-ai-react`**
+4. Add required variables (`DATABASE_URL`, `NODE_ENV=production`, etc.)
+5. Wait for deployment to finish
+6. Access at: **`https://gen-ai-ik-demo-production-0c69.up.railway.app`**
 
 ---
 
 ## 3. Test Your App
 
 ```sh
-curl https://gen-ai-ik-demo.onrender.com/heartbeat
+curl https://gen-ai-ik-demo-production-0c69.up.railway.app/heartbeat
 ```
 
 **Done!** Your app is live on the internet!
@@ -61,5 +61,5 @@ curl https://gen-ai-ik-demo.onrender.com/heartbeat
 
 ## Need Help?
 
-See `DEPLOYMENT_GUIDE.md` for detailed instructions
+See `RAILWAY_DEPLOYMENT.md` for detailed instructions
 See `README.md` for full documentation

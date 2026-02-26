@@ -42,12 +42,12 @@ All routes defined in `App.tsx` with react-router-dom v7.7+:
 
 ### Backend Server (Express)
 Located in `server.ts` (compiled to `dist/server.js`):
-- **Health Check Endpoints**: `/health`, `/heartbeat`, `/api/health` (for Azure/Render monitoring)
+- **Health Check Endpoints**: `/health`, `/heartbeat`, `/api/health`
 - **API Endpoint**: `GET /api/menu` - Returns menu structure as JSON (used by VerticalMenu navigation)
 - **Static Files**: Serves React build from `dist/build/` directory
 - **Fallback Route**: `GET /` sends `index.html` for SPA routing support
 - **CORS**: Enabled globally via `cors()` middleware
-- **Port**: From env var `PORT` or `WEBSITES_PORT` (fallback: 3000)
+- **Port**: From env var `PORT` (fallback: 3000)
 
 ## Component Patterns
 
@@ -104,7 +104,6 @@ Use props interfaces for all reusable components; destructure in function signat
 
 ### Environment Variables
 - `PORT` - Server port (default: 3000)
-- `WEBSITES_PORT` - Azure-specific port variable (checked in server.ts)
 
 ### TypeScript Configuration
 - **Target**: ES2020
@@ -124,8 +123,7 @@ Project includes system design and ML learning materials:
 
 ## Deployment Context
 - **Docker Support**: Dockerfile provided (see DEPLOYMENT_GUIDE.md)
-- **Azure Deployment**: Configured with App Service + Container Registry
-- **Render.com**: Preferred deployment platform (see QUICK_START.md)
+- **Railway Deployment**: Primary deployment platform (see RAILWAY_DEPLOYMENT.md)
 - **Health Check**: Server exposes `/health` endpoint for deployment monitoring
 
 ## When Adding Features
