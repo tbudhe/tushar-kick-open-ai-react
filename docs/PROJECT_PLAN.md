@@ -60,6 +60,16 @@ Build a beginner-friendly job-search automation agent that searches for jobs, ta
 - **15 min**: Optimize database queries
 - **15 min**: Final deployment + README
 - **10 min**: Portfolio documentation
+- **15 min**: Add authentication/security hardening (Okta/Auth0/Clerk free tier)
+
+#### Day 7 Security Add-on (Recommended)
+- Add OAuth/OIDC login with a free tier provider:
+  - Okta Developer (free)
+  - Auth0 Free
+  - Clerk Free
+- Protect sensitive routes (resume uploads, application actions).
+- Add role checks for admin-only triggers.
+- Store only server-side secrets in env vars (never in frontend source).
 
 ### AI Agent Learning Curve (When to Use Which Technology)
 
@@ -129,6 +139,16 @@ This order keeps learning practical: first workflow control, then memory, then r
 | Day 5 | Compose reusable model/tool calls | LangChain (optional abstraction) |
 | Day 6 | Retrieval memory + context reuse | Vector DB + RAG |
 | Day 7 | Automation hardening | Scheduler (cron) + observability |
+
+#### Skills Section Examples (Resume/Portfolio)
+
+Use these example bullets in your skills/project narrative where relevant:
+
+- Built file migration workflows using **WCF services** over **TCP protocol** for reliable internal transfers.
+- Designed **API-first integration** between frontend (React) and backend (Express/TypeScript).
+- Implemented **document ingestion pipelines** for `.pdf` and `.docx` parsing with fallback strategies.
+- Added **OpenAPI/Swagger contracts** for endpoint validation and cross-team integration.
+- Applied **agentic workflow design** using staged orchestration, retrieval, and automation patterns.
 
 ---
 

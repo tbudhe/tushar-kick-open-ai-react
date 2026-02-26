@@ -41,6 +41,13 @@ Day 2 (Resume Parser) is fully implemented and deployed.
   - `/api/openapi.json`
   - `/api/docs/`
 
+### Skills Snapshot (5-line Example)
+- Protocol stack: TCP, HTTP/HTTPS, and SMTP.
+- Real-time communication: WebSocket and Socket.IO.
+- Service transport: gRPC for low-latency service-to-service calls.
+- Enterprise integration example: WCF over TCP.
+- Applied in full-stack systems with API contracts and event-driven workflows.
+
 ---
 
 ## Validation

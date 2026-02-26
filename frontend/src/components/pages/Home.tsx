@@ -75,6 +75,18 @@ const Home: React.FC = () => {
 				],
 			},
 			{
+				title: 'Protocols and real-time communication',
+				items: [
+					'TCP',
+					'HTTP/HTTPS',
+					'SMTP',
+					'gRPC',
+					'WebSocket',
+					'Socket.IO',
+					'WCF over TCP',
+				],
+			},
+			{
 				title: 'Leadership and communication',
 				items: ['Analytical thinking', 'Problem solving', 'Team leadership', 'Communication'],
 			},
