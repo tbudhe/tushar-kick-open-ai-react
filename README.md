@@ -6,7 +6,8 @@ Primary project documentation lives in `docs/README.md`.
 
 - [Project Docs](docs/README.md)
 - [Railway Deployment Guide](docs/RAILWAY_DEPLOYMENT.md)
-- [Day 1 Completion](docs/DAY1_COMPLETION.md)
-- [Day 1 Verification](docs/DAY1_VERIFICATION.md)
-- [Day 2 Completion](docs/DAY2_COMPLETION.md)
 - [Project Plan](docs/PROJECT_PLAN.md)
+- [Day 5 Completion](docs/DAY5_COMPLETION.md)
+- [Day 5 Verification](docs/DAY5_VERIFICATION.md)
+- [Day 7 Completion](docs/DAY7_COMPLETION.md)
+- [Day 7 Verification](docs/DAY7_VERIFICATION.md)

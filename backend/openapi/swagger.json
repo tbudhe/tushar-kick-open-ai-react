@@ -162,6 +162,585 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"TailorResumeResponse": {
+				"properties": {
+					"success": {
+						"type": "boolean",
+						"enum": [
+							true
+						],
+						"nullable": false
+					},
+					"source": {
+						"type": "string",
+						"enum": [
+							"claude",
+							"fallback"
+						]
+					},
+					"originalResume": {
+						"type": "string"
+					},
+					"tailoredResume": {
+						"type": "string"
+					},
+					"jobAnalysis": {
+						"type": "string"
+					},
+					"changeHighlights": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"saved": {
+						"type": "boolean"
+					},
+					"tailoredId": {
+						"type": "string",
+						"nullable": true
+					},
+					"ragDocumentId": {
+						"type": "string",
+						"nullable": true
+					}
+				},
+				"required": [
+					"success",
+					"source",
+					"originalResume",
+					"tailoredResume",
+					"jobAnalysis",
+					"changeHighlights",
+					"saved",
+					"tailoredId",
+					"ragDocumentId"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"TailorResumeJob": {
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"title": {
+						"type": "string"
+					},
+					"company": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"id",
+					"title",
+					"company",
+					"description"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"TailorResumeRequest": {
+				"properties": {
+					"resumeText": {
+						"type": "string"
+					},
+					"job": {
+						"$ref": "#/components/schemas/TailorResumeJob"
+					}
+				},
+				"required": [
+					"resumeText",
+					"job"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"RagUpsertResponse": {
+				"properties": {
+					"success": {
+						"type": "boolean",
+						"enum": [
+							true
+						],
+						"nullable": false
+					},
+					"id": {
+						"type": "string"
+					},
+					"backend": {
+						"type": "string",
+						"enum": [
+							"pinecone",
+							"mongo",
+							"memory"
+						]
+					},
+					"embeddingProvider": {
+						"type": "string",
+						"enum": [
+							"openai",
+							"gemini",
+							"fallback"
+						]
+					}
+				},
+				"required": [
+					"success",
+					"id",
+					"backend",
+					"embeddingProvider"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Record_string.unknown_": {
+				"properties": {},
+				"additionalProperties": {},
+				"type": "object",
+				"description": "Construct a type with a set of properties K of type T"
+			},
+			"RagUpsertRequest": {
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"text": {
+						"type": "string"
+					},
+					"metadata": {
+						"$ref": "#/components/schemas/Record_string.unknown_"
+					},
+					"embeddingProvider": {
+						"type": "string",
+						"enum": [
+							"openai",
+							"gemini",
+							"fallback"
+						]
+					}
+				},
+				"required": [
+					"id",
+					"text"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"RagRetrievedItem": {
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"text": {
+						"type": "string"
+					},
+					"metadata": {
+						"$ref": "#/components/schemas/Record_string.unknown_"
+					},
+					"score": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"id",
+					"text",
+					"metadata",
+					"score"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"RagRetrieveResponse": {
+				"properties": {
+					"success": {
+						"type": "boolean",
+						"enum": [
+							true
+						],
+						"nullable": false
+					},
+					"backend": {
+						"type": "string",
+						"enum": [
+							"pinecone",
+							"mongo",
+							"memory"
+						]
+					},
+					"embeddingProvider": {
+						"type": "string",
+						"enum": [
+							"openai",
+							"gemini",
+							"fallback"
+						]
+					},
+					"items": {
+						"items": {
+							"$ref": "#/components/schemas/RagRetrievedItem"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"success",
+					"backend",
+					"embeddingProvider",
+					"items"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"RagRetrieveRequest": {
+				"properties": {
+					"query": {
+						"type": "string"
+					},
+					"topK": {
+						"type": "number",
+						"format": "double"
+					},
+					"embeddingProvider": {
+						"type": "string",
+						"enum": [
+							"openai",
+							"gemini",
+							"fallback"
+						]
+					}
+				},
+				"required": [
+					"query"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"RagBenchmarkRunSaveResponse": {
+				"properties": {
+					"success": {
+						"type": "boolean",
+						"enum": [
+							true
+						],
+						"nullable": false
+					},
+					"saved": {
+						"type": "boolean"
+					},
+					"runId": {
+						"type": "string"
+					},
+					"reason": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"success",
+					"saved"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"RagBenchmarkRow": {
+				"properties": {
+					"provider": {
+						"type": "string",
+						"enum": [
+							"openai",
+							"gemini",
+							"fallback"
+						]
+					},
+					"upsertOk": {
+						"type": "boolean"
+					},
+					"backend": {
+						"type": "string",
+						"enum": [
+							"pinecone",
+							"mongo",
+							"memory",
+							"n/a"
+						]
+					},
+					"retrievedCount": {
+						"type": "number",
+						"format": "double"
+					},
+					"topScore": {
+						"type": "number",
+						"format": "double"
+					},
+					"upsertMs": {
+						"type": "number",
+						"format": "double"
+					},
+					"retrieveMs": {
+						"type": "number",
+						"format": "double"
+					},
+					"tokenEstimate": {
+						"type": "number",
+						"format": "double"
+					},
+					"estCostUsd": {
+						"type": "number",
+						"format": "double"
+					},
+					"error": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"provider",
+					"upsertOk",
+					"backend",
+					"retrievedCount",
+					"topScore",
+					"upsertMs",
+					"retrieveMs",
+					"tokenEstimate",
+					"estCostUsd"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"RagBenchmarkRunSaveRequest": {
+				"properties": {
+					"runId": {
+						"type": "string"
+					},
+					"query": {
+						"type": "string"
+					},
+					"topK": {
+						"type": "number",
+						"format": "double"
+					},
+					"rows": {
+						"items": {
+							"$ref": "#/components/schemas/RagBenchmarkRow"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"runId",
+					"query",
+					"topK",
+					"rows"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"RagBenchmarkRunItem": {
+				"properties": {
+					"runId": {
+						"type": "string"
+					},
+					"query": {
+						"type": "string"
+					},
+					"topK": {
+						"type": "number",
+						"format": "double"
+					},
+					"rows": {
+						"items": {
+							"$ref": "#/components/schemas/RagBenchmarkRow"
+						},
+						"type": "array"
+					},
+					"createdAt": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"runId",
+					"query",
+					"topK",
+					"rows"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"RagBenchmarkRunListResponse": {
+				"properties": {
+					"success": {
+						"type": "boolean",
+						"enum": [
+							true
+						],
+						"nullable": false
+					},
+					"items": {
+						"items": {
+							"$ref": "#/components/schemas/RagBenchmarkRunItem"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"success",
+					"items"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"JobRecord": {
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"title": {
+						"type": "string"
+					},
+					"company": {
+						"type": "string"
+					},
+					"location": {
+						"type": "string"
+					},
+					"salary": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"url": {
+						"type": "string"
+					},
+					"source": {
+						"type": "string"
+					},
+					"employmentType": {
+						"type": "string"
+					},
+					"publishedAt": {
+						"type": "string",
+						"nullable": true
+					}
+				},
+				"required": [
+					"id",
+					"title",
+					"company",
+					"location",
+					"salary",
+					"description",
+					"url",
+					"source",
+					"employmentType",
+					"publishedAt"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"SearchJobsResponse": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"query": {
+						"type": "string"
+					},
+					"location": {
+						"type": "string"
+					},
+					"employmentType": {
+						"type": "string"
+					},
+					"count": {
+						"type": "number",
+						"format": "double"
+					},
+					"persisted": {
+						"type": "number",
+						"format": "double"
+					},
+					"databaseConnected": {
+						"type": "boolean"
+					},
+					"jobs": {
+						"items": {
+							"$ref": "#/components/schemas/JobRecord"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"success",
+					"query",
+					"location",
+					"employmentType",
+					"count",
+					"persisted",
+					"databaseConnected",
+					"jobs"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"SearchJobsRequest": {
+				"properties": {
+					"query": {
+						"type": "string"
+					},
+					"location": {
+						"type": "string"
+					},
+					"employmentType": {
+						"type": "string"
+					},
+					"limit": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"JobsListResponse": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"query": {
+						"type": "string"
+					},
+					"location": {
+						"type": "string"
+					},
+					"employmentType": {
+						"type": "string"
+					},
+					"count": {
+						"type": "number",
+						"format": "double"
+					},
+					"jobs": {
+						"items": {
+							"$ref": "#/components/schemas/JobRecord"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"success",
+					"query",
+					"location",
+					"employmentType",
+					"count",
+					"jobs"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
 			"HeartbeatResponse": {
 				"properties": {
 					"status": {
@@ -228,6 +807,214 @@
 					"status",
 					"database",
 					"timestamp"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ApplicationStatus": {
+				"type": "string",
+				"enum": [
+					"pending",
+					"applied",
+					"rejected",
+					"interview"
+				]
+			},
+			"ApplicationRecord": {
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"jobExternalId": {
+						"type": "string"
+					},
+					"jobTitle": {
+						"type": "string"
+					},
+					"jobCompany": {
+						"type": "string"
+					},
+					"jobLocation": {
+						"type": "string"
+					},
+					"jobUrl": {
+						"type": "string"
+					},
+					"status": {
+						"$ref": "#/components/schemas/ApplicationStatus"
+					},
+					"notes": {
+						"type": "string"
+					},
+					"tailoredResumeId": {
+						"type": "string",
+						"nullable": true
+					},
+					"emailDraft": {
+						"type": "string"
+					},
+					"appliedAt": {
+						"type": "string",
+						"nullable": true
+					},
+					"createdAt": {
+						"type": "string"
+					},
+					"updatedAt": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"id",
+					"jobExternalId",
+					"jobTitle",
+					"jobCompany",
+					"jobLocation",
+					"jobUrl",
+					"status",
+					"notes",
+					"tailoredResumeId",
+					"emailDraft",
+					"appliedAt"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ApplyResponse": {
+				"properties": {
+					"success": {
+						"type": "boolean",
+						"enum": [
+							true
+						],
+						"nullable": false
+					},
+					"databaseConnected": {
+						"type": "boolean"
+					},
+					"application": {
+						"$ref": "#/components/schemas/ApplicationRecord"
+					}
+				},
+				"required": [
+					"success",
+					"databaseConnected",
+					"application"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ApplyJobInput": {
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"title": {
+						"type": "string"
+					},
+					"company": {
+						"type": "string"
+					},
+					"location": {
+						"type": "string"
+					},
+					"url": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"id",
+					"title",
+					"company"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ApplyRequest": {
+				"properties": {
+					"job": {
+						"$ref": "#/components/schemas/ApplyJobInput"
+					},
+					"tailoredResumeId": {
+						"type": "string"
+					},
+					"notes": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"job"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ApplicationsListResponse": {
+				"properties": {
+					"success": {
+						"type": "boolean",
+						"enum": [
+							true
+						],
+						"nullable": false
+					},
+					"databaseConnected": {
+						"type": "boolean"
+					},
+					"count": {
+						"type": "number",
+						"format": "double"
+					},
+					"items": {
+						"items": {
+							"$ref": "#/components/schemas/ApplicationRecord"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"success",
+					"databaseConnected",
+					"count",
+					"items"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"UpdateApplicationResponse": {
+				"properties": {
+					"success": {
+						"type": "boolean",
+						"enum": [
+							true
+						],
+						"nullable": false
+					},
+					"databaseConnected": {
+						"type": "boolean"
+					},
+					"application": {
+						"$ref": "#/components/schemas/ApplicationRecord"
+					}
+				},
+				"required": [
+					"success",
+					"databaseConnected",
+					"application"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"UpdateApplicationRequest": {
+				"properties": {
+					"status": {
+						"$ref": "#/components/schemas/ApplicationStatus"
+					},
+					"notes": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"status"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -377,6 +1164,372 @@
 				}
 			}
 		},
+		"/api/tailor-resume": {
+			"post": {
+				"operationId": "TailorResume",
+				"responses": {
+					"200": {
+						"description": "Tailored",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/TailorResumeResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid input",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorResponse"
+								}
+							}
+						}
+					},
+					"413": {
+						"description": "Payload too large",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorResponse"
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "Server error",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Resume"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/TailorResumeRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/rag/upsert": {
+			"post": {
+				"operationId": "Upsert",
+				"responses": {
+					"200": {
+						"description": "Upserted",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/RagUpsertResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid input",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorResponse"
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "Server error",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"RAG"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/RagUpsertRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/rag/retrieve": {
+			"post": {
+				"operationId": "Retrieve",
+				"responses": {
+					"200": {
+						"description": "Retrieved",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/RagRetrieveResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid input",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorResponse"
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "Server error",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"RAG"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/RagRetrieveRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/rag/benchmark-runs": {
+			"post": {
+				"operationId": "SaveBenchmarkRun",
+				"responses": {
+					"200": {
+						"description": "Saved",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/RagBenchmarkRunSaveResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid input",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorResponse"
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "Server error",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"RAG"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/RagBenchmarkRunSaveRequest"
+							}
+						}
+					}
+				}
+			},
+			"get": {
+				"operationId": "ListBenchmarkRuns",
+				"responses": {
+					"200": {
+						"description": "Listed",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/RagBenchmarkRunListResponse"
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "Server error",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"RAG"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "limit",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/api/search-jobs": {
+			"post": {
+				"operationId": "SearchJobs",
+				"responses": {
+					"200": {
+						"description": "Searched",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/SearchJobsResponse"
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "Server error",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Jobs"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/SearchJobsRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/jobs": {
+			"get": {
+				"operationId": "GetJobs",
+				"responses": {
+					"200": {
+						"description": "Listed",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/JobsListResponse"
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "Server error",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Jobs"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "query",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "location",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "employmentType",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "limit",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
 		"/health": {
 			"get": {
 				"operationId": "GetHealth",
@@ -442,6 +1595,161 @@
 				"security": [],
 				"parameters": []
 			}
+		},
+		"/api/apply": {
+			"post": {
+				"operationId": "Apply",
+				"responses": {
+					"200": {
+						"description": "Applied",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApplyResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid input",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorResponse"
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "Server error",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Applications"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/ApplyRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/applications": {
+			"get": {
+				"operationId": "GetApplications",
+				"responses": {
+					"200": {
+						"description": "Listed",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApplicationsListResponse"
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "Server error",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Applications"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/api/applications/{id}": {
+			"patch": {
+				"operationId": "UpdateApplication",
+				"responses": {
+					"200": {
+						"description": "Updated",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/UpdateApplicationResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid input",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorResponse"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Not found",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorResponse"
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "Server error",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Applications"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateApplicationRequest"
+							}
+						}
+					}
+				}
+			}
 		}
 	},
 	"servers": [
@@ -461,6 +1769,18 @@
 		{
 			"name": "Resume",
 			"description": "Resume parsing endpoints for extracting structured candidate profile data."
+		},
+		{
+			"name": "Jobs",
+			"description": "Job search and storage endpoints used by the job dashboard."
+		},
+		{
+			"name": "RAG",
+			"description": "Embedding generation and vector retrieval endpoints for retrieval-augmented workflows."
+		},
+		{
+			"name": "Applications",
+			"description": "Application tracking endpoints for apply flow and status lifecycle."
 		}
 	]
 }

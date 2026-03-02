@@ -1,4 +1,5 @@
 import dotenv from 'dotenv';
+import { Server } from 'http';
 import { connectDatabase } from './backend/src/config/database';
 import { createApp } from './backend/src/app';
 
@@ -12,12 +13,27 @@ const NODE_ENV = process.env.NODE_ENV || 'development';
 // SERVER STARTUP
 // ============================================
 async function startServer() {
+  let server: Server | null = null;
+
+  const shutdown = (signal: 'SIGTERM' | 'SIGINT') => {
+    console.log(`[SERVER] ${signal} received, shutting down gracefully...`);
+    if (server) {
+      server.close(() => {
+        console.log('[SERVER] HTTP server closed');
+        process.exit(0);
+      });
+      return;
+    }
+
+    process.exit(0);
+  };
+
   try {
     const dbConnected = await connectDatabase();
     const app = createApp();
     
     // Start Express server
-    app.listen(PORT, '0.0.0.0', () => {
+    server = app.listen(PORT, '0.0.0.0', () => {
       console.log(`\n${'='.repeat(60)}`);
       console.log(`[SERVER] Started successfully!`);
       console.log(`[SERVER] URL: http://localhost:${PORT}`);
@@ -31,13 +47,11 @@ async function startServer() {
     
     // Graceful shutdown
     process.on('SIGTERM', () => {
-      console.log('[SERVER] SIGTERM received, shutting down gracefully...');
-      process.exit(0);
+      shutdown('SIGTERM');
     });
     
     process.on('SIGINT', () => {
-      console.log('[SERVER] SIGINT received, shutting down gracefully...');
-      process.exit(0);
+      shutdown('SIGINT');
     });
     
   } catch (error) {

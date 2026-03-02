@@ -32,35 +32,65 @@ Build a beginner-friendly job-search automation agent that searches for jobs, ta
 - API contract is documented in Swagger at `/api/docs/`.
 
 ### DAY 3: Job Search Integration (1 hour)
-- **25 min**: Add job search UI (search bar, filters)
-- **20 min**: Integrate free job API (LinkedIn API lite or web scraping with Cheerio)
-- **10 min**: Store jobs in database
-- **5 min**: Display job list in frontend
+
+#### Tasks Completed
+- [x] **25 min**: Add job search UI (search bar, filters)
+- [x] **20 min**: Integrate free job API (Remotive public API + fallback)
+- [x] **10 min**: Store jobs in database
+- [x] **5 min**: Display job list in frontend
+
+#### Day 3 Notes
+- Added backend endpoints: `POST /api/search-jobs`, `GET /api/jobs`.
+- Added MongoDB job persistence with upsert semantics in `jobs` collection.
+- Job Search page now uses API-backed list + filters instead of hardcoded data.
 
 ### DAY 4: Resume Tailoring (1 hour)
-- **25 min**: Build "Preview Tailored Resume" component
-- **20 min**: Create `/api/tailor-resume` endpoint (Claude API)
-- **10 min**: Compare original vs tailored resume (diff view)
-- **5 min**: Save tailored versions to database
+
+#### Tasks Completed
+- [x] **25 min**: Build "Preview Tailored Resume" component
+- [x] **20 min**: Create `/api/tailor-resume` endpoint (Claude API + fallback)
+- [x] **10 min**: Compare original vs tailored resume (diff view)
+- [x] **5 min**: Save tailored versions to database
+
+#### Day 4 Notes
+- Added Day 4 endpoint: `POST /api/tailor-resume`.
+- Added persisted tailored versions in `tailored_resumes` collection.
+- Job Search page now supports selecting a job and generating a tailored resume preview with diff output.
 
 ### DAY 5: Auto-Apply (Smart Tracking) (1 hour)
-- **20 min**: Build application dashboard (status: pending/applied/rejected)
-- **20 min**: Create `/api/apply` endpoint (email templates, LinkedIn automation prep)
-- **15 min**: Track application history in database
-- **5 min**: Test end-to-end workflow
+- [x] **20 min**: Build application dashboard (status: pending/applied/rejected)
+- [x] **20 min**: Create `/api/apply` endpoint (email templates, LinkedIn automation prep)
+- [x] **15 min**: Track application history in database
+- [x] **5 min**: Test end-to-end workflow
 
-### DAY 6: Scheduling & Automation (1 hour)
-- **20 min**: Add cron-job trigger (daily job search)
-- **20 min**: Set up email notifications for new applications
-- **15 min**: Create admin dashboard (view logs, manual triggers)
-- **5 min**: Test automation
+#### Day 5 Notes
+- Added Day 5 endpoint set: `POST /api/apply`, `GET /api/applications`, `PATCH /api/applications/:id`.
+- Added application tracking persistence in `applications` collection with status lifecycle support.
+- Job Search page now supports Apply actions, and Applications page provides status summary + inline status updates.
+
+### DAY 6: Scheduling & Automation (Backlog)
+- [ ] **Backlog**: Add cron-job trigger (daily job search)
+- [ ] **Backlog**: Set up email notifications for new applications
+- [ ] **Backlog**: Create admin dashboard (view logs, manual triggers)
+- [ ] **Backlog**: Test automation flow
+
+#### Day 6 Notes
+- Deferred by product decision: cron scheduling and new-application email notifications are intentionally not in current implementation scope.
+- Keep this section as backlog items for a future release after core project polish.
 
 ### DAY 7: Polish & Deployment (1 hour)
-- **20 min**: Bug fixes + error handling
-- **15 min**: Optimize database queries
-- **15 min**: Final deployment + README
-- **10 min**: Portfolio documentation
-- **15 min**: Add authentication/security hardening (Okta/Auth0/Clerk free tier)
+- [x] **20 min**: Bug fixes + error handling
+- [x] **15 min**: Optimize database queries
+- [x] **15 min**: Final deployment + README
+- [x] **10 min**: Portfolio documentation
+- [ ] **Backlog**: Add authentication/security hardening (Okta/Auth0/Clerk free tier)
+
+#### Day 7 Notes
+- Added production hardening middleware: security headers and API rate limiting.
+- Fixed API fallback behavior so unknown `/api/*` routes return JSON `404` (not SPA HTML).
+- Added DB indexes for common jobs/applications query paths.
+- Verified production-like runtime locally with `NODE_ENV=production` and endpoint smoke tests.
+- OAuth/OIDC auth hardening intentionally moved to backlog for next release.
 
 #### Day 7 Security Add-on (Recommended)
 - Add OAuth/OIDC login with a free tier provider:
@@ -122,11 +152,11 @@ This order keeps learning practical: first workflow control, then memory, then r
 
 - [x] **Day 1**: Full-stack foundation (React + Express + DB + deployment basics)
 - [x] **Day 2**: Resume parsing foundation (LLM + fallback parser)
-- [ ] **Day 3**: Job search integration and tool-ready service boundaries
+- [x] **Day 3**: Job search integration and tool-ready service boundaries
 - [ ] **Day 4**: Introduce LangGraph for multi-step agent workflow
 - [ ] **Day 5**: Add decision logic for apply tracking + agent actions
 - [ ] **Day 6**: Add Vector DB and RAG memory retrieval
-- [ ] **Day 7**: Production polish (observability, retries, cost controls)
+- [x] **Day 7**: Production polish (observability, retries, cost controls)
 
 #### Technology Introduction Timeline
 

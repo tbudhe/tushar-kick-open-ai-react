@@ -1,5 +1,11 @@
 import { Body, Controller, Example, Post, Response, Route, SuccessResponse, Tags } from 'tsoa';
-import { ErrorResponse, ParseResumeRequest, ParseResumeSuccessResponse } from '../models';
+import {
+  ErrorResponse,
+  ParseResumeRequest,
+  ParseResumeSuccessResponse,
+  TailorResumeRequest,
+  TailorResumeResponse,
+} from '../models';
 
 @Route('api')
 @Tags('Resume')
@@ -26,6 +32,18 @@ export class ResumeContractController extends Controller {
   public async parseResume(
     @Body() body: ParseResumeRequest,
   ): Promise<ParseResumeSuccessResponse> {
+    void body;
+    throw new Error('Contract-only controller. Route handled by Express controllers.');
+  }
+
+  @Post('tailor-resume')
+  @SuccessResponse('200', 'Tailored')
+  @Response<ErrorResponse>('400', 'Invalid input')
+  @Response<ErrorResponse>('413', 'Payload too large')
+  @Response<ErrorResponse>('500', 'Server error')
+  public async tailorResume(
+    @Body() body: TailorResumeRequest,
+  ): Promise<TailorResumeResponse> {
     void body;
     throw new Error('Contract-only controller. Route handled by Express controllers.');
   }

@@ -5,7 +5,8 @@ import path from 'path';
 import swaggerUi from 'swagger-ui-express';
 import apiRouter from './routes/api.routes';
 import publicRouter from './routes/public.routes';
-import { errorHandler } from './middlewares/error-handler';
+import { apiRateLimit } from './middlewares/api-rate-limit';
+import { errorHandler, notFoundHandler } from './middlewares/error-handler';
 
 const NODE_ENV = process.env.NODE_ENV || 'development';
 
@@ -83,11 +84,20 @@ export function createApp() {
   const app = express();
   const openApiSpec = loadOpenApiSpec();
 
+  app.disable('x-powered-by');
   app.use(cors());
-  app.use(express.json());
-  app.use(express.urlencoded({ extended: true }));
+  app.use((_, res, next) => {
+    res.setHeader('X-Content-Type-Options', 'nosniff');
+    res.setHeader('X-Frame-Options', 'DENY');
+    res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+    res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
+    next();
+  });
+  app.use(express.json({ limit: '1mb' }));
+  app.use(express.urlencoded({ extended: true, limit: '1mb' }));
 
   app.use(publicRouter);
+  app.use('/api', apiRateLimit);
   app.use('/api', apiRouter);
 
   app.get('/api/openapi.json', (_req, res) => {
@@ -109,6 +119,8 @@ export function createApp() {
       });
     });
   }
+
+  app.use('/api', notFoundHandler);
 
   const { buildPath, indexPath, indexExists, candidateBuildPaths } = resolveBuildArtifacts();
 

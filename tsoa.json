@@ -23,6 +23,18 @@
       {
         "name": "Resume",
         "description": "Resume parsing endpoints for extracting structured candidate profile data."
+      },
+      {
+        "name": "Jobs",
+        "description": "Job search and storage endpoints used by the job dashboard."
+      },
+      {
+        "name": "RAG",
+        "description": "Embedding generation and vector retrieval endpoints for retrieval-augmented workflows."
+      },
+      {
+        "name": "Applications",
+        "description": "Application tracking endpoints for apply flow and status lifecycle."
       }
     ],
     "securityDefinitions": {}

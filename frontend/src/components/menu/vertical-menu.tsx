@@ -12,6 +12,7 @@ interface VerticalMenuProps {
 
 const VerticalMenu: React.FC<VerticalMenuProps> = ({ collapsed, setCollapsed }) => {
   const [systemOpen, setSystemOpen] = useState(false);
+  const [careerOpen, setCareerOpen] = useState(false);
   const [aiOpen, setAiOpen] = useState(false);
   const [aiConceptsOpen, setAiConceptsOpen] = useState(false);
   const [mlPracticeOpen, setMlPracticeOpen] = useState(false);
@@ -38,9 +39,30 @@ const VerticalMenu: React.FC<VerticalMenuProps> = ({ collapsed, setCollapsed }) 
         </NavLink>
       </li>
       <li>
-        <NavLink className="nav-link" to="/job-search">
-          {collapsed ? <span title="Job Search"><WorkIcon /></span> : 'Job Search'}
+        <NavLink
+          className="nav-link with-caret"
+          to="/job-search"
+          onClick={() => setCareerOpen((prev) => !prev)}
+        >
+          {collapsed ? <span title="Career Hub"><WorkIcon /></span> : 'Career Hub'}
+          {!collapsed && (
+            <span className={`submenu-caret ${careerOpen ? 'open' : ''}`}>▾</span>
+          )}
         </NavLink>
+        {!collapsed && careerOpen && (
+          <ul className="nav-submenu">
+            <li>
+              <NavLink className="nav-sublink" to="/job-search">
+                Discover Jobs
+              </NavLink>
+            </li>
+            <li>
+              <NavLink className="nav-sublink" to="/applications">
+                Application Tracker
+              </NavLink>
+            </li>
+          </ul>
+        )}
       </li>
       <li>
         <NavLink
