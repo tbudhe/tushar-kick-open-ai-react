@@ -10,87 +10,47 @@ export interface TailorResumeJobInput {
 }
 
 export interface TailorResumeResult {
-  source: 'claude' | 'fallback';
+  source: 'openai';
   tailoredResume: string;
   jobAnalysis: string;
   changeHighlights: string[];
 }
 
-function getClaudeApiKey() {
-  const key = process.env.ANTHROPIC_API_KEY || process.env.CLAUDE_API_KEY || '';
+export type ResumeTemplateKey = 'classic' | 'impact' | 'compact';
+
+interface TemplateGuide {
+  label: string;
+  sectionOrder: string[];
+  styleHint: string;
+}
+
+const TEMPLATE_GUIDES: Record<ResumeTemplateKey, TemplateGuide> = {
+  classic: {
+    label: 'Classic Professional',
+    sectionOrder: ['Summary', 'Skills', 'Experience', 'Education', 'Projects', 'Certifications'],
+    styleHint: 'Use professional, balanced detail with clear bullet points in standard section order.',
+  },
+  impact: {
+    label: 'Impact Focused',
+    sectionOrder: ['Summary', 'Experience', 'Projects', 'Skills', 'Certifications', 'Education'],
+    styleHint: 'Prioritize measurable impact and achievements, especially in Experience and Projects.',
+  },
+  compact: {
+    label: 'Compact ATS',
+    sectionOrder: ['Summary', 'Skills', 'Experience', 'Projects', 'Education', 'Certifications'],
+    styleHint: 'Keep language concise and ATS-friendly. Favor compact lines and keyword-rich statements.',
+  },
+};
+
+function getOpenAiApiKey() {
+  const key = process.env.OPENAI_API_KEY || '';
   return key.trim();
 }
-
-function extractKeywords(text: string, limit = 8) {
-  const words = text
-    .toLowerCase()
-    .replace(/[^a-z0-9\s-]/g, ' ')
-    .split(/\s+/)
-    .filter((word) => word.length > 3);
-
-  const stopWords = new Set([
-    'with', 'that', 'this', 'from', 'will', 'have', 'your', 'team', 'role', 'experience',
-    'years', 'work', 'build', 'used', 'using', 'required', 'strong', 'skills', 'looking',
-    'join', 'across', 'into', 'their', 'about', 'more', 'than', 'where', 'when', 'what',
-  ]);
-
-  const counts = new Map<string, number>();
-  words.forEach((word) => {
-    if (!stopWords.has(word)) {
-      counts.set(word, (counts.get(word) || 0) + 1);
-    }
-  });
-
-  return Array.from(counts.entries())
-    .sort((a, b) => b[1] - a[1])
-    .slice(0, limit)
-    .map(([keyword]) => keyword);
-}
-
-function buildFallbackTailoring(resumeText: string, job: TailorResumeJobInput): TailorResumeResult {
-  const keywords = extractKeywords(`${job.title} ${job.description}`, 6);
-  const resumeLines = resumeText
-    .split(/\r?\n/)
-    .map((line) => line.trim())
-    .filter(Boolean);
-
-  const summaryLine = resumeLines.find((line) => /summary|profile/i.test(line))
-    ? 'Summary aligned to target role'
-    : 'Professional Summary';
-
-  const tailoredSummary = `Targeting ${job.title} at ${job.company}. Emphasizes impact in ${keywords.join(', ')}.`;
-  const highlightBullets = [
-    `Matched role keywords: ${keywords.join(', ')}`,
-    `Reframed summary toward ${job.title} responsibilities`,
-    'Prioritized achievements likely relevant to the job description',
-  ];
-
-  const tailoredResume = [
-    ...resumeLines.slice(0, 2),
-    '',
-    summaryLine,
-    tailoredSummary,
-    '',
-    'Targeted Highlights',
-    `- Applied strengths relevant to ${job.title}`,
-    `- Focused on ${keywords.slice(0, 3).join(', ')}`,
-    '',
-    ...resumeLines.slice(2),
-  ].join('\n');
-
-  return {
-    source: 'fallback',
-    tailoredResume,
-    jobAnalysis: `Role focus: ${job.title}. Priority themes: ${keywords.join(', ')}.`,
-    changeHighlights: highlightBullets,
-  };
-}
-
-function parseClaudeJson(text: string) {
+function parseModelJson(text: string) {
   const start = text.indexOf('{');
   const end = text.lastIndexOf('}');
   if (start === -1 || end === -1 || end <= start) {
-    throw new Error('Claude response did not contain valid JSON');
+    throw new Error('Model response did not contain valid JSON');
   }
 
   return JSON.parse(text.slice(start, end + 1)) as {
@@ -100,19 +60,34 @@ function parseClaudeJson(text: string) {
   };
 }
 
-async function tailorWithClaude(resumeText: string, job: TailorResumeJobInput): Promise<TailorResumeResult | null> {
-  const apiKey = getClaudeApiKey();
+async function tailorWithOpenAi(
+  resumeText: string,
+  job: TailorResumeJobInput,
+  resumeTemplate: ResumeTemplateKey,
+): Promise<TailorResumeResult> {
+  const apiKey = getOpenAiApiKey();
   if (!apiKey) {
-    return null;
+    throw new Error('OPENAI_API_KEY is required for trailer resume generation');
   }
 
-  const model = process.env.CLAUDE_MODEL || 'claude-3-5-haiku-latest';
+  const model = process.env.OPENAI_MODEL || 'gpt-4o-mini';
+  const templateGuide = TEMPLATE_GUIDES[resumeTemplate];
   const ragContext = await getRagContextForTailoring(
     resumeText,
     `${job.title}\n${job.company}\n${job.description}`,
   );
 
   const prompt = `Tailor the resume for this job. Return JSON only with keys: tailoredResume (string), jobAnalysis (string), changeHighlights (string[] max 5).
+
+Use this resume template:
+- Template Key: ${resumeTemplate}
+- Template Name: ${templateGuide.label}
+- Section Order: ${templateGuide.sectionOrder.join(' > ')}
+- Style Guidance: ${templateGuide.styleHint}
+
+Ensure the tailored resume is complete and includes core sections when possible: Summary, Skills, Experience, Education, Projects, Certifications.
+Do not output a skills-only resume. Preserve and improve concrete role content from Experience, Education, Projects, and Certifications whenever available.
+Keep the resume line-based and section-based so each point can be compared item-by-item in a side-by-side UI.
 
 Job Title: ${job.title}
 Company: ${job.company}
@@ -122,70 +97,89 @@ Retrieved Context (RAG):
 ${ragContext || 'No retrieved context available'}
 
 Original Resume:
-${resumeText.slice(0, 12000)}`;
+${resumeText.slice(0, 12000)}
 
-  try {
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'x-api-key': apiKey,
-        'anthropic-version': '2023-06-01',
-        'content-type': 'application/json',
-      },
-      body: JSON.stringify({
-        model,
-        max_tokens: 1800,
-        temperature: 0.2,
-        messages: [{ role: 'user', content: prompt }],
-      }),
-    });
+Return strict JSON with this shape only:
+{
+  "tailoredResume": "string",
+  "jobAnalysis": "string",
+  "changeHighlights": ["string", "string"]
+}`;
 
-    if (!response.ok) {
-      return null;
+  const response = await fetch('https://api.openai.com/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      model,
+      temperature: 0.2,
+      response_format: { type: 'json_object' },
+      messages: [
+        {
+          role: 'system',
+          content: 'You are an expert resume tailoring assistant. Output valid JSON only.',
+        },
+        {
+          role: 'user',
+          content: prompt,
+        },
+      ],
+    }),
+  });
+
+  if (!response.ok) {
+    const errorBody = await response.text();
+
+    if (response.status === 401) {
+      throw new Error('OpenAI authentication failed. Verify OPENAI_API_KEY in your environment.');
     }
 
-    const payload = (await response.json()) as {
-      content?: Array<{ type?: string; text?: string }>;
-    };
-
-    const text = (payload.content || [])
-      .filter((part) => part.type === 'text' && typeof part.text === 'string')
-      .map((part) => part.text as string)
-      .join('\n');
-
-    if (!text.trim()) {
-      return null;
+    if (response.status === 429) {
+      if (errorBody.includes('insufficient_quota')) {
+        throw new Error('OpenAI quota exceeded for this API key. Update billing/quota or use a different key.');
+      }
+      throw new Error('OpenAI rate limit reached. Retry after a short wait.');
     }
 
-    const parsed = parseClaudeJson(text);
-    const tailoredResume = typeof parsed.tailoredResume === 'string' ? parsed.tailoredResume.trim() : '';
-    const jobAnalysis = typeof parsed.jobAnalysis === 'string' ? parsed.jobAnalysis.trim() : '';
-    const changeHighlights = Array.isArray(parsed.changeHighlights)
-      ? parsed.changeHighlights.filter((item) => typeof item === 'string').slice(0, 5)
-      : [];
-
-    if (!tailoredResume || !jobAnalysis) {
-      return null;
-    }
-
-    return {
-      source: 'claude',
-      tailoredResume,
-      jobAnalysis,
-      changeHighlights,
-    };
-  } catch {
-    return null;
+    throw new Error(`OpenAI request failed (${response.status}). Please retry or verify API settings.`);
   }
+
+  const payload = (await response.json()) as {
+    choices?: Array<{ message?: { content?: string } }>;
+  };
+
+  const text = payload.choices?.[0]?.message?.content || '';
+  if (!text.trim()) {
+    throw new Error('OpenAI returned an empty tailoring response');
+  }
+
+  const parsed = parseModelJson(text);
+  const tailoredResume = typeof parsed.tailoredResume === 'string' ? parsed.tailoredResume.trim() : '';
+  const jobAnalysis = typeof parsed.jobAnalysis === 'string' ? parsed.jobAnalysis.trim() : '';
+  const changeHighlights = Array.isArray(parsed.changeHighlights)
+    ? parsed.changeHighlights.filter((item) => typeof item === 'string').slice(0, 5)
+    : [];
+
+  if (!tailoredResume || !jobAnalysis) {
+    throw new Error('OpenAI response missing required fields tailoredResume/jobAnalysis');
+  }
+
+  return {
+    source: 'openai',
+    tailoredResume,
+    jobAnalysis,
+    changeHighlights,
+  };
 }
 
-export async function tailorResumeForJob(resumeText: string, job: TailorResumeJobInput): Promise<TailorResumeResult> {
-  const claudeResult = await tailorWithClaude(resumeText, job);
-  if (claudeResult) {
-    return claudeResult;
-  }
-
-  return buildFallbackTailoring(resumeText, job);
+export async function tailorResumeForJob(
+  resumeText: string,
+  job: TailorResumeJobInput,
+  resumeTemplate: ResumeTemplateKey = 'classic',
+): Promise<TailorResumeResult> {
+  return tailorWithOpenAi(resumeText, job, resumeTemplate);
 }
 
 export async function persistTailoredResume(

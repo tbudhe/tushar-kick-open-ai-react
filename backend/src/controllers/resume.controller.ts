@@ -50,10 +50,14 @@ export async function parseResumeController(req: Request, res: Response) {
 }
 
 const MAX_JOB_DESCRIPTION_LENGTH = 20000;
+const RESUME_TEMPLATES = new Set(['classic', 'impact', 'compact']);
 
 export async function tailorResumeController(req: Request, res: Response) {
   try {
     const resumeText = typeof req.body?.resumeText === 'string' ? req.body.resumeText : '';
+    const resumeTemplate = typeof req.body?.resumeTemplate === 'string'
+      ? req.body.resumeTemplate.trim().toLowerCase()
+      : 'classic';
     const job = req.body?.job as {
       id?: string;
       title?: string;
@@ -67,6 +71,10 @@ export async function tailorResumeController(req: Request, res: Response) {
 
     if (resumeText.length > MAX_RESUME_LENGTH) {
       return sendError(res, `Resume text is too large. Limit is ${MAX_RESUME_LENGTH} characters.`, 413);
+    }
+
+    if (!RESUME_TEMPLATES.has(resumeTemplate)) {
+      return sendError(res, 'Invalid resume template. Allowed values: classic, impact, compact.', 400);
     }
 
     if (!job || typeof job !== 'object' || !job.id || !job.title) {
@@ -89,7 +97,11 @@ export async function tailorResumeController(req: Request, res: Response) {
       description: jobDescription,
     };
 
-    const tailored = await tailorResumeForJob(resumeText, targetJob);
+    const tailored = await tailorResumeForJob(
+      resumeText,
+      targetJob,
+      resumeTemplate as 'classic' | 'impact' | 'compact',
+    );
     const persisted = await persistTailoredResume(targetJob, resumeText, tailored);
 
     return sendSuccess(res, {
@@ -105,6 +117,9 @@ export async function tailorResumeController(req: Request, res: Response) {
     });
   } catch (error) {
     console.error('[RESUME_TAILOR] Unexpected error:', error);
-    return sendError(res, 'Failed to tailor resume', 500);
+    const message = error instanceof Error && error.message
+      ? error.message
+      : 'Failed to tailor resume';
+    return sendError(res, message, 500);
   }
 }

@@ -57,12 +57,13 @@ export interface TailorResumeJob {
 
 export interface TailorResumeRequest {
   resumeText: string;
+  resumeTemplate?: 'classic' | 'impact' | 'compact';
   job: TailorResumeJob;
 }
 
 export interface TailorResumeResponse {
   success: true;
-  source: 'claude' | 'fallback';
+  source: 'openai' | 'claude' | 'fallback';
   originalResume: string;
   tailoredResume: string;
   jobAnalysis: string;

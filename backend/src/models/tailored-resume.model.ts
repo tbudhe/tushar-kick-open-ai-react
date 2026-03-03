@@ -9,7 +9,7 @@ export interface TailoredResumeDocument extends mongoose.Document {
   tailoredResume: string;
   jobAnalysis: string;
   changeHighlights: string[];
-  source: 'claude' | 'fallback';
+  source: 'openai' | 'claude' | 'fallback';
 }
 
 const tailoredResumeSchema = new mongoose.Schema(
@@ -22,7 +22,7 @@ const tailoredResumeSchema = new mongoose.Schema(
     tailoredResume: { type: String, required: true },
     jobAnalysis: { type: String, required: true },
     changeHighlights: { type: [String], default: [] },
-    source: { type: String, enum: ['claude', 'fallback'], default: 'fallback' },
+    source: { type: String, enum: ['openai', 'claude', 'fallback'], default: 'openai' },
   },
   {
     collection: 'tailored_resumes',
