@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Document, HeadingLevel, Packer, Paragraph } from 'docx';
 
 interface Job {
@@ -53,7 +53,7 @@ interface ApplyResponse {
 
 interface TailorResumeResponse {
   success: boolean;
-  source: 'claude' | 'fallback';
+  source: 'openai' | 'claude' | 'fallback';
   originalResume: string;
   tailoredResume: string;
   jobAnalysis: string;
@@ -110,9 +110,25 @@ interface JobFilters {
   employmentType: string;
 }
 
-interface DiffLine {
-  type: 'added' | 'removed';
-  text: string;
+type ResumeTemplateKey = 'classic' | 'impact' | 'compact';
+
+interface ResumeTemplateDefinition {
+  label: string;
+  sectionOrder: string[];
+  skillsInline: boolean;
+}
+
+interface StructuredResume {
+  headerLines: string[];
+  sections: Record<string, string[]>;
+}
+
+type TrailerDecision = 'accepted' | 'skipped';
+
+interface ComparisonSection {
+  sectionTitle: string;
+  originalItems: string[];
+  trailerItems: string[];
 }
 
 const SAMPLE_RESUME = `Alex Johnson
@@ -142,32 +158,6 @@ const TEXT_BASED_EXTENSIONS = new Set(['txt', 'md', 'json', 'rtf']);
 function getFileExtension(fileName: string) {
   const parts = fileName.toLowerCase().split('.');
   return parts.length > 1 ? parts[parts.length - 1] : '';
-}
-
-function buildResumeDiff(originalText: string, tailoredText: string): DiffLine[] {
-  const originalLines = originalText
-    .split(/\r?\n/)
-    .map((line) => line.trim())
-    .filter(Boolean);
-  const tailoredLines = tailoredText
-    .split(/\r?\n/)
-    .map((line) => line.trim())
-    .filter(Boolean);
-
-  const originalSet = new Set(originalLines);
-  const tailoredSet = new Set(tailoredLines);
-
-  const removed = originalLines
-    .filter((line) => !tailoredSet.has(line))
-    .slice(0, 25)
-    .map((line) => ({ type: 'removed' as const, text: line }));
-
-  const added = tailoredLines
-    .filter((line) => !originalSet.has(line))
-    .slice(0, 25)
-    .map((line) => ({ type: 'added' as const, text: line }));
-
-  return [...added, ...removed];
 }
 
 function buildResumeTextFromParsed(parsed: ParsedResumeData) {
@@ -203,6 +193,213 @@ function estimateEmbeddingCost(provider: 'openai' | 'gemini' | 'fallback', token
 }
 
 const RESUME_SECTIONS = new Set(['Summary', 'Skills', 'Experience', 'Education', 'Projects', 'Certifications']);
+
+const SECTION_ALIASES: Record<string, string> = {
+  summary: 'Summary',
+  'professional summary': 'Summary',
+  objective: 'Summary',
+  'career objective': 'Summary',
+  profile: 'Summary',
+  skills: 'Skills',
+  'core skills': 'Skills',
+  'technical skills': 'Skills',
+  'key skills': 'Skills',
+  technologies: 'Skills',
+  'technical expertise': 'Skills',
+  experience: 'Experience',
+  'professional experience': 'Experience',
+  'work experience': 'Experience',
+  'work history': 'Experience',
+  'employment history': 'Experience',
+  employment: 'Experience',
+  education: 'Education',
+  academics: 'Education',
+  'academic background': 'Education',
+  projects: 'Projects',
+  'key projects': 'Projects',
+  'personal projects': 'Projects',
+  certifications: 'Certifications',
+  certification: 'Certifications',
+  'licenses & certifications': 'Certifications',
+  'certifications & licenses': 'Certifications',
+};
+
+const RESUME_TEMPLATES: Record<ResumeTemplateKey, ResumeTemplateDefinition> = {
+  classic: {
+    label: 'Classic Professional',
+    sectionOrder: ['Summary', 'Skills', 'Experience', 'Education', 'Projects', 'Certifications'],
+    skillsInline: false,
+  },
+  impact: {
+    label: 'Impact Focused',
+    sectionOrder: ['Summary', 'Experience', 'Projects', 'Skills', 'Certifications', 'Education'],
+    skillsInline: false,
+  },
+  compact: {
+    label: 'Compact ATS',
+    sectionOrder: ['Summary', 'Skills', 'Experience', 'Projects', 'Education', 'Certifications'],
+    skillsInline: true,
+  },
+};
+
+function normalizeSectionHeading(rawHeading: string) {
+  const normalized = rawHeading
+    .trim()
+    .replace(/^#+\s*/, '')
+    .replace(/^\*+|\*+$/g, '')
+    .replace(/:$/, '')
+    .replace(/\s+/g, ' ')
+    .toLowerCase();
+  return SECTION_ALIASES[normalized] || null;
+}
+
+function dedupeCaseInsensitive(items: string[]) {
+  const seen = new Set<string>();
+  return items.filter((item) => {
+    const key = item.trim().toLowerCase();
+    if (!key || seen.has(key)) {
+      return false;
+    }
+    seen.add(key);
+    return true;
+  });
+}
+
+function parseResumeIntoSections(resumeText: string): StructuredResume {
+  const sections: Record<string, string[]> = {};
+  const headerLines: string[] = [];
+
+  const lines = resumeText
+    .split(/\r?\n/)
+    .map((line) => line.trim())
+    .filter((line) => line.length > 0);
+
+  let activeSection: string | null = null;
+
+  lines.forEach((line) => {
+    const sectionHeading = normalizeSectionHeading(line);
+
+    if (sectionHeading) {
+      activeSection = sectionHeading;
+      if (!sections[activeSection]) {
+        sections[activeSection] = [];
+      }
+      return;
+    }
+
+    if (!activeSection) {
+      headerLines.push(line);
+      return;
+    }
+
+    const normalizedLine = line.replace(/^[-•]\s+/, '').trim();
+    if (!normalizedLine) {
+      return;
+    }
+
+    if (activeSection === 'Skills' && normalizedLine.includes(',') && !/^[-•]\s+/.test(line)) {
+      normalizedLine
+        .split(',')
+        .map((item) => item.trim())
+        .filter(Boolean)
+        .forEach((skill) => {
+          sections[activeSection]?.push(skill);
+        });
+      return;
+    }
+
+    sections[activeSection]?.push(normalizedLine);
+  });
+
+  const dedupedSections = Object.fromEntries(
+    Object.entries(sections).map(([section, items]) => [section, dedupeCaseInsensitive(items)]),
+  );
+
+  return {
+    headerLines: dedupeCaseInsensitive(headerLines),
+    sections: dedupedSections,
+  };
+}
+
+function buildItemDecisionKey(sectionTitle: string, index: number, text: string) {
+  return `${sectionTitle}::${index}::${text.trim().toLowerCase()}`;
+}
+
+function buildSectionOrder(templateOrder: string[], originalSections: Record<string, string[]>, trailerSections: Record<string, string[]>) {
+  const extras = new Set<string>();
+
+  Object.keys(originalSections).forEach((section) => {
+    if (!templateOrder.includes(section)) {
+      extras.add(section);
+    }
+  });
+  Object.keys(trailerSections).forEach((section) => {
+    if (!templateOrder.includes(section)) {
+      extras.add(section);
+    }
+  });
+
+  return [...templateOrder, ...Array.from(extras)];
+}
+
+function buildComparisonSections(
+  orderedSections: string[],
+  originalSections: Record<string, string[]>,
+  trailerSections: Record<string, string[]>,
+): ComparisonSection[] {
+  return orderedSections
+    .map((sectionTitle) => ({
+      sectionTitle,
+      originalItems: originalSections[sectionTitle] || [],
+      trailerItems: trailerSections[sectionTitle] || [],
+    }))
+    .filter((section) => section.originalItems.length > 0 || section.trailerItems.length > 0);
+}
+
+function buildFinalResumeFromSelections(
+  headerLines: string[],
+  orderedSections: string[],
+  originalSections: Record<string, string[]>,
+  acceptedItemsBySection: Record<string, string[]>,
+  template: ResumeTemplateDefinition,
+) {
+  const normalizedHeader = dedupeCaseInsensitive(headerLines).slice(0, 4);
+  const lines: string[] = [];
+
+  if (normalizedHeader.length > 0) {
+    lines.push(...normalizedHeader, '');
+  }
+
+  orderedSections.forEach((section) => {
+    const items = dedupeCaseInsensitive([
+      ...(originalSections[section] || []),
+      ...(acceptedItemsBySection[section] || []),
+    ]);
+    if (items.length === 0) {
+      return;
+    }
+
+    lines.push(section);
+
+    if (section === 'Summary' && items.length === 1) {
+      lines.push(items[0]);
+    } else if (section === 'Skills' && template.skillsInline) {
+      lines.push(items.join(', '));
+    } else {
+      items.forEach((item) => {
+        lines.push(`- ${item}`);
+      });
+    }
+
+    lines.push('');
+  });
+
+  return lines
+    .map((line) => line.trimEnd())
+    .filter((line, index, array) => line || (array[index - 1] && array[index - 1] !== ''))
+    .join('\n')
+    .trim();
+}
 
 function escapeHtml(value: string) {
   return value
@@ -336,8 +533,9 @@ const JobSearch: React.FC = () => {
   const [tailoringError, setTailoringError] = useState('');
   const [tailorResult, setTailorResult] = useState<TailorResumeResponse | null>(null);
   const [applyingJobId, setApplyingJobId] = useState<string | null>(null);
-  const [finalResumeText, setFinalResumeText] = useState('');
-  const [finalResumeDecision, setFinalResumeDecision] = useState<'accepted' | 'skipped' | null>(null);
+  const [selectedResumeTemplate, setSelectedResumeTemplate] = useState<ResumeTemplateKey>('classic');
+  const [acceptedItemsBySection, setAcceptedItemsBySection] = useState<Record<string, string[]>>({});
+  const [itemDecisions, setItemDecisions] = useState<Record<string, TrailerDecision>>({});
   const [isExportingDocx, setIsExportingDocx] = useState(false);
 
   const [ragDocId, setRagDocId] = useState('doc-sample-1');
@@ -354,6 +552,11 @@ const JobSearch: React.FC = () => {
   const [ragResult, setRagResult] = useState<RagRetrieveResponse | null>(null);
   const [ragBenchmarkRows, setRagBenchmarkRows] = useState<RagBenchmarkRow[]>([]);
   const [ragBenchmarkRunId, setRagBenchmarkRunId] = useState<string | null>(null);
+
+  const resetComparisonState = () => {
+    setAcceptedItemsBySection({});
+    setItemDecisions({});
+  };
 
   const fetchStoredJobs = async (filters?: Partial<JobFilters>) => {
     setIsLoadingJobs(true);
@@ -411,6 +614,9 @@ const JobSearch: React.FC = () => {
     setResumeFileName(file.name);
     setParsedResult(null);
     setParseError('');
+    setTailorResult(null);
+    setTailoringError('');
+    resetComparisonState();
 
     if (!TEXT_BASED_EXTENSIONS.has(extension)) {
       setResumeText('');
@@ -511,8 +717,7 @@ const JobSearch: React.FC = () => {
     setSelectedJobForTailoring(job);
     setTailoringError('');
     setTailorResult(null);
-    setFinalResumeText('');
-    setFinalResumeDecision(null);
+    resetComparisonState();
   };
 
   const handleTailorResume = async () => {
@@ -537,6 +742,7 @@ const JobSearch: React.FC = () => {
         },
         body: JSON.stringify({
           resumeText,
+          resumeTemplate: selectedResumeTemplate,
           job: {
             id: selectedJobForTailoring.id,
             title: selectedJobForTailoring.title,
@@ -552,8 +758,7 @@ const JobSearch: React.FC = () => {
       }
 
       setTailorResult(data);
-      setFinalResumeText('');
-      setFinalResumeDecision(null);
+      resetComparisonState();
       if (data.ragDocumentId) {
         setRagDocId(data.ragDocumentId);
       }
@@ -606,38 +811,160 @@ const JobSearch: React.FC = () => {
     }
   };
 
-  const handleAcceptMergeAndApply = () => {
-    if (!tailorResult) {
-      setTailoringError('Generate tailored resume preview first.');
-      return;
+  const templateDefinition = RESUME_TEMPLATES[selectedResumeTemplate];
+
+  const originalStructuredResume = useMemo(
+    () => (tailorResult ? parseResumeIntoSections(tailorResult.originalResume) : null),
+    [tailorResult],
+  );
+
+  const trailerStructuredResume = useMemo(
+    () => (tailorResult ? parseResumeIntoSections(tailorResult.tailoredResume) : null),
+    [tailorResult],
+  );
+
+  const sectionOrder = useMemo(() => {
+    if (!originalStructuredResume || !trailerStructuredResume) {
+      return templateDefinition.sectionOrder;
     }
 
-    setFinalResumeDecision('accepted');
-    setFinalResumeText(tailorResult.tailoredResume);
+    return buildSectionOrder(
+      templateDefinition.sectionOrder,
+      originalStructuredResume.sections,
+      trailerStructuredResume.sections,
+    );
+  }, [templateDefinition, originalStructuredResume, trailerStructuredResume]);
+
+  const comparisonSections = useMemo(() => {
+    if (!originalStructuredResume || !trailerStructuredResume) {
+      return [];
+    }
+
+    return buildComparisonSections(sectionOrder, originalStructuredResume.sections, trailerStructuredResume.sections);
+  }, [sectionOrder, originalStructuredResume, trailerStructuredResume]);
+
+  const trailerItemCount = useMemo(
+    () => comparisonSections.reduce((total, section) => total + section.trailerItems.length, 0),
+    [comparisonSections],
+  );
+
+  const processedTrailerItemCount = useMemo(() => {
+    return comparisonSections.reduce((count, section) => {
+      return count + section.trailerItems.reduce((sectionCount, item, index) => {
+        const key = buildItemDecisionKey(section.sectionTitle, index, item);
+        return itemDecisions[key] ? sectionCount + 1 : sectionCount;
+      }, 0);
+    }, 0);
+  }, [comparisonSections, itemDecisions]);
+
+  const acceptedTrailerItemCount = useMemo(
+    () => Object.values(acceptedItemsBySection).reduce((total, items) => total + items.length, 0),
+    [acceptedItemsBySection],
+  );
+
+  const isComparisonComplete = trailerItemCount > 0 && processedTrailerItemCount === trailerItemCount;
+
+  const finalResumeText = useMemo(() => {
+    if (!originalStructuredResume) {
+      return '';
+    }
+
+    return buildFinalResumeFromSelections(
+      originalStructuredResume.headerLines,
+      sectionOrder,
+      originalStructuredResume.sections,
+      acceptedItemsBySection,
+      templateDefinition,
+    );
+  }, [originalStructuredResume, sectionOrder, acceptedItemsBySection, templateDefinition]);
+
+  const handleAcceptTrailerItem = (sectionTitle: string, item: string, index: number) => {
+    const key = buildItemDecisionKey(sectionTitle, index, item);
+    setItemDecisions((previous) => ({ ...previous, [key]: 'accepted' }));
+
+    setAcceptedItemsBySection((previous) => {
+      const existing = previous[sectionTitle] || [];
+      const existsAlready = existing.some((entry) => entry.trim().toLowerCase() === item.trim().toLowerCase());
+      if (existsAlready) {
+        return previous;
+      }
+
+      return {
+        ...previous,
+        [sectionTitle]: [...existing, item],
+      };
+    });
+
     setTailoringError('');
   };
 
-  const handleSkipMergeAndApply = () => {
-    if (!tailorResult) {
-      setTailoringError('Generate tailored resume preview first.');
-      return;
-    }
+  const handleSkipTrailerItem = (sectionTitle: string, item: string, index: number) => {
+    const key = buildItemDecisionKey(sectionTitle, index, item);
+    setItemDecisions((previous) => ({ ...previous, [key]: 'skipped' }));
 
-    setFinalResumeDecision('skipped');
-    setFinalResumeText(tailorResult.originalResume);
+    setAcceptedItemsBySection((previous) => {
+      const existing = previous[sectionTitle] || [];
+      return {
+        ...previous,
+        [sectionTitle]: existing.filter((entry) => entry.trim().toLowerCase() !== item.trim().toLowerCase()),
+      };
+    });
+
+    setTailoringError('');
+  };
+
+  const handleAcceptEntireSection = (sectionTitle: string, sectionItems: string[]) => {
+    setAcceptedItemsBySection((previous) => {
+      const combined = [...(previous[sectionTitle] || []), ...sectionItems];
+      return {
+        ...previous,
+        [sectionTitle]: dedupeCaseInsensitive(combined),
+      };
+    });
+
+    setItemDecisions((previous) => {
+      const updates: Record<string, TrailerDecision> = { ...previous };
+      sectionItems.forEach((item, index) => {
+        updates[buildItemDecisionKey(sectionTitle, index, item)] = 'accepted';
+      });
+      return updates;
+    });
+
+    setTailoringError('');
+  };
+
+  const handleSkipEntireSection = (sectionTitle: string, sectionItems: string[]) => {
+    setAcceptedItemsBySection((previous) => ({
+      ...previous,
+      [sectionTitle]: [],
+    }));
+
+    setItemDecisions((previous) => {
+      const updates: Record<string, TrailerDecision> = { ...previous };
+      sectionItems.forEach((item, index) => {
+        updates[buildItemDecisionKey(sectionTitle, index, item)] = 'skipped';
+      });
+      return updates;
+    });
+
     setTailoringError('');
   };
 
   const handleApplyUsingFinalResume = async () => {
-    if (!selectedJobForTailoring || !tailorResult || !finalResumeDecision || !finalResumeText.trim()) {
-      setTailoringError('Select Accept or Skip to create final resume before applying.');
+    if (!selectedJobForTailoring || !tailorResult || !finalResumeText.trim()) {
+      setTailoringError('Generate and review resume comparison before applying.');
+      return;
+    }
+
+    if (!isComparisonComplete) {
+      setTailoringError('Complete all section decisions (Accept/Skip every trailer item) before applying.');
       return;
     }
 
     setResumeText(finalResumeText);
     await handleApplyToJob(selectedJobForTailoring, {
-      useTailoredResume: finalResumeDecision === 'accepted',
-      mergeDecision: finalResumeDecision,
+      useTailoredResume: true,
+      mergeDecision: 'accepted',
     });
   };
 
@@ -654,7 +981,7 @@ const JobSearch: React.FC = () => {
 
   const handleDownloadFinalResumeHtml = () => {
     if (!finalResumeText.trim()) {
-      setTailoringError('Create a final resume with Accept or Skip before downloading.');
+      setTailoringError('Accept at least one trailer item to create a final resume before downloading.');
       return;
     }
 
@@ -665,7 +992,7 @@ const JobSearch: React.FC = () => {
 
   const handleDownloadFinalResumeDocx = async () => {
     if (!finalResumeText.trim()) {
-      setTailoringError('Create a final resume with Accept or Skip before downloading.');
+      setTailoringError('Accept at least one trailer item to create a final resume before downloading.');
       return;
     }
 
@@ -682,10 +1009,6 @@ const JobSearch: React.FC = () => {
       setIsExportingDocx(false);
     }
   };
-
-  const diffLines = tailorResult
-    ? buildResumeDiff(tailorResult.originalResume, tailorResult.tailoredResume)
-    : [];
 
   const finalResumePreviewHtml = finalResumeText ? buildResumePreviewHtml(finalResumeText) : '';
 
@@ -1194,52 +1517,132 @@ const JobSearch: React.FC = () => {
 
           {tailorResult && (
             <div className="tailor-results-grid">
-              <div className="tailor-panel">
-                <h3>Original Resume</h3>
-                <pre>{tailorResult.originalResume}</pre>
-              </div>
-              <div className="tailor-panel">
-                <h3>Apply Decision</h3>
-                <p className="resume-helper-text">Compare side by side, then choose Accept or Skip to create final resume.</p>
-                <div className="job-search-actions">
-                  <button
-                    type="button"
-                    className="resume-action-btn primary"
-                    onClick={handleAcceptMergeAndApply}
+              <div className="tailor-panel full-width">
+                <h3>Resume Format & Progress</h3>
+                <div className="resume-template-controls">
+                  <label htmlFor="resume-template">Resume Template</label>
+                  <select
+                    id="resume-template"
+                    value={selectedResumeTemplate}
+                    onChange={(event) => {
+                      setSelectedResumeTemplate(event.target.value as ResumeTemplateKey);
+                    }}
                   >
-                    Accept Tailored Resume
-                  </button>
-                  <button
-                    type="button"
-                    className="resume-action-btn"
-                    onClick={handleSkipMergeAndApply}
-                  >
-                    Skip (Keep Original)
-                  </button>
+                    {Object.entries(RESUME_TEMPLATES).map(([key, definition]) => (
+                      <option key={key} value={key}>{definition.label}</option>
+                    ))}
+                  </select>
                 </div>
                 <p className="resume-helper-text">
-                  {finalResumeDecision === 'accepted' && 'Final resume selected: Tailored Resume'}
-                  {finalResumeDecision === 'skipped' && 'Final resume selected: Original Resume'}
-                  {!finalResumeDecision && 'No final resume selected yet.'}
+                  Source: {tailorResult.source} • Saved: {tailorResult.saved ? 'Yes' : 'No'} • Processed: {processedTrailerItemCount}/{trailerItemCount}
+                  {' '}• Accepted: {acceptedTrailerItemCount}
+                </p>
+                <p className="resume-helper-text">
+                  <span className={`resume-progress-badge ${isComparisonComplete ? 'complete' : 'in-progress'}`}>
+                    {isComparisonComplete ? 'Comparison Complete' : 'Comparison In Progress'}
+                  </span>
                 </p>
               </div>
-              <div className="tailor-panel">
-                <h3>Tailored Resume</h3>
-                <pre>{tailorResult.tailoredResume}</pre>
-              </div>
+
               <div className="tailor-panel full-width">
-                <h3>Diff View</h3>
-                <p className="resume-helper-text">Source: {tailorResult.source} • Saved: {tailorResult.saved ? 'Yes' : 'No'}</p>
-                <ul className="tailor-diff-list">
-                  {diffLines.length === 0 && <li>No line-level changes detected.</li>}
-                  {diffLines.map((line, index) => (
-                    <li key={`${line.type}-${index}`} className={`diff-${line.type}`}>
-                      {line.type === 'added' ? '+ ' : '- '}
-                      {line.text}
-                    </li>
-                  ))}
-                </ul>
-                <h4>Change Highlights</h4>
+                <h3>Side-by-Side Comparison</h3>
+                <p className="resume-helper-text">Left = Original Resume • Right = Trailer Resume. Process each point step by step with Accept/Skip. Final resume keeps original sections and adds accepted trailer improvements.</p>
+
+                {comparisonSections.length === 0 && (
+                  <p className="resume-helper-text">No structured sections found for comparison.</p>
+                )}
+
+                {comparisonSections.map((section) => {
+                  const maxItems = Math.max(section.originalItems.length, section.trailerItems.length);
+                  const decidedInSection = section.trailerItems.reduce((count, item, index) => {
+                    const key = buildItemDecisionKey(section.sectionTitle, index, item);
+                    return itemDecisions[key] ? count + 1 : count;
+                  }, 0);
+                  const acceptedInSection = section.trailerItems.reduce((count, item, index) => {
+                    const key = buildItemDecisionKey(section.sectionTitle, index, item);
+                    return itemDecisions[key] === 'accepted' ? count + 1 : count;
+                  }, 0);
+                  const sectionComplete = section.trailerItems.length > 0 && decidedInSection === section.trailerItems.length;
+
+                  return (
+                    <div key={section.sectionTitle} className="resume-compare-section">
+                      <div className="resume-compare-section-header">
+                        <div className="resume-section-status">
+                          <h4>{section.sectionTitle}</h4>
+                          <span className={`resume-progress-badge ${sectionComplete ? 'complete' : 'in-progress'}`}>
+                            {decidedInSection}/{section.trailerItems.length} decided • {acceptedInSection} accepted
+                          </span>
+                        </div>
+                        <div className="job-search-actions">
+                          <button
+                            type="button"
+                            className="resume-action-btn"
+                            onClick={() => handleAcceptEntireSection(section.sectionTitle, section.trailerItems)}
+                            disabled={section.trailerItems.length === 0}
+                          >
+                            Accept Section
+                          </button>
+                          <button
+                            type="button"
+                            className="resume-action-btn"
+                            onClick={() => handleSkipEntireSection(section.sectionTitle, section.trailerItems)}
+                            disabled={section.trailerItems.length === 0}
+                          >
+                            Skip Section
+                          </button>
+                        </div>
+                      </div>
+
+                      <div className="resume-compare-grid">
+                        <div className="resume-compare-column-title">Original Resume</div>
+                        <div className="resume-compare-column-title">Trailer Resume</div>
+
+                        {Array.from({ length: maxItems }).map((_, index) => {
+                          const originalItem = section.originalItems[index] || '';
+                          const trailerItem = section.trailerItems[index] || '';
+                          const decisionKey = trailerItem ? buildItemDecisionKey(section.sectionTitle, index, trailerItem) : '';
+                          const decision = decisionKey ? itemDecisions[decisionKey] : null;
+
+                          return (
+                            <React.Fragment key={`${section.sectionTitle}-${index}`}>
+                              <div className="resume-compare-cell">{originalItem || '—'}</div>
+                              <div className="resume-compare-cell trailer">
+                                <div>{trailerItem || '—'}</div>
+                                {trailerItem && (
+                                  <div className="resume-compare-actions">
+                                    <button
+                                      type="button"
+                                      className="resume-action-btn primary"
+                                      onClick={() => handleAcceptTrailerItem(section.sectionTitle, trailerItem, index)}
+                                    >
+                                      Accept
+                                    </button>
+                                    <button
+                                      type="button"
+                                      className="resume-action-btn"
+                                      onClick={() => handleSkipTrailerItem(section.sectionTitle, trailerItem, index)}
+                                    >
+                                      Skip
+                                    </button>
+                                    {decision && (
+                                      <span className={`resume-item-decision ${decision}`}>
+                                        {decision === 'accepted' ? 'Accepted' : 'Skipped'}
+                                      </span>
+                                    )}
+                                  </div>
+                                )}
+                              </div>
+                            </React.Fragment>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
+              <div className="tailor-panel full-width">
+                <h3>Tailoring Insights</h3>
                 <ul className="tailor-highlight-list">
                   {tailorResult.changeHighlights.map((highlight) => (
                     <li key={highlight}>{highlight}</li>
@@ -1251,7 +1654,7 @@ const JobSearch: React.FC = () => {
               <div className="tailor-panel full-width">
                 <h3>Final Resume (HTML Preview)</h3>
                 {!finalResumeText && (
-                  <p className="resume-helper-text">Choose Accept or Skip above to generate your final resume.</p>
+                  <p className="resume-helper-text">Your original resume is the base. Accept trailer items above to apply section-by-section improvements.</p>
                 )}
                 {finalResumeText && (
                   <>
@@ -1283,7 +1686,7 @@ const JobSearch: React.FC = () => {
                         onClick={() => {
                           void handleApplyUsingFinalResume();
                         }}
-                        disabled={applyingJobId === selectedJobForTailoring?.id}
+                        disabled={applyingJobId === selectedJobForTailoring?.id || !isComparisonComplete}
                       >
                         {applyingJobId === selectedJobForTailoring?.id ? 'Applying...' : 'Apply Using Final Resume'}
                       </button>

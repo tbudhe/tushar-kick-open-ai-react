@@ -595,6 +595,133 @@ body,
   overflow: auto;
 }
 
+.resume-template-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.resume-template-controls label {
+  font-size: 0.88rem;
+  color: #374151;
+  font-weight: 600;
+}
+
+.resume-template-controls select {
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 6px 8px;
+  background: #ffffff;
+  font-size: 0.86rem;
+}
+
+.resume-compare-section {
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 12px;
+}
+
+.resume-compare-section:last-child {
+  margin-bottom: 0;
+}
+
+.resume-compare-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.resume-compare-section-header h4 {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #111827;
+}
+
+.resume-section-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.resume-progress-badge {
+  font-size: 0.73rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 4px 8px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+}
+
+.resume-progress-badge.in-progress {
+  background: #fef3c7;
+  color: #92400e;
+  border-color: #fcd34d;
+}
+
+.resume-progress-badge.complete {
+  background: #dcfce7;
+  color: #166534;
+  border-color: #86efac;
+}
+
+.resume-compare-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.resume-compare-column-title {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #6b7280;
+  font-weight: 700;
+}
+
+.resume-compare-cell {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 8px;
+  background: #ffffff;
+  font-size: 0.86rem;
+  color: #1f2937;
+  line-height: 1.45;
+}
+
+.resume-compare-cell.trailer {
+  display: grid;
+  gap: 8px;
+}
+
+.resume-compare-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.resume-item-decision {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.resume-item-decision.accepted {
+  color: #166534;
+}
+
+.resume-item-decision.skipped {
+  color: #b45309;
+}
+
 .final-resume-preview {
   border: 1px solid #e5e7eb;
   border-radius: 12px;
@@ -944,6 +1071,10 @@ body,
   }
 
   .tailor-results-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .resume-compare-grid {
     grid-template-columns: 1fr;
   }
 }
