@@ -85,8 +85,10 @@ Use this resume template:
 - Section Order: ${templateGuide.sectionOrder.join(' > ')}
 - Style Guidance: ${templateGuide.styleHint}
 
-Ensure the tailored resume is complete and includes core sections when possible: Summary, Skills, Experience, Education, Projects, Certifications.
-Do not output a skills-only resume. Preserve and improve concrete role content from Experience, Education, Projects, and Certifications whenever available.
+Ensure the tailored resume is complete and includes core sections: Summary, Skills, Experience, Education, Projects, Certifications.
+CRITICAL: You MUST include an "Experience" section. If the original resume contains any work history, roles, or employment, reproduce and enhance all of it under the exact heading "Experience". Never omit Experience. Never rename it.
+CRITICAL: For every job in Experience, you MUST output the company name, job title, and dates on their own line exactly as they appear in the original (e.g. "Walmart | Senior Engineer | 2021-2024"). Never drop company names. Never merge multiple jobs into a flat bullet list. Each job entry must start with its own company/title/date header line, followed by its achievement bullets.
+Do not output a skills-only resume. Only modify achievement bullets, not company names, job titles, or dates.
 Keep the resume line-based and section-based so each point can be compared item-by-item in a side-by-side UI.
 
 Job Title: ${job.title}

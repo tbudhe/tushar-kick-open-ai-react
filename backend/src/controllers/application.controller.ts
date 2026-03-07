@@ -30,6 +30,7 @@ export async function applyController(req: Request, res: Response) {
         company: job.company,
         location: job.location || '',
         url: job.url || '',
+        tailoredResumeText: typeof req.body?.tailoredResumeText === 'string' ? req.body.tailoredResumeText : undefined,
       },
       tailoredResumeId: typeof req.body?.tailoredResumeId === 'string' ? req.body.tailoredResumeId : null,
       notes: typeof req.body?.notes === 'string' ? req.body.notes : '',

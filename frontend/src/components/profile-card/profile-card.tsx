@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import '../../styles/cards.css';
@@ -8,6 +8,7 @@ interface ExperienceItem {
   role: string;
   duration: string;
   description: string;
+  projectContext?: string;
 }
 
 interface ProfileCardProps {
@@ -39,6 +40,16 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
   experience,
   socialLinks,
 }) => {
+  const [expandedIdx, setExpandedIdx] = useState<Set<number>>(new Set());
+
+  const toggleExp = (idx: number) => {
+    setExpandedIdx((prev) => {
+      const next = new Set(prev);
+      next.has(idx) ? next.delete(idx) : next.add(idx);
+      return next;
+    });
+  };
+
   return (
     <div className="card">
       <div className="card-header">
@@ -109,13 +120,38 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
           <ul className="card-list">
             {experience.map((exp, idx) => (
               <li key={idx} className="card-list-item">
-                <div className="card-list-item-title">
-                  {exp.role} at {exp.company}
-                </div>
-                <p style={{ fontSize: 'var(--font-size-sm)', color: 'var(--color-text-muted)', margin: 0 }}>
-                  {exp.duration}
-                </p>
-                <p className="card-list-item-text">{exp.description}</p>
+                <button type="button" className="exp-toggle-btn" onClick={() => toggleExp(idx)}>
+                  <span className="exp-toggle-chevron">{expandedIdx.has(idx) ? '▾' : '▸'}</span>
+                  <span className="card-list-item-title">{exp.role} at {exp.company}</span>
+                  <span className="exp-toggle-duration">{exp.duration}</span>
+                </button>
+                {expandedIdx.has(idx) && (
+                  <>
+                    <ul className="exp-bullets">
+                      {exp.description
+                        .split(/[;\n]/)
+                        .map((s) => s.replace(/^[-•]\s*/, '').trim())
+                        .filter(Boolean)
+                        .map((bullet, bIdx) => (
+                          <li key={bIdx}>{bullet}</li>
+                        ))}
+                    </ul>
+                    {exp.projectContext?.trim() && (
+                      <div className="exp-project-context">
+                        <span className="exp-project-label">Projects</span>
+                        <ul className="exp-bullets exp-bullets--context">
+                          {exp.projectContext
+                            .split(/[;\n]/)
+                            .map((s) => s.replace(/^[-•*]\s*/, '').trim())
+                            .filter(Boolean)
+                            .map((bullet, bIdx) => (
+                              <li key={bIdx}>{bullet}</li>
+                            ))}
+                        </ul>
+                      </div>
+                    )}
+                  </>
+                )}
               </li>
             ))}
           </ul>

@@ -14,23 +14,6 @@ interface Job {
   publishedAt: string | null;
 }
 
-interface ParsedResumeData {
-  fullName: string | null;
-  email: string | null;
-  phone: string | null;
-  summary: string | null;
-  skills: string[];
-  experience: string[];
-  education: string[];
-}
-
-interface ParseResumeResponse {
-  success: boolean;
-  source: 'claude' | 'fallback';
-  fileName: string;
-  parsedData: ParsedResumeData;
-}
-
 interface JobsResponse {
   success: boolean;
   count: number;
@@ -123,14 +106,6 @@ interface StructuredResume {
   sections: Record<string, string[]>;
 }
 
-type TrailerDecision = 'accepted' | 'skipped';
-
-interface ComparisonSection {
-  sectionTitle: string;
-  originalItems: string[];
-  trailerItems: string[];
-}
-
 const SAMPLE_RESUME = `Alex Johnson
 Email: alex.johnson@example.com
 Phone: +1 (415) 555-1290
@@ -152,36 +127,6 @@ Software Engineer - BrightStack (2019 - 2022)
 Education
 B.S. Computer Science, University of Washington (2019)
 `;
-
-const TEXT_BASED_EXTENSIONS = new Set(['txt', 'md', 'json', 'rtf']);
-
-function getFileExtension(fileName: string) {
-  const parts = fileName.toLowerCase().split('.');
-  return parts.length > 1 ? parts[parts.length - 1] : '';
-}
-
-function buildResumeTextFromParsed(parsed: ParsedResumeData) {
-  return [
-    parsed.fullName ? `${parsed.fullName}` : '',
-    parsed.email ? `Email: ${parsed.email}` : '',
-    parsed.phone ? `Phone: ${parsed.phone}` : '',
-    '',
-    'Summary',
-    parsed.summary || '',
-    '',
-    'Skills',
-    parsed.skills.join(', '),
-    '',
-    'Experience',
-    parsed.experience.join('\n'),
-    '',
-    'Education',
-    parsed.education.join('\n'),
-  ]
-    .map((line) => line.trimEnd())
-    .filter((line, index, array) => line || (array[index - 1] && array[index - 1] !== ''))
-    .join('\n');
-}
 
 function estimateTokens(input: string) {
   return Math.max(1, Math.ceil(input.length / 4));
@@ -212,6 +157,11 @@ const SECTION_ALIASES: Record<string, string> = {
   'work history': 'Experience',
   'employment history': 'Experience',
   employment: 'Experience',
+  'relevant experience': 'Experience',
+  'career history': 'Experience',
+  'professional background': 'Experience',
+  'job history': 'Experience',
+  'experience & achievements': 'Experience',
   education: 'Education',
   academics: 'Education',
   'academic background': 'Education',
@@ -292,7 +242,11 @@ function parseResumeIntoSections(resumeText: string): StructuredResume {
       return;
     }
 
-    const normalizedLine = line.replace(/^[-•]\s+/, '').trim();
+    const normalizedLine = line
+      .replace(/^[-•]\s+/, '')
+      .replace(/\*\*/g, '')
+      .replace(/^\*|\*$/g, '')
+      .trim();
     if (!normalizedLine) {
       return;
     }
@@ -321,10 +275,6 @@ function parseResumeIntoSections(resumeText: string): StructuredResume {
   };
 }
 
-function buildItemDecisionKey(sectionTitle: string, index: number, text: string) {
-  return `${sectionTitle}::${index}::${text.trim().toLowerCase()}`;
-}
-
 function buildSectionOrder(templateOrder: string[], originalSections: Record<string, string[]>, trailerSections: Record<string, string[]>) {
   const extras = new Set<string>();
 
@@ -340,20 +290,6 @@ function buildSectionOrder(templateOrder: string[], originalSections: Record<str
   });
 
   return [...templateOrder, ...Array.from(extras)];
-}
-
-function buildComparisonSections(
-  orderedSections: string[],
-  originalSections: Record<string, string[]>,
-  trailerSections: Record<string, string[]>,
-): ComparisonSection[] {
-  return orderedSections
-    .map((sectionTitle) => ({
-      sectionTitle,
-      originalItems: originalSections[sectionTitle] || [],
-      trailerItems: trailerSections[sectionTitle] || [],
-    }))
-    .filter((section) => section.originalItems.length > 0 || section.trailerItems.length > 0);
 }
 
 function buildFinalResumeFromSelections(
@@ -522,11 +458,6 @@ const JobSearch: React.FC = () => {
   const [searchMessage, setSearchMessage] = useState('');
 
   const [resumeText, setResumeText] = useState('');
-  const [resumeFileName, setResumeFileName] = useState('');
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [isParsing, setIsParsing] = useState(false);
-  const [parseError, setParseError] = useState('');
-  const [parsedResult, setParsedResult] = useState<ParseResumeResponse | null>(null);
 
   const [selectedJobForTailoring, setSelectedJobForTailoring] = useState<Job | null>(null);
   const [isTailoring, setIsTailoring] = useState(false);
@@ -534,9 +465,12 @@ const JobSearch: React.FC = () => {
   const [tailorResult, setTailorResult] = useState<TailorResumeResponse | null>(null);
   const [applyingJobId, setApplyingJobId] = useState<string | null>(null);
   const [selectedResumeTemplate, setSelectedResumeTemplate] = useState<ResumeTemplateKey>('classic');
-  const [acceptedItemsBySection, setAcceptedItemsBySection] = useState<Record<string, string[]>>({});
-  const [itemDecisions, setItemDecisions] = useState<Record<string, TrailerDecision>>({});
   const [isExportingDocx, setIsExportingDocx] = useState(false);
+  const [newSkillsToAdd, setNewSkillsToAdd] = useState<string[]>([]);
+  const [matchScores, setMatchScores] = useState<Record<string, number>>({});
+  const [profileLoaded, setProfileLoaded] = useState(false);
+  const [profileName, setProfileName] = useState('');
+  const [profileSkills, setProfileSkills] = useState<string[]>([]);
 
   const [ragDocId, setRagDocId] = useState('doc-sample-1');
   const [ragDocText, setRagDocText] = useState('');
@@ -554,8 +488,30 @@ const JobSearch: React.FC = () => {
   const [ragBenchmarkRunId, setRagBenchmarkRunId] = useState<string | null>(null);
 
   const resetComparisonState = () => {
-    setAcceptedItemsBySection({});
-    setItemDecisions({});
+    setNewSkillsToAdd([]);
+  };
+
+  const fetchMatchScores = async (jobList: Job[], resume: string) => {
+    if (!resume.trim() || jobList.length === 0) return;
+    try {
+      const response = await fetch('/api/jobs/score', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          skills: profileSkills,
+          resumeText: resume,
+          jobs: jobList.map((j) => ({ id: j.id, description: j.description })),
+        }),
+      });
+      if (!response.ok) return;
+      const data = (await response.json()) as { scores?: { jobId: string; score: number }[] };
+      if (!data.scores) return;
+      const map: Record<string, number> = {};
+      data.scores.forEach(({ jobId, score }) => { map[jobId] = score; });
+      setMatchScores(map);
+    } catch {
+      // silently ignore — scores are non-critical
+    }
   };
 
   const fetchStoredJobs = async (filters?: Partial<JobFilters>) => {
@@ -591,6 +547,7 @@ const JobSearch: React.FC = () => {
       }
 
       setJobs(data.jobs);
+      void fetchMatchScores(data.jobs, resumeText);
       setSearchMessage(`Loaded ${data.count} stored jobs`);
     } catch (error) {
       setJobError(error instanceof Error ? error.message : 'Unexpected error loading jobs');
@@ -601,72 +558,42 @@ const JobSearch: React.FC = () => {
 
   useEffect(() => {
     void fetchStoredJobs();
+    void fetchProfile();
   }, []);
 
-  const handleResumeFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (!file) {
-      return;
-    }
-
-    const extension = getFileExtension(file.name);
-    setSelectedFile(file);
-    setResumeFileName(file.name);
-    setParsedResult(null);
-    setParseError('');
-    setTailorResult(null);
-    setTailoringError('');
-    resetComparisonState();
-
-    if (!TEXT_BASED_EXTENSIONS.has(extension)) {
-      setResumeText('');
-      return;
-    }
-
+  async function fetchProfile() {
     try {
-      const text = await file.text();
-      setResumeText(text);
+      const response = await fetch('/api/profile');
+      if (!response.ok) return;
+      const data = (await response.json()) as {
+        profile?: {
+          resumeText?: string;
+          name?: string;
+          skillGroups?: { title: string; items: string[] }[];
+        };
+      };
+      const text = data?.profile?.resumeText?.trim() || '';
+      const name = data?.profile?.name?.trim() || '';
+      const flatSkills = (data?.profile?.skillGroups ?? []).flatMap((g) => g.items).filter(Boolean);
+      if (text) {
+        setResumeText(text);
+        setProfileLoaded(true);
+        setProfileName(name);
+      }
+      if (flatSkills.length > 0) {
+        setProfileSkills(flatSkills);
+      }
     } catch {
-      setParseError('Unable to read the selected file. Please upload a plain text resume.');
+      // silently ignore — user can still upload manually
     }
-  };
+  }
 
-  const handleParseResume = async () => {
-    if (!selectedFile) {
-      setParseError('Upload a resume file before parsing.');
-      return;
+  useEffect(() => {
+    if (resumeText && jobs.length > 0) {
+      void fetchMatchScores(jobs, resumeText);
     }
-
-    setIsParsing(true);
-    setParseError('');
-    setParsedResult(null);
-
-    try {
-      const formData = new FormData();
-      formData.append('resumeFile', selectedFile);
-      if (resumeFileName) {
-        formData.append('fileName', resumeFileName);
-      }
-
-      const response = await fetch('/api/parse-resume', {
-        method: 'POST',
-        body: formData,
-      });
-
-      const data = (await response.json()) as ParseResumeResponse | { error: string };
-
-      if (!response.ok || 'error' in data) {
-        throw new Error('error' in data ? data.error : 'Failed to parse resume');
-      }
-
-      setParsedResult(data);
-      setResumeText(buildResumeTextFromParsed(data.parsedData));
-    } catch (error) {
-      setParseError(error instanceof Error ? error.message : 'Unexpected error parsing resume');
-    } finally {
-      setIsParsing(false);
-    }
-  };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [resumeText]);
 
   const handleSearchJobs = async () => {
     setIsLoadingJobs(true);
@@ -693,6 +620,7 @@ const JobSearch: React.FC = () => {
       }
 
       setJobs(data.jobs);
+      void fetchMatchScores(data.jobs, resumeText);
       setSearchMessage(
         data.databaseConnected
           ? `Found ${data.count} jobs • persisted ${data.persisted} records`
@@ -771,7 +699,7 @@ const JobSearch: React.FC = () => {
 
   const handleApplyToJob = async (
     job: Job,
-    options?: { useTailoredResume: boolean; mergeDecision: 'accepted' | 'skipped' },
+    options?: { useTailoredResume: boolean; mergeDecision: 'accepted' | 'skipped'; tailoredResumeText?: string },
   ) => {
     setApplyingJobId(job.id);
     setJobError('');
@@ -791,6 +719,7 @@ const JobSearch: React.FC = () => {
             url: job.url,
           },
           tailoredResumeId: options?.useTailoredResume ? (tailorResult?.tailoredId || null) : null,
+          tailoredResumeText: options?.tailoredResumeText || undefined,
           notes: options ? `resume-merge-${options.mergeDecision}` : '',
         }),
       });
@@ -818,146 +747,52 @@ const JobSearch: React.FC = () => {
     [tailorResult],
   );
 
-  const trailerStructuredResume = useMemo(
-    () => (tailorResult ? parseResumeIntoSections(tailorResult.tailoredResume) : null),
-    [tailorResult],
-  );
-
   const sectionOrder = useMemo(() => {
-    if (!originalStructuredResume || !trailerStructuredResume) {
+    if (!originalStructuredResume) {
       return templateDefinition.sectionOrder;
     }
-
     return buildSectionOrder(
       templateDefinition.sectionOrder,
       originalStructuredResume.sections,
-      trailerStructuredResume.sections,
+      {},
     );
-  }, [templateDefinition, originalStructuredResume, trailerStructuredResume]);
+  }, [templateDefinition, originalStructuredResume]);
 
-  const comparisonSections = useMemo(() => {
-    if (!originalStructuredResume || !trailerStructuredResume) {
-      return [];
-    }
+  // Auto-compute new skills whenever tailorResult changes
+  useEffect(() => {
+    if (!tailorResult) { setNewSkillsToAdd([]); return; }
+    const orig = parseResumeIntoSections(tailorResult.originalResume).sections['Skills'] || [];
+    const trailer = parseResumeIntoSections(tailorResult.tailoredResume).sections['Skills'] || [];
+    const origSet = new Set(orig.map((s) => s.toLowerCase()));
+    const newOnes = trailer.filter((s) => !origSet.has(s.toLowerCase()));
+    setNewSkillsToAdd(dedupeCaseInsensitive(newOnes));
+  }, [tailorResult]);
 
-    return buildComparisonSections(sectionOrder, originalStructuredResume.sections, trailerStructuredResume.sections);
-  }, [sectionOrder, originalStructuredResume, trailerStructuredResume]);
-
-  const trailerItemCount = useMemo(
-    () => comparisonSections.reduce((total, section) => total + section.trailerItems.length, 0),
-    [comparisonSections],
-  );
-
-  const processedTrailerItemCount = useMemo(() => {
-    return comparisonSections.reduce((count, section) => {
-      return count + section.trailerItems.reduce((sectionCount, item, index) => {
-        const key = buildItemDecisionKey(section.sectionTitle, index, item);
-        return itemDecisions[key] ? sectionCount + 1 : sectionCount;
-      }, 0);
-    }, 0);
-  }, [comparisonSections, itemDecisions]);
-
-  const acceptedTrailerItemCount = useMemo(
-    () => Object.values(acceptedItemsBySection).reduce((total, items) => total + items.length, 0),
-    [acceptedItemsBySection],
-  );
-
-  const isComparisonComplete = trailerItemCount > 0 && processedTrailerItemCount === trailerItemCount;
+  const isComparisonComplete = !!tailorResult;
 
   const finalResumeText = useMemo(() => {
     if (!originalStructuredResume) {
       return '';
     }
-
+    const sectionsWithNewSkills = { ...originalStructuredResume.sections };
+    if (newSkillsToAdd.length > 0) {
+      sectionsWithNewSkills['Skills'] = dedupeCaseInsensitive([
+        ...(sectionsWithNewSkills['Skills'] || []),
+        ...newSkillsToAdd,
+      ]);
+    }
     return buildFinalResumeFromSelections(
       originalStructuredResume.headerLines,
       sectionOrder,
-      originalStructuredResume.sections,
-      acceptedItemsBySection,
+      sectionsWithNewSkills,
+      {},
       templateDefinition,
     );
-  }, [originalStructuredResume, sectionOrder, acceptedItemsBySection, templateDefinition]);
-
-  const handleAcceptTrailerItem = (sectionTitle: string, item: string, index: number) => {
-    const key = buildItemDecisionKey(sectionTitle, index, item);
-    setItemDecisions((previous) => ({ ...previous, [key]: 'accepted' }));
-
-    setAcceptedItemsBySection((previous) => {
-      const existing = previous[sectionTitle] || [];
-      const existsAlready = existing.some((entry) => entry.trim().toLowerCase() === item.trim().toLowerCase());
-      if (existsAlready) {
-        return previous;
-      }
-
-      return {
-        ...previous,
-        [sectionTitle]: [...existing, item],
-      };
-    });
-
-    setTailoringError('');
-  };
-
-  const handleSkipTrailerItem = (sectionTitle: string, item: string, index: number) => {
-    const key = buildItemDecisionKey(sectionTitle, index, item);
-    setItemDecisions((previous) => ({ ...previous, [key]: 'skipped' }));
-
-    setAcceptedItemsBySection((previous) => {
-      const existing = previous[sectionTitle] || [];
-      return {
-        ...previous,
-        [sectionTitle]: existing.filter((entry) => entry.trim().toLowerCase() !== item.trim().toLowerCase()),
-      };
-    });
-
-    setTailoringError('');
-  };
-
-  const handleAcceptEntireSection = (sectionTitle: string, sectionItems: string[]) => {
-    setAcceptedItemsBySection((previous) => {
-      const combined = [...(previous[sectionTitle] || []), ...sectionItems];
-      return {
-        ...previous,
-        [sectionTitle]: dedupeCaseInsensitive(combined),
-      };
-    });
-
-    setItemDecisions((previous) => {
-      const updates: Record<string, TrailerDecision> = { ...previous };
-      sectionItems.forEach((item, index) => {
-        updates[buildItemDecisionKey(sectionTitle, index, item)] = 'accepted';
-      });
-      return updates;
-    });
-
-    setTailoringError('');
-  };
-
-  const handleSkipEntireSection = (sectionTitle: string, sectionItems: string[]) => {
-    setAcceptedItemsBySection((previous) => ({
-      ...previous,
-      [sectionTitle]: [],
-    }));
-
-    setItemDecisions((previous) => {
-      const updates: Record<string, TrailerDecision> = { ...previous };
-      sectionItems.forEach((item, index) => {
-        updates[buildItemDecisionKey(sectionTitle, index, item)] = 'skipped';
-      });
-      return updates;
-    });
-
-    setTailoringError('');
-  };
+  }, [originalStructuredResume, newSkillsToAdd, sectionOrder, templateDefinition]);
 
   const handleApplyUsingFinalResume = async () => {
     if (!selectedJobForTailoring || !tailorResult || !finalResumeText.trim()) {
-      setTailoringError('Generate and review resume comparison before applying.');
-      return;
-    }
-
-    if (!isComparisonComplete) {
-      setTailoringError('Complete all section decisions (Accept/Skip every trailer item) before applying.');
+      setTailoringError('Generate tailored resume before applying.');
       return;
     }
 
@@ -965,6 +800,7 @@ const JobSearch: React.FC = () => {
     await handleApplyToJob(selectedJobForTailoring, {
       useTailoredResume: true,
       mergeDecision: 'accepted',
+      tailoredResumeText: finalResumeText,
     });
   };
 
@@ -1365,54 +1201,23 @@ const JobSearch: React.FC = () => {
 
         <div className="panel-card job-carousel-panel">
           <div className="resume-parser-header">
-            <h2>Step 1: Upload Resume</h2>
-            <p>Upload your resume file, then extract structured profile data for tailoring.</p>
+            <h2>Step 1: Resume</h2>
+            <p>Your profile resume is used for tailoring.</p>
           </div>
 
-          <div className="resume-parser-controls">
-            <input
-              type="file"
-              accept=".txt,.md,.json,.rtf,.pdf,.doc,.docx"
-              onChange={handleResumeFileUpload}
-            />
-            <button
-              type="button"
-              className="resume-action-btn primary"
-              onClick={handleParseResume}
-              disabled={isParsing}
-            >
-              {isParsing ? 'Parsing...' : 'Parse Resume'}
-            </button>
-          </div>
-
-          {resumeFileName && (
-            <p className="resume-helper-text">
-              Loaded: {resumeFileName}. Click "Parse Resume" to extract and prepare resume content for tailoring.
-              Legacy .doc may require converting to .docx.
-            </p>
-          )}
-
-          {parseError && <p className="resume-error">{parseError}</p>}
-
-          {parsedResult && (
-            <div className="resume-results">
-              <div className="resume-results-header">
-                <h3>Parsed Resume Data</h3>
-                <span>Source: {parsedResult.source}</span>
-              </div>
-              <ul>
-                <li><strong>Name:</strong> {parsedResult.parsedData.fullName || 'N/A'}</li>
-                <li><strong>Email:</strong> {parsedResult.parsedData.email || 'N/A'}</li>
-                <li><strong>Phone:</strong> {parsedResult.parsedData.phone || 'N/A'}</li>
-                <li><strong>Summary:</strong> {parsedResult.parsedData.summary || 'N/A'}</li>
-                <li>
-                  <strong>Skills:</strong>{' '}
-                  {parsedResult.parsedData.skills.length > 0
-                    ? parsedResult.parsedData.skills.join(', ')
-                    : 'N/A'}
-                </li>
-              </ul>
+          {profileLoaded ? (
+            <div className="profile-loaded-banner">
+              <span className="profile-loaded-icon">✓</span>
+              Resume loaded from your profile
+              {profileName ? ` (${profileName})` : ''}
+              {' — '}
+              <a href="/profile" className="content-panel-link">Edit Profile</a>
             </div>
+          ) : (
+            <p className="resume-error">
+              No profile resume found.{' '}
+              <a href="/profile" className="content-panel-link">Set up your profile</a> to get started.
+            </p>
           )}
         </div>
 
@@ -1486,20 +1291,23 @@ const JobSearch: React.FC = () => {
           </div>
 
           {selectedJobForTailoring ? (
-            <p className="resume-helper-text">
-              Selected job: <strong>{selectedJobForTailoring.title}</strong> at {selectedJobForTailoring.company}
-            </p>
-          ) : (
-            <p className="resume-helper-text">No job selected yet. Click “Use for Tailoring” on a role below.</p>
-          )}
-
-          {selectedJobForTailoring && (
             <div className="resume-results">
               <div className="resume-results-header">
-                <h3>Job Description</h3>
+                <h3>{selectedJobForTailoring.title}</h3>
+                {selectedJobForTailoring.url && (
+                  <a href={selectedJobForTailoring.url} target="_blank" rel="noreferrer" className="content-panel-link" style={{ fontSize: '0.82rem' }}>View Posting ↗</a>
+                )}
               </div>
+              <p style={{ margin: '4px 0 10px', fontSize: '0.85rem', color: '#6b7280' }}>
+                {selectedJobForTailoring.company}
+                {selectedJobForTailoring.location ? ` · ${selectedJobForTailoring.location}` : ''}
+                {selectedJobForTailoring.salary && selectedJobForTailoring.salary !== 'Not disclosed' ? ` · ${selectedJobForTailoring.salary}` : ''}
+                {selectedJobForTailoring.employmentType && selectedJobForTailoring.employmentType !== 'Not specified' ? ` · ${selectedJobForTailoring.employmentType}` : ''}
+              </p>
               <pre>{selectedJobForTailoring.description}</pre>
             </div>
+          ) : (
+            <p className="resume-helper-text">No job selected yet. Click "Use for Tailoring" on a role below.</p>
           )}
 
           <div className="job-search-actions">
@@ -1534,111 +1342,36 @@ const JobSearch: React.FC = () => {
                   </select>
                 </div>
                 <p className="resume-helper-text">
-                  Source: {tailorResult.source} • Saved: {tailorResult.saved ? 'Yes' : 'No'} • Processed: {processedTrailerItemCount}/{trailerItemCount}
-                  {' '}• Accepted: {acceptedTrailerItemCount}
-                </p>
-                <p className="resume-helper-text">
-                  <span className={`resume-progress-badge ${isComparisonComplete ? 'complete' : 'in-progress'}`}>
-                    {isComparisonComplete ? 'Comparison Complete' : 'Comparison In Progress'}
-                  </span>
+                  Source: {tailorResult.source} • Saved: {tailorResult.saved ? 'Yes' : 'No'}
                 </p>
               </div>
 
               <div className="tailor-panel full-width">
-                <h3>Side-by-Side Comparison</h3>
-                <p className="resume-helper-text">Left = Original Resume • Right = Trailer Resume. Process each point step by step with Accept/Skip. Final resume keeps original sections and adds accepted trailer improvements.</p>
-
-                {comparisonSections.length === 0 && (
-                  <p className="resume-helper-text">No structured sections found for comparison.</p>
-                )}
-
-                {comparisonSections.map((section) => {
-                  const maxItems = Math.max(section.originalItems.length, section.trailerItems.length);
-                  const decidedInSection = section.trailerItems.reduce((count, item, index) => {
-                    const key = buildItemDecisionKey(section.sectionTitle, index, item);
-                    return itemDecisions[key] ? count + 1 : count;
-                  }, 0);
-                  const acceptedInSection = section.trailerItems.reduce((count, item, index) => {
-                    const key = buildItemDecisionKey(section.sectionTitle, index, item);
-                    return itemDecisions[key] === 'accepted' ? count + 1 : count;
-                  }, 0);
-                  const sectionComplete = section.trailerItems.length > 0 && decidedInSection === section.trailerItems.length;
-
-                  return (
-                    <div key={section.sectionTitle} className="resume-compare-section">
-                      <div className="resume-compare-section-header">
-                        <div className="resume-section-status">
-                          <h4>{section.sectionTitle}</h4>
-                          <span className={`resume-progress-badge ${sectionComplete ? 'complete' : 'in-progress'}`}>
-                            {decidedInSection}/{section.trailerItems.length} decided • {acceptedInSection} accepted
-                          </span>
-                        </div>
-                        <div className="job-search-actions">
+                <h3>New Skills to Add</h3>
+                {newSkillsToAdd.length === 0 ? (
+                  <p className="resume-helper-text">
+                    No new skills found — your profile already covers all job requirements.
+                  </p>
+                ) : (
+                  <>
+                    <p className="resume-helper-text">
+                      These skills appear in the job requirements but are missing from your original resume.
+                      They will be added automatically. Click × to remove any.
+                    </p>
+                    <div className="skills-container" style={{ marginTop: '12px' }}>
+                      {newSkillsToAdd.map((skill, idx) => (
+                        <span key={idx} className="skill-badge skill-badge--removable">
+                          {skill}
                           <button
                             type="button"
-                            className="resume-action-btn"
-                            onClick={() => handleAcceptEntireSection(section.sectionTitle, section.trailerItems)}
-                            disabled={section.trailerItems.length === 0}
-                          >
-                            Accept Section
-                          </button>
-                          <button
-                            type="button"
-                            className="resume-action-btn"
-                            onClick={() => handleSkipEntireSection(section.sectionTitle, section.trailerItems)}
-                            disabled={section.trailerItems.length === 0}
-                          >
-                            Skip Section
-                          </button>
-                        </div>
-                      </div>
-
-                      <div className="resume-compare-grid">
-                        <div className="resume-compare-column-title">Original Resume</div>
-                        <div className="resume-compare-column-title">Trailer Resume</div>
-
-                        {Array.from({ length: maxItems }).map((_, index) => {
-                          const originalItem = section.originalItems[index] || '';
-                          const trailerItem = section.trailerItems[index] || '';
-                          const decisionKey = trailerItem ? buildItemDecisionKey(section.sectionTitle, index, trailerItem) : '';
-                          const decision = decisionKey ? itemDecisions[decisionKey] : null;
-
-                          return (
-                            <React.Fragment key={`${section.sectionTitle}-${index}`}>
-                              <div className="resume-compare-cell">{originalItem || '—'}</div>
-                              <div className="resume-compare-cell trailer">
-                                <div>{trailerItem || '—'}</div>
-                                {trailerItem && (
-                                  <div className="resume-compare-actions">
-                                    <button
-                                      type="button"
-                                      className="resume-action-btn primary"
-                                      onClick={() => handleAcceptTrailerItem(section.sectionTitle, trailerItem, index)}
-                                    >
-                                      Accept
-                                    </button>
-                                    <button
-                                      type="button"
-                                      className="resume-action-btn"
-                                      onClick={() => handleSkipTrailerItem(section.sectionTitle, trailerItem, index)}
-                                    >
-                                      Skip
-                                    </button>
-                                    {decision && (
-                                      <span className={`resume-item-decision ${decision}`}>
-                                        {decision === 'accepted' ? 'Accepted' : 'Skipped'}
-                                      </span>
-                                    )}
-                                  </div>
-                                )}
-                              </div>
-                            </React.Fragment>
-                          );
-                        })}
-                      </div>
+                            className="skill-remove-btn"
+                            onClick={() => setNewSkillsToAdd((prev) => prev.filter((_, i) => i !== idx))}
+                          >×</button>
+                        </span>
+                      ))}
                     </div>
-                  );
-                })}
+                  </>
+                )}
               </div>
 
               <div className="tailor-panel full-width">
@@ -1686,7 +1419,7 @@ const JobSearch: React.FC = () => {
                         onClick={() => {
                           void handleApplyUsingFinalResume();
                         }}
-                        disabled={applyingJobId === selectedJobForTailoring?.id || !isComparisonComplete}
+                        disabled={applyingJobId === selectedJobForTailoring?.id || !tailorResult}
                       >
                         {applyingJobId === selectedJobForTailoring?.id ? 'Applying...' : 'Apply Using Final Resume'}
                       </button>
@@ -1886,7 +1619,14 @@ const JobSearch: React.FC = () => {
             {jobs.map((job) => (
               <div key={job.id} className="job-list-item">
                 <div>
-                  <h3>{job.title}</h3>
+                  <h3>
+                    {job.title}
+                    {matchScores[job.id] !== undefined && (
+                      <span className={`match-badge match-badge--${matchScores[job.id] >= 70 ? 'green' : matchScores[job.id] >= 40 ? 'yellow' : 'gray'}`}>
+                        {matchScores[job.id]}% match
+                      </span>
+                    )}
+                  </h3>
                   <p>{job.company} • {job.location}</p>
                 </div>
                 <div className="job-list-meta">

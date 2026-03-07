@@ -117,7 +117,7 @@ function mapRemotiveJob(job: NonNullable<RemotiveResponse['jobs']>[number]): Job
     company: job.company_name?.trim() || 'Unknown Company',
     location: job.candidate_required_location?.trim() || 'Remote',
     salary: job.salary?.trim() || 'Not disclosed',
-    description: (job.description || '').replace(/<[^>]+>/g, '').slice(0, 600),
+    description: (job.description || '').replace(/<[^>]+>/g, '').trim(),
     url: job.url?.trim() || '',
     source: 'remotive',
     employmentType: job.job_type?.trim() || 'Not specified',

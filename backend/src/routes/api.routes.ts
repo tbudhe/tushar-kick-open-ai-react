@@ -15,6 +15,8 @@ import {
 import { resumeUpload } from '../middlewares/resume-upload';
 import { getJobsController, searchJobsController } from '../controllers/job.controller';
 import { getDbStatus, getMenu } from '../controllers/system.controller';
+import { scoreJobsController } from '../controllers/match-score.controller';
+import { getProfileController, updateProfileController } from '../controllers/profile.controller';
 
 const apiRouter = Router();
 
@@ -32,5 +34,8 @@ apiRouter.get('/applications', getApplicationsController);
 apiRouter.patch('/applications/:id', updateApplicationController);
 apiRouter.post('/search-jobs', searchJobsController);
 apiRouter.get('/jobs', getJobsController);
+apiRouter.post('/jobs/score', scoreJobsController);
+apiRouter.get('/profile', getProfileController);
+apiRouter.put('/profile', updateProfileController);
 
 export default apiRouter;

@@ -826,6 +826,14 @@ body,
   background: #f8fafc;
 }
 
+.resume-results pre {
+  margin: 8px 0 0;
+  white-space: pre-wrap;
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: #1f2937;
+}
+
 .resume-results-header {
   display: flex;
   align-items: baseline;
@@ -937,6 +945,58 @@ body,
   color: #6b7280;
 }
 
+.match-badge {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  vertical-align: middle;
+}
+
+.match-badge--green {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.match-badge--yellow {
+  background: #fef9c3;
+  color: #a16207;
+}
+
+.match-badge--gray {
+  background: #f3f4f6;
+  color: #6b7280;
+}
+
+.profile-loaded-banner {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  color: #15803d;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  margin-bottom: 14px;
+}
+
+.profile-loaded-icon {
+  font-style: normal;
+  font-weight: 700;
+}
+
+.resume-override-label {
+  display: block;
+  font-size: 0.82rem;
+  color: #6b7280;
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
 .content-panel {
   background: #ffffff;
   border: 1px solid #e5e7eb;
@@ -1000,6 +1060,92 @@ body,
 
 .content-panel-link:hover {
   text-decoration: underline;
+}
+
+/* Experience toggle */
+.exp-toggle-btn {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  width: 100%;
+  text-align: left;
+}
+
+.exp-toggle-btn:hover .card-list-item-title {
+  color: #2563eb;
+}
+
+.exp-toggle-chevron {
+  font-size: 0.85rem;
+  color: #9ca3af;
+  min-width: 12px;
+  flex-shrink: 0;
+}
+
+.exp-toggle-duration {
+  margin-left: auto;
+  font-size: 0.8rem;
+  color: var(--color-text-muted, #6b7280);
+  white-space: nowrap;
+  padding-left: 8px;
+  flex-shrink: 0;
+}
+
+.exp-bullets {
+  margin: 6px 0 0 0;
+  padding-left: 18px;
+  list-style: disc;
+}
+
+.exp-bullets li {
+  font-size: 0.85rem;
+  color: #374151;
+  line-height: 1.5;
+  margin-bottom: 3px;
+}
+
+.exp-project-context {
+  margin-top: 8px;
+  padding-top: 6px;
+  border-top: 1px dashed #e5e7eb;
+}
+
+.exp-project-label {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #6b7280;
+  margin-bottom: 3px;
+}
+
+.exp-bullets--context li {
+  color: #4b5563;
+}
+
+.skill-badge--removable {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.skill-remove-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.85rem;
+  color: #9ca3af;
+  padding: 0;
+  line-height: 1;
+}
+
+.skill-remove-btn:hover {
+  color: #ef4444;
 }
 
 @media (max-width: 1024px) {

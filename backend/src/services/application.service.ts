@@ -7,6 +7,7 @@ export interface ApplyJobInput {
   company: string;
   location?: string;
   url?: string;
+  tailoredResumeText?: string;
 }
 
 export interface ApplicationRecord {
@@ -40,6 +41,55 @@ function buildEmailDraft(job: ApplyJobInput) {
   ].join('\n');
 }
 
+async function generateAiCoverLetter(job: ApplyJobInput, tailoredResumeText: string): Promise<string> {
+  const apiKey = (process.env.OPENAI_API_KEY || '').trim();
+  if (!apiKey) {
+    return buildEmailDraft(job);
+  }
+
+  try {
+    const model = process.env.OPENAI_MODEL || 'gpt-4o-mini';
+    const prompt = `Write a concise, professional job application email (max 180 words) for the following.
+Output only the email text starting with "Subject:" — no extra commentary.
+
+Job Title: ${job.title}
+Company: ${job.company}
+
+Tailored Resume (excerpt):
+${tailoredResumeText.slice(0, 2000)}
+
+Requirements:
+- Subject line referencing the role
+- 2-3 sentence opening that connects the candidate's background to this specific role
+- 1-2 sentences mentioning a relevant skill or achievement from the resume
+- Brief closing requesting an interview
+- Sign off as "Candidate"`;
+
+    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model,
+        temperature: 0.3,
+        messages: [
+          { role: 'system', content: 'You write concise professional job application emails. Output only the email text.' },
+          { role: 'user', content: prompt },
+        ],
+      }),
+    });
+
+    if (!response.ok) {
+      return buildEmailDraft(job);
+    }
+
+    const payload = (await response.json()) as { choices?: Array<{ message?: { content?: string } }> };
+    const text = payload.choices?.[0]?.message?.content?.trim() || '';
+    return text || buildEmailDraft(job);
+  } catch {
+    return buildEmailDraft(job);
+  }
+}
+
 function mapDocToRecord(doc: any): ApplicationRecord {
   return {
     id: String(doc._id),
@@ -63,7 +113,9 @@ export async function applyToJob(input: {
   tailoredResumeId?: string | null;
   notes?: string;
 }) {
-  const emailDraft = buildEmailDraft(input.job);
+  const emailDraft = input.job.tailoredResumeText
+    ? await generateAiCoverLetter(input.job, input.job.tailoredResumeText)
+    : buildEmailDraft(input.job);
   const notes = (input.notes || '').trim();
 
   if (isDatabaseConnected()) {
