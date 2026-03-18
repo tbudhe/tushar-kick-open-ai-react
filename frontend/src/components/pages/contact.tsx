@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 
-type Method = 'email' | 'phone';
-
 const ContactPage: React.FC = () => {
-  const [method, setMethod] = useState<Method>('email');
+  const method = 'email';
   const [destination, setDestination] = useState('');
   const [code, setCode] = useState('');
   const [sessionId, setSessionId] = useState('');
@@ -110,38 +108,19 @@ const ContactPage: React.FC = () => {
         <div style={{ border: '1px solid #e5e7eb', borderRadius: '10px', padding: '14px', marginBottom: '12px', background: '#fafafa' }}>
           <h3 style={{ margin: '0 0 10px', fontSize: '1rem', fontWeight: 600, color: '#1e293b' }}>Step 1 - Verification</h3>
 
-          <div style={{ display: 'flex', gap: '16px', marginBottom: '10px' }}>
-            <label style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', cursor: 'pointer' }}>
-              <input
-                type="radio"
-                name="contact-method"
-                value="email"
-                checked={method === 'email'}
-                onChange={() => setMethod('email')}
-              />
-              Email
-            </label>
-            <label style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', cursor: 'pointer' }}>
-              <input
-                type="radio"
-                name="contact-method"
-                value="phone"
-                checked={method === 'phone'}
-                onChange={() => setMethod('phone')}
-              />
-              Phone
-            </label>
-          </div>
+          <p style={{ margin: '0 0 10px', color: '#64748b', fontSize: '0.9rem' }}>
+            Email verification is enabled. Phone verification is temporarily disabled.
+          </p>
 
           <div className="job-search-grid" style={{ alignItems: 'end' }}>
             <div className="job-search-field">
-              <label>{method === 'email' ? 'Email address' : 'Phone number'}</label>
+              <label>Email address</label>
               <input
                 type="text"
                 value={destination}
                 onChange={(e) => setDestination(e.target.value)}
                 className="job-search-input"
-                placeholder={method === 'email' ? 'you@example.com' : '+X (XXX) XXX-XXXX'}
+                placeholder="you@example.com"
               />
             </div>
             <div className="job-search-field">

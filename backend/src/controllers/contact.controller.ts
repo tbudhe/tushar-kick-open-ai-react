@@ -11,17 +11,13 @@ function isEmail(value: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 }
 
-function isPhone(value: string) {
-  return /^\+?[0-9()\-\s]{8,20}$/.test(value);
-}
-
 export async function requestContactVerificationController(req: Request, res: Response) {
   try {
     const method = String(req.body?.method || '').trim().toLowerCase();
     const destination = String(req.body?.destination || '').trim();
 
-    if (method !== 'email' && method !== 'phone') {
-      return sendError(res, 'method must be email or phone', 400);
+    if (method !== 'email') {
+      return sendError(res, 'phone verification is temporarily disabled; use email', 400);
     }
 
     if (!destination) {
@@ -30,10 +26,6 @@ export async function requestContactVerificationController(req: Request, res: Re
 
     if (method === 'email' && !isEmail(destination)) {
       return sendError(res, 'invalid email format', 400);
-    }
-
-    if (method === 'phone' && !isPhone(destination)) {
-      return sendError(res, 'invalid phone format', 400);
     }
 
     const result = await requestVerificationCode(method, destination);

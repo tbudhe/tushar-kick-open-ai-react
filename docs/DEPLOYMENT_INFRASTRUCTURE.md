@@ -42,6 +42,31 @@ AKfycbymhdMJhpiMYUJusB2Y4DV6jONkEgmtnqA9ztJTGZ_orTgYIV-qe9kdGg3R3W3xZTDh
 - Additional third-party email service is not required if Workspace SMTP limits meet expected volume.
 - For high volume or deliverability controls, optional providers include SendGrid, Mailgun, SES.
 
+#### Resend Setup (Recommended on Railway)
+
+Use this path when SMTP connections time out from Railway.
+
+1. Open `https://resend.com` and sign in.
+2. Open your workspace and go to **API Keys**.
+3. Click **Create API Key**.
+4. Name it `Railway-Prod` (or similar).
+5. Choose **Send access**.
+6. Copy the key (format starts with `re_...`).
+
+Add the key to Railway service variables:
+
+1. Open your Railway service.
+2. Go to **Variables**.
+3. Add `RESEND_API_KEY=<re_...real_key...>`.
+4. Save. Railway redeploys automatically.
+
+Also required in Resend before sending:
+
+1. Go to **Domains** in Resend.
+2. Add and verify `yunextgenai.com`.
+3. Set `CONTACT_FROM_EMAIL` to a verified sender on that domain.
+4. Temporary fallback for testing only: `CONTACT_FROM_EMAIL=onboarding@resend.dev`.
+
 ### 5) Verification Workflow Constraints
 
 - Email verification works through SMTP configuration.
@@ -115,6 +140,7 @@ SMTP_SECURE=false
 SMTP_USER=tbudhe@yunextgenai.com
 SMTP_PASS=<app-password-or-relay-secret>
 CONTACT_FROM_EMAIL=tbudhe@yunextgenai.com
+RESEND_API_KEY=<re_...real_key...>
 
 # Phone verification (Twilio)
 TWILIO_ACCOUNT_SID=<twilio-account-sid>
