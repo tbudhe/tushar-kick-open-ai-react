@@ -1,4 +1,5 @@
 import crypto from 'crypto';
+import { promises as dns } from 'dns';
 import nodemailer from 'nodemailer';
 import Twilio from 'twilio';
 
@@ -42,9 +43,21 @@ function twilioEnabled() {
   );
 }
 
-function createSmtpTransport() {
+async function createSmtpTransport() {
+  const smtpHost = (process.env.SMTP_HOST || '').trim();
+  let connectHost = smtpHost;
+
+  try {
+    const lookup = await dns.lookup(smtpHost, { family: 4 });
+    connectHost = lookup.address;
+    console.log(`[CONTACT] Resolved SMTP host ${smtpHost} to IPv4 ${connectHost}`);
+  } catch (error) {
+    console.warn(`[CONTACT] IPv4 DNS lookup failed for ${smtpHost}, falling back to hostname`);
+    console.warn('[CONTACT] DNS lookup error:', error instanceof Error ? error.message : error);
+  }
+
   return nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
+    host: connectHost,
     port: parseInt(process.env.SMTP_PORT || '587', 10),
     secure: (process.env.SMTP_SECURE || 'false').toLowerCase() === 'true',
     auth: {
@@ -55,6 +68,10 @@ function createSmtpTransport() {
     greetingTimeout: 10000,
     socketTimeout: 15000,
     dnsTimeout: 10000,
+    tls: {
+      // Keep TLS validation against the original SMTP hostname.
+      servername: smtpHost,
+    },
   } as Parameters<typeof nodemailer.createTransport>[0]);
 }
 
@@ -66,7 +83,7 @@ async function sendVerificationEmail(destination: string, code: string) {
   }
 
   const from = (process.env.CONTACT_FROM_EMAIL || process.env.SMTP_USER || '').trim();
-  const transporter = createSmtpTransport();
+  const transporter = await createSmtpTransport();
 
   try {
     console.log(`[CONTACT] Sending verification email to ${destination} via ${process.env.SMTP_HOST}:${process.env.SMTP_PORT || '587'}`);
@@ -160,7 +177,7 @@ export async function sendContactMessage(sessionId: string, subject: string, mes
   }
 
   const from = (process.env.CONTACT_FROM_EMAIL || process.env.SMTP_USER || '').trim();
-  const transporter = createSmtpTransport();
+  const transporter = await createSmtpTransport();
 
   try {
     console.log(`[CONTACT] Sending contact message to ${CONTACT_TARGET} via ${process.env.SMTP_HOST}:${process.env.SMTP_PORT || '587'}`);
