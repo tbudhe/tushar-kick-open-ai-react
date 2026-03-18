@@ -3,6 +3,34 @@
 ## Overview
 Build a beginner-friendly job-search automation agent that searches for jobs, tailors your résumé to each job description, and tracks applications. Complete in 1 week with 1 hour/day commitment.
 
+## Subscription Tiers (Free vs Paid)
+
+Note: Some historical timeline sections below still mention Railway because they reflect completed Day-1/Day-2 history. The active deployment target is Google Cloud Run (see DEPLOYMENT_INFRASTRUCTURE.md).
+
+### Free Tiers in Use
+
+| Service | Tier | Notes |
+|---|---|---|
+| MongoDB Atlas | Free (M0) or Shared | Confirm in Atlas billing console |
+| Remotive Jobs API | Free public API | Used with fallback logic |
+| Swagger UI | Open-source | No subscription required |
+
+### Paid / Optional Paid Tiers
+
+| Service | Tier | Why |
+|---|---|---|
+| Google Workspace | Paid workspace plan | Custom email domain and mailboxes |
+| Claude / OpenAI APIs | Paid usage-based | Resume tailoring and agentic operations |
+| SMTP relay provider (if not using Workspace SMTP directly) | Paid or usage-based | Production-grade email delivery |
+| SMS provider (Twilio/Vonage/etc.) | Paid usage-based | Phone verification code delivery |
+
+### Current Product Decisions
+
+- Career Hub routes are currently disabled in UI while code remains for future re-enable.
+- Profile is read-only in the UI.
+- Contact flow is available through verification + message send workflow.
+- Domain `yunextgenai.com` is purchased and queued for Cloud Run custom-domain mapping.
+
 ---
 
 ## 1-Week Daily Project Plan (1 hour/day)

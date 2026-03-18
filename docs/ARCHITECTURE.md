@@ -78,11 +78,13 @@ OpenAPI contract is generated via TSOA:
 
 ## Deployment
 
-Primary target: Railway using Docker.
+Primary target: Google Cloud Run using Docker.
 
 Required variables:
 - `DATABASE_URL` (or `MONGODB_URI` / `MONGO_URI`)
 - `NODE_ENV=production`
+- `SMTP_*` and `CONTACT_FROM_EMAIL` for contact flow
+- `TWILIO_*` for phone verification (optional but recommended)
 - Optional AI keys (e.g. `ANTHROPIC_API_KEY`)
 
 Health endpoints:

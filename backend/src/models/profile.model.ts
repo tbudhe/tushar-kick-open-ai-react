@@ -5,12 +5,20 @@ export interface SkillGroup {
   items: string[];
 }
 
+export interface TechSection {
+  title: string;
+  bullets: string[];
+}
+
 export interface ExperienceEntry {
   company: string;
+  location?: string;
   role: string;
   duration: string;
+  projectName?: string;
   description: string;
   projectContext?: string;
+  techSections?: TechSection[];
 }
 
 export interface SocialLinks {

@@ -108,7 +108,7 @@ interface StructuredResume {
 
 const SAMPLE_RESUME = `Alex Johnson
 Email: alex.johnson@example.com
-Phone: +1 (415) 555-1290
+Phone: +X (XXX) XXX-XXXX
 
 Summary
 Full-stack engineer with 6 years of experience building React and Node.js applications. Strong focus on performance, reliability, and product iteration.

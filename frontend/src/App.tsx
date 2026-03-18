@@ -6,8 +6,7 @@ import Profile from './components/pages/profile';
 import SystemPage from './components/pages/system';
 import AI from './components/pages/ai';
 import PracticeML from './components/pages/practice-ml';
-import JobSearch from './components/pages/job-search';
-import ApplicationsPage from './components/pages/applications';
+import ContactPage from './components/pages/contact';
 import './css/App.css';
 
 const App: React.FC = () => {
@@ -28,11 +27,13 @@ const App: React.FC = () => {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/contact" element={<ContactPage />} />
             <Route path="/system" element={<SystemPage />} />
             <Route path="/ai" element={<AI />} />
             <Route path="/practice-ml" element={<PracticeML />} />
-            <Route path="/job-search" element={<JobSearch />} />
-            <Route path="/applications" element={<ApplicationsPage />} />
+            {/* Career Hub temporarily disabled */}
+            {/* <Route path="/job-search" element={<JobSearch />} /> */}
+            {/* <Route path="/applications" element={<ApplicationsPage />} /> */}
           </Routes>
         </div>
       </div>

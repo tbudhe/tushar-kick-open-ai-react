@@ -17,6 +17,11 @@ import { getJobsController, searchJobsController } from '../controllers/job.cont
 import { getDbStatus, getMenu } from '../controllers/system.controller';
 import { scoreJobsController } from '../controllers/match-score.controller';
 import { getProfileController, updateProfileController } from '../controllers/profile.controller';
+import {
+	requestContactVerificationController,
+	sendContactMessageController,
+	verifyContactCodeController,
+} from '../controllers/contact.controller';
 
 const apiRouter = Router();
 
@@ -37,5 +42,8 @@ apiRouter.get('/jobs', getJobsController);
 apiRouter.post('/jobs/score', scoreJobsController);
 apiRouter.get('/profile', getProfileController);
 apiRouter.put('/profile', updateProfileController);
+apiRouter.post('/contact/request-code', requestContactVerificationController);
+apiRouter.post('/contact/verify-code', verifyContactCodeController);
+apiRouter.post('/contact/send-message', sendContactMessageController);
 
 export default apiRouter;

@@ -123,7 +123,7 @@ Project includes system design and ML learning materials:
 
 ## Deployment Context
 - **Docker Support**: Dockerfile provided (see DEPLOYMENT_GUIDE.md)
-- **Railway Deployment**: Primary deployment platform (see RAILWAY_DEPLOYMENT.md)
+- **Deployment Plan**: Primary infrastructure reference (see DEPLOYMENT_INFRASTRUCTURE.md)
 - **Health Check**: Server exposes `/health` endpoint for deployment monitoring
 
 ## When Adding Features

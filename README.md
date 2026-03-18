@@ -5,7 +5,7 @@ Primary project documentation lives in `docs/README.md`.
 ## Quick Links
 
 - [Project Docs](docs/README.md)
-- [Railway Deployment Guide](docs/RAILWAY_DEPLOYMENT.md)
+- [Deployment & Infrastructure Plan](docs/DEPLOYMENT_INFRASTRUCTURE.md)
 - [Project Plan](docs/PROJECT_PLAN.md)
 - [Day 5 Completion](docs/DAY5_COMPLETION.md)
 - [Day 5 Verification](docs/DAY5_VERIFICATION.md)

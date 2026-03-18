@@ -39,7 +39,7 @@ Day 1 is fully completed and production deployment is working on Railway.
 - `scripts/test-db.ts`
 - `src/App.tsx`
 - `src/components/pages/Home.tsx`
-- `docs/RAILWAY_DEPLOYMENT.md`
+- `docs/DEPLOYMENT_INFRASTRUCTURE.md`
 
 ---
 

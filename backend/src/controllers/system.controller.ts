@@ -5,9 +5,10 @@ import { sendError, sendSuccess } from '../helpers/response';
 const menuItems = [
   { label: 'Home', path: '/', icon: 'home' },
   { label: 'Profile', path: '/profile', icon: 'person' },
-  { label: 'Job Search', path: '/job-search', icon: 'briefcase' },
-  { label: 'Applications', path: '/applications', icon: 'checklist' },
-  { label: 'Settings', path: '/settings', icon: 'settings' },
+  { label: 'Contact Me', path: '/contact', icon: 'mail' },
+  { label: 'AI', path: '/ai', icon: 'smart_toy' },
+  { label: 'System', path: '/system', icon: 'memory' },
+  { label: 'Career Hub (Inactive)', path: '#', icon: 'briefcase', disabled: true },
 ];
 
 export function getMenu(_req: Request, res: Response) {

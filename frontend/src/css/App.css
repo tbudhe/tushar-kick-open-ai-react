@@ -116,6 +116,16 @@ body,
   font-weight: 600;
 }
 
+.vertical-menu .nav-link.nav-link-disabled,
+.vertical-menu .nav-link.nav-link-disabled:hover,
+.vertical-menu .nav-link.nav-link-disabled:focus {
+  opacity: 0.55;
+  cursor: not-allowed;
+  box-shadow: none;
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: rgba(255, 255, 255, 0.75) !important;
+}
+
 .vertical-menu .nav-submenu {
   list-style: none;
   margin: 0.5rem 0 1rem 0;
@@ -1062,70 +1072,190 @@ body,
   text-decoration: underline;
 }
 
-/* Experience toggle */
-.exp-toggle-btn {
-  display: flex;
-  align-items: baseline;
-  gap: 6px;
-  background: none;
-  border: none;
-  cursor: pointer;
+/* Experience Entries */
+.experience-list {
+  list-style: none;
   padding: 0;
-  width: 100%;
-  text-align: left;
+  margin: 0;
 }
 
-.exp-toggle-btn:hover .card-list-item-title {
-  color: #2563eb;
+.exp-entry {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--color-border);
 }
 
-.exp-toggle-chevron {
-  font-size: 0.85rem;
-  color: #9ca3af;
-  min-width: 12px;
-  flex-shrink: 0;
+.exp-entry:last-child {
+  border-bottom: none;
+  padding-bottom: 4px;
 }
 
-.exp-toggle-duration {
-  margin-left: auto;
-  font-size: 0.8rem;
-  color: var(--color-text-muted, #6b7280);
+.exp-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.exp-header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.exp-company {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.exp-location {
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+}
+
+.exp-header-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  text-align: right;
+}
+
+.exp-role {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.exp-duration {
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
   white-space: nowrap;
-  padding-left: 8px;
+}
+
+.exp-project-name {
+  margin: 6px 0 0 0;
+  font-size: 0.82rem;
+  color: var(--color-text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.exp-project-tag {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #ffffff;
+  background: #6b7280;
+  border-radius: 3px;
+  padding: 1px 6px;
   flex-shrink: 0;
+}
+
+.exp-description--highlight {
+  display: block;
+  background: #f5f7fb;
+  border-left: 3px solid var(--color-primary, #667eea);
+  border-radius: 0 4px 4px 0;
+  padding: 5px 10px;
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: #1f2937;
+  margin: 8px 0 6px 0;
+  line-height: 1.5;
+}
+
+.exp-expand-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: none;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  padding: 3px 10px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  margin-top: 2px;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+}
+
+.exp-expand-btn:hover {
+  border-color: var(--color-border-dark);
+  color: var(--color-text-secondary);
+  background: var(--color-bg-secondary);
+}
+
+.exp-expand-icon {
+  font-size: 0.82rem;
 }
 
 .exp-bullets {
-  margin: 6px 0 0 0;
-  padding-left: 18px;
+  margin: 10px 0 0 0;
+  padding-left: 20px;
   list-style: disc;
 }
 
-.exp-bullets li {
-  font-size: 0.85rem;
-  color: #374151;
-  line-height: 1.5;
-  margin-bottom: 3px;
-}
-
-.exp-project-context {
-  margin-top: 8px;
+.exp-details-panel {
+  margin-top: 10px;
   padding-top: 6px;
-  border-top: 1px dashed #e5e7eb;
+  border-top: 1px dashed var(--color-border);
 }
 
-.exp-project-label {
-  display: inline-block;
+.exp-tech-section {
+  margin-bottom: 10px;
+}
+
+.exp-tech-section:last-child {
+  margin-bottom: 0;
+}
+
+.exp-tech-section-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+}
+
+.exp-tech-section-chevron {
+  color: var(--color-text-muted);
+  font-size: 0.8rem;
+}
+
+.exp-tech-section-title {
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  letter-spacing: 0.02em;
+}
+
+.exp-tech-section-count {
   font-size: 0.72rem;
   font-weight: 600;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: #6b7280;
-  margin-bottom: 3px;
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  padding: 0 6px;
 }
 
-.exp-bullets--context li {
-  color: #4b5563;
+.exp-tech-section .exp-bullets {
+  margin-top: 6px;
+}
+
+.exp-bullet-item {
+  font-size: 0.85rem;
+  color: #374151;
+  line-height: 1.6;
+  margin-bottom: 5px;
 }
 
 .skill-badge--removable {

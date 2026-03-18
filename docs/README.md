@@ -5,7 +5,7 @@ This folder is the source of truth for architecture, deployment, and day-by-day 
 ## Core Docs
 
 - [Architecture](ARCHITECTURE.md)
-- [Railway Deployment](RAILWAY_DEPLOYMENT.md)
+- [Deployment & Infrastructure Plan](DEPLOYMENT_INFRASTRUCTURE.md)
 - [Project Plan](PROJECT_PLAN.md)
 - [CSS Design System](CSS_DESIGN_SYSTEM.md)
 
