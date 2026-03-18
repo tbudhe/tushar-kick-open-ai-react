@@ -43,8 +43,7 @@ function twilioEnabled() {
 }
 
 function createSmtpTransport() {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const opts: any = {
+  return nodemailer.createTransport({
     host: process.env.SMTP_HOST,
     port: parseInt(process.env.SMTP_PORT || '587', 10),
     secure: (process.env.SMTP_SECURE || 'false').toLowerCase() === 'true',
@@ -56,9 +55,7 @@ function createSmtpTransport() {
     greetingTimeout: 10000,
     socketTimeout: 15000,
     dnsTimeout: 10000,
-    family: 4, // force IPv4 — Railway does not support IPv6 outbound
-  };
-  return nodemailer.createTransport(opts);
+  } as Parameters<typeof nodemailer.createTransport>[0]);
 }
 
 async function sendVerificationEmail(destination: string, code: string) {
