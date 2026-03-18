@@ -42,14 +42,8 @@ function twilioEnabled() {
   );
 }
 
-async function sendVerificationEmail(destination: string, code: string) {
-  if (!smtpEnabled()) {
-    console.warn('[CONTACT] SMTP is not configured. Verification code will be logged only for development use.');
-    console.log(`[CONTACT] Verification code for ${destination}: ${code}`);
-    return { sent: false, provider: 'log-only' as const };
-  }
-
-  const transporter = nodemailer.createTransport({
+function createSmtpTransport() {
+  return nodemailer.createTransport({
     host: process.env.SMTP_HOST,
     port: parseInt(process.env.SMTP_PORT || '587', 10),
     secure: (process.env.SMTP_SECURE || 'false').toLowerCase() === 'true',
@@ -57,16 +51,38 @@ async function sendVerificationEmail(destination: string, code: string) {
       user: process.env.SMTP_USER,
       pass: process.env.SMTP_PASS,
     },
+    connectionTimeout: 10000,
+    greetingTimeout: 10000,
+    socketTimeout: 15000,
+    dnsTimeout: 10000,
   });
+}
+
+async function sendVerificationEmail(destination: string, code: string) {
+  if (!smtpEnabled()) {
+    console.warn('[CONTACT] SMTP is not configured. Verification code will be logged only for development use.');
+    console.log(`[CONTACT] Verification code for ${destination}: ${code}`);
+    return { sent: false, provider: 'log-only' as const };
+  }
 
   const from = (process.env.CONTACT_FROM_EMAIL || process.env.SMTP_USER || '').trim();
-  await transporter.sendMail({
-    from,
-    to: destination,
-    subject: 'YuNextGenAI verification code',
-    text: `Your verification code is ${code}. It expires in 10 minutes.`,
-    html: `<p>Your verification code is <strong>${code}</strong>.</p><p>It expires in 10 minutes.</p>`,
-  });
+  const transporter = createSmtpTransport();
+
+  try {
+    console.log(`[CONTACT] Sending verification email to ${destination} via ${process.env.SMTP_HOST}:${process.env.SMTP_PORT || '587'}`);
+    await transporter.sendMail({
+      from,
+      to: destination,
+      subject: 'YuNextGenAI verification code',
+      text: `Your verification code is ${code}. It expires in 10 minutes.`,
+      html: `<p>Your verification code is <strong>${code}</strong>.</p><p>It expires in 10 minutes.</p>`,
+    });
+    console.log(`[CONTACT] Verification email sent to ${destination}`);
+  } catch (error) {
+    console.error(`[CONTACT] Verification email send failed for ${destination}`);
+    console.error('[CONTACT] SMTP error:', error instanceof Error ? error.message : error);
+    throw error;
+  }
 
   return { sent: true, provider: 'smtp' as const };
 }
@@ -143,29 +159,29 @@ export async function sendContactMessage(sessionId: string, subject: string, mes
     return { ok: true, delivered: false, provider: 'log-only' as const };
   }
 
-  const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: parseInt(process.env.SMTP_PORT || '587', 10),
-    secure: (process.env.SMTP_SECURE || 'false').toLowerCase() === 'true',
-    auth: {
-      user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASS,
-    },
-  });
-
   const from = (process.env.CONTACT_FROM_EMAIL || process.env.SMTP_USER || '').trim();
-  await transporter.sendMail({
-    from,
-    to: CONTACT_TARGET,
-    subject: `[Contact Form] ${subject}`,
-    text: [
-      'Message received from verified contact flow.',
-      `Verification method: ${session.method}`,
-      `Destination used for verification: ${session.destination}`,
-      '',
-      message,
-    ].join('\n'),
-  });
+  const transporter = createSmtpTransport();
+
+  try {
+    console.log(`[CONTACT] Sending contact message to ${CONTACT_TARGET} via ${process.env.SMTP_HOST}:${process.env.SMTP_PORT || '587'}`);
+    await transporter.sendMail({
+      from,
+      to: CONTACT_TARGET,
+      subject: `[Contact Form] ${subject}`,
+      text: [
+        'Message received from verified contact flow.',
+        `Verification method: ${session.method}`,
+        `Destination used for verification: ${session.destination}`,
+        '',
+        message,
+      ].join('\n'),
+    });
+    console.log('[CONTACT] Contact message sent successfully');
+  } catch (error) {
+    console.error('[CONTACT] Contact message send failed');
+    console.error('[CONTACT] SMTP error:', error instanceof Error ? error.message : error);
+    throw error;
+  }
 
   return { ok: true, delivered: true, provider: 'smtp' as const };
 }
