@@ -35,6 +35,10 @@ function smtpEnabled() {
   );
 }
 
+function resendEnabled() {
+  return (process.env.RESEND_API_KEY || '').trim().length > 0;
+}
+
 function twilioEnabled() {
   return (
     (process.env.TWILIO_ACCOUNT_SID || '').trim().length > 0
@@ -75,14 +79,69 @@ async function createSmtpTransport() {
   } as Parameters<typeof nodemailer.createTransport>[0]);
 }
 
+async function sendViaResend(params: {
+  to: string;
+  subject: string;
+  text: string;
+  html: string;
+}) {
+  const apiKey = (process.env.RESEND_API_KEY || '').trim();
+  const from = (process.env.CONTACT_FROM_EMAIL || process.env.SMTP_USER || '').trim();
+
+  const response = await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      from,
+      to: [params.to],
+      subject: params.subject,
+      text: params.text,
+      html: params.html,
+    }),
+  });
+
+  if (!response.ok) {
+    const body = await response.text();
+    throw new Error(`Resend API ${response.status}: ${body}`);
+  }
+}
+
 async function sendVerificationEmail(destination: string, code: string) {
-  if (!smtpEnabled()) {
+  const hasResend = resendEnabled();
+  const hasSmtp = smtpEnabled();
+
+  if (!hasResend && !hasSmtp) {
     console.warn('[CONTACT] SMTP is not configured. Verification code will be logged only for development use.');
     console.log(`[CONTACT] Verification code for ${destination}: ${code}`);
     return { sent: false, provider: 'log-only' as const };
   }
 
   const from = (process.env.CONTACT_FROM_EMAIL || process.env.SMTP_USER || '').trim();
+
+  if (hasResend) {
+    try {
+      console.log(`[CONTACT] Sending verification email to ${destination} via Resend API`);
+      await sendViaResend({
+        to: destination,
+        subject: 'YuNextGenAI verification code',
+        text: `Your verification code is ${code}. It expires in 10 minutes.`,
+        html: `<p>Your verification code is <strong>${code}</strong>.</p><p>It expires in 10 minutes.</p>`,
+      });
+      console.log(`[CONTACT] Verification email sent to ${destination} via Resend API`);
+      return { sent: true, provider: 'resend' as const };
+    } catch (error) {
+      console.error(`[CONTACT] Resend verification email failed for ${destination}`);
+      console.error('[CONTACT] Resend error:', error instanceof Error ? error.message : error);
+      if (!hasSmtp) {
+        throw error;
+      }
+      console.warn('[CONTACT] Falling back to SMTP after Resend failure');
+    }
+  }
+
   const transporter = await createSmtpTransport();
 
   try {
@@ -169,7 +228,10 @@ export async function sendContactMessage(sessionId: string, subject: string, mes
   if (!session.verified) return { ok: false, reason: 'not-verified' as const };
   if (Date.now() > session.expiresAt) return { ok: false, reason: 'session-expired' as const };
 
-  if (!smtpEnabled()) {
+  const hasResend = resendEnabled();
+  const hasSmtp = smtpEnabled();
+
+  if (!hasResend && !hasSmtp) {
     console.warn('[CONTACT] SMTP is not configured. Message logged only for development use.');
     console.log('[CONTACT] Message subject:', subject);
     console.log('[CONTACT] Message body:', message);
@@ -177,6 +239,40 @@ export async function sendContactMessage(sessionId: string, subject: string, mes
   }
 
   const from = (process.env.CONTACT_FROM_EMAIL || process.env.SMTP_USER || '').trim();
+
+  if (hasResend) {
+    try {
+      console.log(`[CONTACT] Sending contact message to ${CONTACT_TARGET} via Resend API`);
+      await sendViaResend({
+        to: CONTACT_TARGET,
+        subject: `[Contact Form] ${subject}`,
+        text: [
+          'Message received from verified contact flow.',
+          `Verification method: ${session.method}`,
+          `Destination used for verification: ${session.destination}`,
+          '',
+          message,
+        ].join('\n'),
+        html: [
+          '<p>Message received from verified contact flow.</p>',
+          `<p><strong>Verification method:</strong> ${session.method}</p>`,
+          `<p><strong>Destination used for verification:</strong> ${session.destination}</p>`,
+          '<hr/>',
+          `<pre>${message}</pre>`,
+        ].join(''),
+      });
+      console.log('[CONTACT] Contact message sent successfully via Resend API');
+      return { ok: true, delivered: true, provider: 'resend' as const };
+    } catch (error) {
+      console.error('[CONTACT] Resend contact message failed');
+      console.error('[CONTACT] Resend error:', error instanceof Error ? error.message : error);
+      if (!hasSmtp) {
+        throw error;
+      }
+      console.warn('[CONTACT] Falling back to SMTP after Resend failure');
+    }
+  }
+
   const transporter = await createSmtpTransport();
 
   try {
