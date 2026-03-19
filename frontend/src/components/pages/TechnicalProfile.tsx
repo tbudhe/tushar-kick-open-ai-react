@@ -71,9 +71,7 @@ const STATIC_SKILLS: SkillGroup[] = [
 const TechnicalProfile: React.FC = () => {
   const [profile, setProfile] = useState<ProfileData>(EMPTY_PROFILE);
   const [isLoading, setIsLoading] = useState(true);
-  const [collapsedCards, setCollapsedCards] = useState<Record<string, boolean>>({
-    'Walmart Global Tech': true,
-  });
+  const [collapsedCards, setCollapsedCards] = useState<Record<string, boolean>>({});
 
   const toggleCard = (key: string) => {
     setCollapsedCards((prev) => ({ ...prev, [key]: !prev[key] }));
@@ -161,10 +159,12 @@ const TechnicalProfile: React.FC = () => {
                         {isCollapsed ? 'Show Details ▸' : 'Hide Details ▾'}
                       </button>
                     </header>
-                    {!isCollapsed && (
+                    {entry.description && (
+                      <p className="exp-card-description">{entry.description}</p>
+                    )}
+                    {!isCollapsed && entry.projectContext && (
                       <div className="exp-card-body">
-                        <p>{entry.description}</p>
-                        {entry.projectContext && <p>{entry.projectContext}</p>}
+                        <p>{entry.projectContext}</p>
                       </div>
                     )}
                   </article>
