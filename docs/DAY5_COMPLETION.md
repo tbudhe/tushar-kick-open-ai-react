@@ -42,7 +42,7 @@ Day 5 (Auto-Apply Smart Tracking) is implemented and build-verified.
 - `backend/src/services/application.service.ts`
 - `backend/src/controllers/application.controller.ts`
 - `backend/src/contracts/controllers/application.contract.ts`
-- `frontend/src/components/pages/applications.tsx`
+- `frontend/src/components/pages/Applications.tsx`
 - `docs/DAY5_COMPLETION.md`
 
 ## Key Files Updated
@@ -50,8 +50,8 @@ Day 5 (Auto-Apply Smart Tracking) is implemented and build-verified.
 - `backend/src/routes/api.routes.ts`
 - `backend/src/contracts/models.ts`
 - `backend/openapi/swagger.json`
-- `frontend/src/components/pages/job-search.tsx`
-- `frontend/src/components/menu/vertical-menu.tsx`
+- `frontend/src/components/pages/JobSearch.tsx`
+- `frontend/src/components/menu/VerticalMenu.tsx`
 - `frontend/src/App.tsx`
 - `frontend/src/css/App.css`
 - `docs/PROJECT_PLAN.md`

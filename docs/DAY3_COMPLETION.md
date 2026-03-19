@@ -60,7 +60,7 @@ Day 3 (Job Search Integration) is implemented and build-verified.
 - `backend/src/routes/api.routes.ts`
 - `backend/src/contracts/models.ts`
 - `backend/openapi/swagger.json`
-- `frontend/src/components/pages/job-search.tsx`
+- `frontend/src/components/pages/JobSearch.tsx`
 - `frontend/src/css/App.css`
 - `tsoa.json`
 

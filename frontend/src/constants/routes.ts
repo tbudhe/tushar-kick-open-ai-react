@@ -6,6 +6,9 @@ export const appRoutes = {
   systemDesign: '/architecture',
   mlPlaybooks: '/playbooks',
   technicalProfile: '/engineer-profile',
+  // Career Automation — routes exist but are disabled in App.tsx
+  jobSearch: '/job-search',
+  applications: '/applications',
 } as const;
 
 export const legacyRedirectRoutes = {

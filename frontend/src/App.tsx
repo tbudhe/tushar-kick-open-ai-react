@@ -28,9 +28,12 @@ const App: React.FC = () => {
             <Route path={appRoutes.systemDesign} element={<SystemPage />} />
             <Route path={appRoutes.aiStudio} element={<AI />} />
             <Route path={appRoutes.mlPlaybooks} element={<PracticeML />} />
-            {/* Career Hub temporarily disabled */}
-            {/* <Route path="/job-search" element={<JobSearch />} /> */}
-            {/* <Route path="/applications" element={<ApplicationsPage />} /> */}
+            {/* Career Automation — temporarily disabled (re-enable with imports below)
+                 import JobSearch from './components/pages/JobSearch';
+                 import ApplicationsPage from './components/pages/Applications';
+                <Route path="/job-search" element={<JobSearch />} />
+                <Route path="/applications" element={<ApplicationsPage />} />
+            */}
           </Routes>
       </MainLayout>
     </Router>

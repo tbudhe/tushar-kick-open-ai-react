@@ -60,7 +60,7 @@ Day 4 (Resume Tailoring) is implemented and build-verified.
 - `backend/src/contracts/models.ts`
 - `backend/src/contracts/controllers/resume.contract.ts`
 - `backend/openapi/swagger.json`
-- `frontend/src/components/pages/job-search.tsx`
+- `frontend/src/components/pages/JobSearch.tsx`
 - `frontend/src/css/App.css`
 
 ---

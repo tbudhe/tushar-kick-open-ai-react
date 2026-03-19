@@ -118,7 +118,8 @@ curl -X POST http://<host>/api/contact/request-code -H 'Content-Type: applicatio
 Expected results:
 
 - Health endpoints return success.
-- Menu includes `Career Hub (Inactive)` as last item.
+- Menu does **not** show Career Hub / Job Search — those routes are currently disabled.
+  The label `Career Automation (Soon)` is defined in `routes.ts#careerHubInactive` for future use.
 - Contact verification endpoint returns `sessionId` and delivery status.
 - A successful email send logs `provider: resend` in the response payload.
 
