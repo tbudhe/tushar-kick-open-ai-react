@@ -1949,6 +1949,32 @@ body,
   padding-top: 12px;
 }
 
+.exp-bullet-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.exp-bullet-item {
+  padding-left: 16px;
+  position: relative;
+  font-size: 0.88rem;
+  color: var(--color-text-secondary, #94a3b8);
+  line-height: 1.6;
+}
+
+.exp-bullet-item::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: var(--color-timber-wheat, #A67C52);
+  font-size: 0.72rem;
+  top: 3px;
+}
+
 .skill-badge--removable {
   display: inline-flex;
   align-items: center;

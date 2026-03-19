@@ -142,7 +142,7 @@ const TechnicalProfile: React.FC = () => {
             <div className="technical-experience-list">
               {profile.experience.map((entry, index) => {
                 const cardKey = `${entry.company}-${index}`;
-                const isCollapsed = collapsedCards[entry.company] ?? false;
+                const isCollapsed = collapsedCards[entry.company] ?? true;
                 return (
                   <article key={cardKey} className="technical-experience-card">
                     <header className="exp-card-header" onClick={() => toggleCard(entry.company)}>
@@ -164,7 +164,11 @@ const TechnicalProfile: React.FC = () => {
                     )}
                     {!isCollapsed && entry.projectContext && (
                       <div className="exp-card-body">
-                        <p>{entry.projectContext}</p>
+                        <ul className="exp-bullet-list">
+                          {entry.projectContext.split(';').map((point) => point.trim()).filter(Boolean).map((point, i) => (
+                            <li key={i} className="exp-bullet-item">{point}</li>
+                          ))}
+                        </ul>
                       </div>
                     )}
                   </article>
