@@ -32,6 +32,11 @@ export default {
             400: '#2dd4bf',
             300: '#5eead4',
           },
+          timber: {
+            wheat: '#C5934C',
+            bark: '#2D241E',
+            rust: '#8E4432',
+          },
         },
       },
     },

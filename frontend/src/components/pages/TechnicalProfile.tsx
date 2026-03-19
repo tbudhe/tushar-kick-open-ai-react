@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 interface SkillGroup {
   title: string;
@@ -57,17 +57,6 @@ const TechnicalProfile: React.FC = () => {
       });
   }, []);
 
-  const skillRows = useMemo(
-    () =>
-      profile.skillGroups.flatMap((group) =>
-        group.items.map((skill) => ({
-          domain: group.title,
-          skill,
-        }))
-      ),
-    [profile.skillGroups]
-  );
-
   return (
     <div className="technical-profile-page">
       <section className="technical-profile-header">
@@ -81,42 +70,19 @@ const TechnicalProfile: React.FC = () => {
         </section>
       ) : (
         <>
-          <section className="technical-profile-grid">
-            <article className="technical-profile-panel">
-              <h2>{profile.name || 'Technical Candidate'}</h2>
-              <p className="profile-role">{profile.title}</p>
-              <p className="profile-summary">{profile.summary}</p>
-              <div className="profile-contact-grid">
-                <span><strong>Location:</strong> {profile.location || 'N/A'}</span>
-                <span><strong>Email:</strong> {profile.email || 'N/A'}</span>
-                <span><strong>Phone:</strong> {profile.phone || 'N/A'}</span>
+          <section className="technical-profile-panel">
+            <div className="technical-profile-bio-row">
+              <div className="technical-profile-bio-left">
+                <h2>{profile.name || 'Technical Candidate'}</h2>
+                <p className="profile-role">{profile.title}</p>
               </div>
-            </article>
-
-            <article className="technical-profile-panel">
-              <h2>System Specs</h2>
-              <table className="technical-profile-table" aria-label="Skill inventory">
-                <thead>
-                  <tr>
-                    <th>Domain</th>
-                    <th>Skill</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {skillRows.map((row, index) => (
-                    <tr key={`${row.domain}-${row.skill}-${index}`}>
-                      <td>{row.domain}</td>
-                      <td>{row.skill}</td>
-                    </tr>
-                  ))}
-                  {skillRows.length === 0 && (
-                    <tr>
-                      <td colSpan={2}>No skill data available.</td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
-            </article>
+              <div className="technical-profile-bio-right">
+                {profile.location && <span><strong>Location:</strong> {profile.location}</span>}
+                {profile.email && <span><strong>Email:</strong> {profile.email}</span>}
+                {profile.phone && <span><strong>Phone:</strong> {profile.phone}</span>}
+              </div>
+            </div>
+            <p className="profile-summary">{profile.summary}</p>
           </section>
 
           <section className="technical-profile-panel">

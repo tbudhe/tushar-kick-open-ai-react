@@ -57,4 +57,9 @@
   --transition-fast: 0.15s ease;
   --transition-normal: 0.3s ease;
   --transition-slow: 0.5s ease;
+
+  /* Timberland Palette */
+  --color-timber-wheat: #C5934C;
+  --color-timber-bark: #2D241E;
+  --color-timber-rust: #8E4432;
 }
