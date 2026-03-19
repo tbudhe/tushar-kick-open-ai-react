@@ -1050,6 +1050,16 @@ const AICard: React.FC = () => {
     return groups;
   };
 
+  const isFormulaLine = (item: string): boolean => {
+    const t = item.trim();
+    return (
+      /[∇∂Σ∏∫←→≥≤αβγδεζηθλμνξπρστφψωΩ₀₁₂₃₄₅₆₇₈₉ᵀ]/.test(t) ||
+      /:=/.test(t) ||
+      /^def /.test(t) ||
+      /^\s*(Formula|Update Rule|Cost Function|Loss Function|Loss|Objective|Stable Formula|Modified Formula|Decision Function|Hyperplane|Update):/i.test(t)
+    );
+  };
+
   const groupedDetails = buildGroups(activeTopic.details);
 
   return (
@@ -1061,26 +1071,42 @@ const AICard: React.FC = () => {
             AI Concepts / {activeTopic.name}
           </p>
         </div>
-        <ul className="content-panel-list">
+        <div className="ml-sections-container">
           {groupedDetails.map((group, index) =>
             group.title ? (
-              <li key={`${group.title}-${index}`}>
-                <span className="content-panel-section">{group.title}</span>
+              <div key={`${group.title}-${index}`} className="ml-algorithm-card">
+                <div className="ml-algorithm-title">{group.title}</div>
                 {group.items.length > 0 && (
-                  <ul className="content-panel-sublist">
-                    {group.items.map((item, itemIndex) => (
-                      <li key={`${group.title}-${itemIndex}`}>{item}</li>
-                    ))}
-                  </ul>
+                  <div className="ml-algorithm-body">
+                    {group.items.map((item, itemIndex) =>
+                      isFormulaLine(item) ? (
+                        <code key={`${group.title}-${itemIndex}`} className="ml-formula-block">
+                          {item}
+                        </code>
+                      ) : (
+                        <p key={`${group.title}-${itemIndex}`} className="ml-detail-line">
+                          {item}
+                        </p>
+                      )
+                    )}
+                  </div>
                 )}
-              </li>
+              </div>
             ) : (
-              group.items.map((item, itemIndex) => (
-                <li key={`item-${index}-${itemIndex}`}>{item}</li>
-              ))
+              group.items.map((item, itemIndex) =>
+                isFormulaLine(item) ? (
+                  <code key={`item-${index}-${itemIndex}`} className="ml-formula-block">
+                    {item}
+                  </code>
+                ) : (
+                  <p key={`item-${index}-${itemIndex}`} className="ml-detail-line--ungrouped">
+                    {item}
+                  </p>
+                )
+              )
             )
           )}
-        </ul>
+        </div>
       </div>
     </div>
   );

@@ -1,0 +1,247 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap');
+
+.home-marketing {
+  --bg-shell: #f2f7fb;
+  --ink-strong: #0f1f2e;
+  --ink-soft: #486175;
+  --card-bg: #ffffff;
+  --accent: #0f7a85;
+  --accent-dark: #085f69;
+  --stroke: #d9e5ef;
+  width: 100%;
+  min-height: calc(100vh - 64px);
+  background:
+    radial-gradient(circle at 8% 12%, rgba(15, 122, 133, 0.14) 0, rgba(15, 122, 133, 0) 46%),
+    radial-gradient(circle at 88% 0, rgba(20, 98, 182, 0.12) 0, rgba(20, 98, 182, 0) 45%),
+    var(--bg-shell);
+  border-radius: 24px;
+  padding: 24px;
+  display: grid;
+  gap: 18px;
+}
+
+.home-hero {
+  background: var(--card-bg);
+  border: 1px solid var(--stroke);
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 18px 40px rgba(16, 31, 50, 0.07);
+}
+
+.home-brand-row {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.home-brand-mark {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: linear-gradient(145deg, #0f7a85 0%, #1360a5 100%);
+  color: #f4fbff;
+  display: grid;
+  place-items: center;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.home-domain {
+  margin: 0;
+  color: #1f3950;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: lowercase;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.home-brand-subtitle {
+  margin: 2px 0 0;
+  color: var(--ink-soft);
+  font-size: 0.84rem;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.home-hero-content {
+  display: grid;
+  grid-template-columns: 1.8fr 1fr;
+  gap: 18px;
+}
+
+.home-chip {
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid rgba(15, 122, 133, 0.28);
+  color: var(--accent-dark);
+  font-size: 0.77rem;
+  font-weight: 700;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(15, 122, 133, 0.08);
+}
+
+.home-hero h1 {
+  margin: 10px 0 12px;
+  font-family: 'Space Grotesk', sans-serif;
+  color: var(--ink-strong);
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+}
+
+.home-hero h1 span {
+  display: block;
+  color: #1b5d91;
+}
+
+.home-hero-copy {
+  margin: 0;
+  max-width: 64ch;
+  color: var(--ink-soft);
+  font-size: 1rem;
+  line-height: 1.65;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.home-hero-actions {
+  margin-top: 18px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.home-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.home-btn:hover {
+  transform: translateY(-1px);
+}
+
+.home-btn-primary {
+  background: linear-gradient(160deg, #0f7a85 0%, #1768ab 100%);
+  color: #fff;
+  box-shadow: 0 8px 18px rgba(17, 108, 152, 0.25);
+}
+
+.home-btn-secondary {
+  border-color: #bfd3e4;
+  background: #fff;
+  color: #123a5a;
+}
+
+.home-metric-card {
+  background: linear-gradient(180deg, #10253b 0%, #0f1f2e 100%);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 16px;
+  color: #e4eff8;
+}
+
+.home-metric-card h2 {
+  margin: 0 0 10px;
+  font-size: 1rem;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+}
+
+.home-metric-card ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+}
+
+.home-metric-card li {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.home-metric-card strong {
+  font-size: 1.2rem;
+  color: #7fe5ff;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.home-metric-card span {
+  font-size: 0.88rem;
+  color: #d3e5f4;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.home-feature-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.home-feature-card {
+  background: var(--card-bg);
+  border: 1px solid var(--stroke);
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 10px 24px rgba(13, 39, 62, 0.06);
+}
+
+.home-feature-card h3 {
+  margin: 0 0 8px;
+  color: var(--ink-strong);
+  font-size: 1.02rem;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.home-feature-card p {
+  margin: 0;
+  color: var(--ink-soft);
+  line-height: 1.6;
+  font-size: 0.92rem;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.home-proof-strip {
+  background: linear-gradient(120deg, #0f2437 0%, #114d6d 100%);
+  border-radius: 16px;
+  padding: 14px 18px;
+  color: #ebf7ff;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+.home-proof-strip p {
+  margin: 0;
+}
+
+@media (max-width: 960px) {
+  .home-marketing {
+    padding: 16px;
+  }
+
+  .home-hero-content {
+    grid-template-columns: 1fr;
+  }
+
+  .home-feature-grid {
+    grid-template-columns: 1fr;
+  }
+}

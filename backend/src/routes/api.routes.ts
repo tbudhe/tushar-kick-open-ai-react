@@ -4,7 +4,7 @@ import {
 	getApplicationsController,
 	updateApplicationController,
 } from '../controllers/application.controller';
-import { getApiHealth } from '../controllers/health.controller';
+import { getApiHealth, getSystemHealth } from '../controllers/health.controller';
 import { parseResumeController, tailorResumeController } from '../controllers/resume.controller';
 import {
 	ragListBenchmarkRunsController,
@@ -13,6 +13,7 @@ import {
 	ragUpsertController,
 } from '../controllers/rag.controller';
 import { resumeUpload } from '../middlewares/resume-upload';
+import { contactFormRateLimit } from '../middlewares/contact-form-rate-limit';
 import { getJobsController, searchJobsController } from '../controllers/job.controller';
 import { getDbStatus, getMenu } from '../controllers/system.controller';
 import { scoreJobsController } from '../controllers/match-score.controller';
@@ -22,10 +23,12 @@ import {
 	sendContactMessageController,
 	verifyContactCodeController,
 } from '../controllers/contact.controller';
+import { submitContactFormController } from '../controllers/contact-form.controller';
 
 const apiRouter = Router();
 
 apiRouter.get('/health', getApiHealth);
+apiRouter.get('/system-health', getSystemHealth);
 apiRouter.get('/menu', getMenu);
 apiRouter.get('/db-status', getDbStatus);
 apiRouter.post('/parse-resume', resumeUpload.single('resumeFile'), parseResumeController);
@@ -45,5 +48,6 @@ apiRouter.put('/profile', updateProfileController);
 apiRouter.post('/contact/request-code', requestContactVerificationController);
 apiRouter.post('/contact/verify-code', verifyContactCodeController);
 apiRouter.post('/contact/send-message', sendContactMessageController);
+apiRouter.post('/contact-form', contactFormRateLimit, submitContactFormController);
 
 export default apiRouter;

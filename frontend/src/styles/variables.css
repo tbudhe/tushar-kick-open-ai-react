@@ -1,22 +1,22 @@
-/* Design System - Color, Spacing & Typography Variables */
+/* Design System - Enterprise Dark SaaS Color, Spacing & Typography Variables */
 
 :root {
-  /* Primary Colors */
-  --color-primary: #667eea;
-  --color-primary-dark: #5568d3;
-  --color-primary-light: #8495f7;
-  
-  /* Neutral Colors */
-  --color-text-primary: #2d3748;
-  --color-text-secondary: #4a5568;
-  --color-text-muted: #718096;
-  --color-bg-primary: #ffffff;
-  --color-bg-secondary: #f7fafc;
-  --color-bg-tertiary: #edf2f7;
-  
+  /* Primary Colors — Enterprise Teal/Cyan */
+  --color-primary: #2dd4bf;
+  --color-primary-dark: #14b8a6;
+  --color-primary-light: #5eead4;
+
+  /* Surface Colors — Dark Charcoal */
+  --color-text-primary: #f1f5f9;
+  --color-text-secondary: #94a3b8;
+  --color-text-muted: #64748b;
+  --color-bg-primary: #111922;
+  --color-bg-secondary: #161f29;
+  --color-bg-tertiary: #1b2733;
+
   /* Border & Shadow */
-  --color-border: #e2e8f0;
-  --color-border-dark: #cbd5e0;
+  --color-border: #2a3a4f;
+  --color-border-dark: #374151;
   
   /* Status Colors */
   --color-success: #48bb78;
