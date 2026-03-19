@@ -438,8 +438,8 @@ body,
 .contact-form-field input:focus,
 .contact-form-field textarea:focus {
   outline: none;
-  border-color: var(--color-primary, #2dd4bf);
-  box-shadow: 0 0 0 3px rgba(45, 212, 191, 0.14);
+  border-color: var(--color-primary, #a67c52);
+  box-shadow: 0 0 0 3px rgba(166, 124, 82, 0.14);
 }
 
 .contact-error-text {
@@ -571,7 +571,7 @@ body,
 
 .profile-role {
   margin: 8px 0 0;
-  color: var(--color-primary, #2dd4bf);
+  color: var(--color-primary, #a67c52);
   font-weight: 600;
   font-size: 0.92rem;
 }
@@ -643,7 +643,7 @@ body,
 
 .technical-experience-card header p {
   margin: 0;
-  color: var(--color-primary, #2dd4bf);
+  color: var(--color-primary, #a67c52);
   font-size: 0.84rem;
   font-weight: 600;
 }
@@ -727,7 +727,7 @@ body,
 }
 
 .technical-resource-link {
-  color: var(--color-primary, #2dd4bf);
+  color: var(--color-primary, #a67c52);
   font-weight: 700;
   text-decoration: none;
 }
@@ -744,8 +744,8 @@ body,
 
 .resource-badge {
   border: 1px solid var(--color-border, #2a3a4f);
-  background: rgba(45, 212, 191, 0.08);
-  color: var(--color-primary, #2dd4bf);
+  background: rgba(166, 124, 82, 0.08);
+  color: var(--color-primary, #a67c52);
   border-radius: 999px;
   padding: 3px 7px;
   font-size: 0.68rem;
@@ -1750,9 +1750,9 @@ body,
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: #2dd4bf;
-  background: rgba(45, 212, 191, 0.12);
-  border: 1px solid rgba(45, 212, 191, 0.35);
+  color: #a67c52;
+  background: rgba(166, 124, 82, 0.12);
+  border: 1px solid rgba(166, 124, 82, 0.35);
   border-radius: 3px;
   padding: 1px 6px;
   flex-shrink: 0;
@@ -1761,7 +1761,7 @@ body,
 .exp-description--highlight {
   display: block;
   background: var(--color-bg-tertiary, #0f1923);
-  border-left: 3px solid var(--color-primary, #2dd4bf);
+  border-left: 3px solid var(--color-primary, #a67c52);
   border-radius: 0 4px 4px 0;
   padding: 5px 10px;
   font-weight: 600;
@@ -1888,21 +1888,20 @@ body,
 
 .profile-skill-tag {
   display: inline-block;
-  padding: 5px 12px;
-  border-radius: 999px;
-  border: 1px solid rgba(166, 124, 82, 0.4);
+  border: 1px solid var(--color-border, #2a3a4f);
   background: rgba(166, 124, 82, 0.08);
-  color: var(--color-text-secondary, #94a3b8);
-  font-size: 0.83rem;
-  font-weight: 500;
+  color: var(--color-timber-wheat, #a67c52);
+  border-radius: 999px;
+  padding: 3px 9px;
+  font-size: 0.72rem;
+  font-weight: 600;
   text-decoration: none;
   cursor: default;
-  transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+  transition: border-color 0.15s ease, background 0.15s ease;
 }
 
 .profile-skill-tag:hover {
-  border-color: var(--color-timber-wheat, #A67C52);
-  color: var(--color-timber-wheat, #A67C52);
+  border-color: var(--color-timber-wheat, #a67c52);
   background: rgba(166, 124, 82, 0.15);
 }
 
@@ -2153,9 +2152,9 @@ body,
 }
 
 .content-drawer-close:hover {
-  color: #2dd4bf;
-  border-color: #2dd4bf;
-  background: rgba(45, 212, 191, 0.06);
+  color: #a67c52;
+  border-color: #a67c52;
+  background: rgba(166, 124, 82, 0.06);
 }
 
 .content-drawer-body {
@@ -2163,7 +2162,7 @@ body,
   overflow-y: auto;
   padding: 24px 28px 32px;
   scrollbar-width: thin;
-  scrollbar-color: rgba(45, 212, 191, 0.2) transparent;
+  scrollbar-color: rgba(166, 124, 82, 0.2) transparent;
 }
 
 .content-drawer-body::-webkit-scrollbar {
@@ -2171,7 +2170,7 @@ body,
 }
 
 .content-drawer-body::-webkit-scrollbar-thumb {
-  background: rgba(45, 212, 191, 0.2);
+  background: rgba(166, 124, 82, 0.2);
   border-radius: 4px;
 }
 
@@ -2196,7 +2195,7 @@ body,
 }
 
 .content-drawer-link {
-  color: #2dd4bf;
+  color: #a67c52;
   text-decoration: none;
   font-weight: 500;
 }
@@ -2219,11 +2218,11 @@ body,
 }
 
 .technical-resource-row.clickable:hover {
-  background: rgba(45, 212, 191, 0.05);
+  background: rgba(166, 124, 82, 0.05);
 }
 
 .technical-resource-row.clickable:hover .technical-resource-link {
-  color: #2dd4bf;
+  color: #a67c52;
 }
 
 /* technical-resource-link as button (no underline, inherits font) */
@@ -2254,7 +2253,7 @@ button.technical-resource-link {
 
 .ml-algorithm-title {
   background: #0f1923;
-  color: #2dd4bf;
+  color: #a67c52;
   font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.055em;
@@ -2273,7 +2272,7 @@ button.technical-resource-link {
 .ml-formula-block {
   display: block;
   background: #0d1b26;
-  border-left: 3px solid #2dd4bf;
+  border-left: 3px solid #a67c52;
   border-radius: 0 4px 4px 0;
   padding: 4px 10px;
   font-family: 'Courier New', Courier, monospace;

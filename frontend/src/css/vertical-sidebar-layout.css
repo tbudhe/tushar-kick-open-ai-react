@@ -56,14 +56,14 @@
 }
 
 .sidebar-item:hover {
-  background: rgba(45, 212, 191, 0.06);
-  color: #2dd4bf;
+  background: rgba(166, 124, 82, 0.06);
+  color: #a67c52;
 }
 
 .sidebar-item.active {
-  background: rgba(45, 212, 191, 0.1);
-  color: #2dd4bf;
-  border-left-color: #2dd4bf;
+  background: rgba(166, 124, 82, 0.1);
+  color: #a67c52;
+  border-left-color: #a67c52;
   font-weight: 600;
 }
 
@@ -95,7 +95,7 @@
   margin: 0;
   font-size: 28px;
   font-weight: 700;
-  color: #2dd4bf;
+  color: #a67c52;
 }
 
 .content-details ul {
@@ -141,13 +141,13 @@
 
 .vertical-sidebar::-webkit-scrollbar-thumb,
 .sidebar-content::-webkit-scrollbar-thumb {
-  background: rgba(45, 212, 191, 0.25);
+  background: rgba(166, 124, 82, 0.25);
   border-radius: 4px;
 }
 
 .vertical-sidebar::-webkit-scrollbar-thumb:hover,
 .sidebar-content::-webkit-scrollbar-thumb:hover {
-  background: rgba(45, 212, 191, 0.45);
+  background: rgba(166, 124, 82, 0.45);
 }
 
 /* Responsive Design */
@@ -177,7 +177,7 @@
 
   .sidebar-item.active {
     border-left: none;
-    border-bottom-color: #2dd4bf;
+    border-bottom-color: #a67c52;
   }
 
   .sidebar-content {

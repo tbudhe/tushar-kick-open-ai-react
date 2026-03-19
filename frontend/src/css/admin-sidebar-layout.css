@@ -32,14 +32,14 @@
   width: 40px;
   height: 40px;
   background: #1b2733;
-  border: 1px solid #2dd4bf;
+  border: 1px solid #a67c52;
   border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 700;
   font-size: 18px;
-  color: #2dd4bf;
+  color: #a67c52;
   flex-shrink: 0;
 }
 
@@ -114,9 +114,9 @@
 }
 
 .nav-item.active {
-  background: rgba(45, 212, 191, 0.12);
-  color: #2dd4bf;
-  border-left: 3px solid #2dd4bf;
+  background: rgba(166, 124, 82, 0.12);
+  color: #a67c52;
+  border-left: 3px solid #a67c52;
   padding-left: 17px;
 }
 
