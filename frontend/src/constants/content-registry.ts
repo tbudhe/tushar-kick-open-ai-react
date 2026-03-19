@@ -107,6 +107,20 @@ export const contentRegistry: Record<string, DrawerContent> = {
       'In this app: rag.service.ts is Stage 2; MCP would power a Stage 3 career automation agent',
     ],
   },
+  'fine-tuning-vs-rag-vs-prompting': {
+    lines: [
+      'Fine-tuning: continue training a pre-trained model on your labeled domain data — changes the model\'s weights permanently',
+      'Use fine-tuning when: consistent output format/tone, domain jargon, task specialization (classification, extraction, code)',
+      'RAG (Retrieval-Augmented Generation): inject relevant docs into the prompt at query time — no retraining, always up-to-date',
+      'Use RAG when: need factual grounding, private/live data, or knowledge that changes frequently',
+      'Few-shot prompting: provide 2-5 examples in the system prompt — steers behavior in-context without any training',
+      'Use prompting when: behavior change is minor, you have no labeled data, or you need results today',
+      'LoRA (Low-Rank Adaptation): fine-tune only small adapter layers (< 1% of params) — makes fine-tuning affordable on consumer GPUs',
+      'QLoRA: quantized LoRA — 4-bit quantization + LoRA adapters; fine-tune 7B+ models on a single GPU',
+      'Decision order: try prompting first → if not enough, try RAG → if still not enough, fine-tune with LoRA',
+      'RLHF (Reinforcement Learning from Human Feedback): trains on human preference rankings — how GPT-4 and Claude are aligned',
+    ],
+  },
   'bias-vs-variance-tradeoff': {
     lines: [
       'Bias: error from wrong assumptions — model underfits, misses real patterns in data',
@@ -150,12 +164,26 @@ export const contentRegistry: Record<string, DrawerContent> = {
       'Transformer (2017, “Attention Is All You Need”): replaced RNNs/LSTMs for sequence modeling tasks',
       'Self-attention: each token attends to all other tokens simultaneously — captures long-range dependencies',
       'Attention score = softmax(QKᵀ/√d) × V — Q(query), K(key), V(value) projected from the same input',
+      'Softmax role: converts raw attention scores (logits) into probabilities summing to 1 — determines how much each token attends to every other token',
       'Multi-head attention: run H attention heads in parallel with different learned projections, then concatenate',
       'Positional encoding: adds position information since attention is order-agnostic by default',
       'Encoder-only (BERT): bidirectional context — best for classification, NER, and embedding tasks',
       'Decoder-only (GPT, Llama, Claude): causal (masked) attention — best for text generation',
       'Encoder-Decoder (T5, BART): full context encoding + generation — best for translation and summarization',
       'Scaling law: more parameters + more data = better performance — the empirical basis for GPT-4, Gemini, Claude',
+    ],
+  },
+  'activation-functions': {
+    lines: [
+      'Activation functions introduce non-linearity into neural networks — without them, deep networks collapse to a single linear transformation',
+      'ReLU (Rectified Linear Unit): f(x) = max(0, x) — most common hidden layer activation; fast, avoids vanishing gradients',
+      'Leaky ReLU: f(x) = max(0.01x, x) — fixes "dying ReLU" problem where neurons get stuck outputting zero',
+      'Sigmoid: f(x) = 1 / (1 + e⁻ˣ) — squashes output to (0, 1); used in binary classification output layers',
+      'Sigmoid problem: vanishing gradients in deep networks — gradients shrink to near zero during backpropagation',
+      'Tanh: f(x) = (eˣ - e⁻ˣ) / (eˣ + e⁻ˣ) — squashes output to (-1, 1); zero-centered, better than Sigmoid for hidden layers',
+      'Softmax: converts a vector of logits into probabilities summing to 1 — used in multi-class classification output layers',
+      'GELU (Gaussian Error Linear Unit): smooth approximation of ReLU — used in BERT, GPT, and most modern transformers',
+      'Rule of thumb: ReLU/GELU for hidden layers → Sigmoid for binary output → Softmax for multi-class output',
     ],
   },
   'design-patterns-for-ai': {
