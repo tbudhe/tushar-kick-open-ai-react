@@ -147,6 +147,34 @@ export const contentRegistry: Record<string, DrawerContent> = {
       'Confusion matrix: TP / FP / FN / TN — the foundation from which all these metrics are derived',
     ],
   },
+  'decision-tree-random-forest-xgboost': {
+    lines: [
+      'Decision Tree: recursively splits data on feature thresholds to minimize impurity (Gini index or entropy)',
+      'Decision Tree weakness: high variance — small data changes produce very different trees, prone to overfitting',
+      'Random Forest: trains N decision trees on random data subsets + random feature subsets (bagging), then averages predictions',
+      'Random Forest strength: averaging reduces variance — robust out-of-the-box, parallelizable, hard to overfit',
+      'XGBoost: builds trees sequentially — each new tree corrects residual errors of the previous (gradient boosting)',
+      'XGBoost strength: reduces both bias and variance, handles missing values natively, built-in L1/L2 regularization',
+      'When Decision Tree wins: interpretability required, small dataset, stakeholders need feature importance',
+      'When Random Forest wins: tabular data, fast baseline needed, no time to tune hyperparameters',
+      'When XGBoost wins: structured/tabular data, maximum predictive accuracy is the goal, Kaggle competitions',
+      'Neural networks beat tree models when: unstructured data (images, text, audio) or very large datasets (>10M rows)',
+    ],
+  },
+  'linear-logistic-regression': {
+    lines: [
+      'Linear Regression: fits a line y = mx + b to minimize mean squared error between predictions and true labels',
+      'Output: continuous value — use for price prediction, demand forecasting, risk scoring, sales estimation',
+      'Key assumption: linear relationship between features and target; highly sensitive to outliers',
+      'Logistic Regression: applies sigmoid σ(z) to a linear function to output a probability between 0 and 1',
+      'Output: probability + threshold (default 0.5) → binary class label (0 or 1)',
+      'Loss function: Binary Cross-Entropy (log loss) — not MSE, because MSE is non-convex for classification tasks',
+      'Decision boundary: linear — logistic regression cannot model XOR or non-linear class boundaries without feature engineering',
+      'When to use: fast interpretable baseline, linearly separable data, sparse high-dimensional features (text classification)',
+      'When NOT to use: non-linear relationships, image/audio/text data, complex feature interactions',
+      'Foundation insight: a single artificial neuron IS logistic regression — deep networks stack many of them',
+    ],
+  },
   'embeddings-vector-search': {
     lines: [
       'Embedding: a dense float vector representing semantic meaning (e.g. 1536 dimensions for OpenAI ada-002)',
@@ -170,6 +198,7 @@ export const contentRegistry: Record<string, DrawerContent> = {
       'Encoder-only (BERT): bidirectional context — best for classification, NER, and embedding tasks',
       'Decoder-only (GPT, Llama, Claude): causal (masked) attention — best for text generation',
       'Encoder-Decoder (T5, BART): full context encoding + generation — best for translation and summarization',
+      'Decision guide: choose encoder-only for understanding tasks, decoder-only for generation, encoder-decoder when you need both — always start from a pre-trained model, not from scratch',
       'Scaling law: more parameters + more data = better performance — the empirical basis for GPT-4, Gemini, Claude',
     ],
   },
@@ -268,6 +297,15 @@ export const contentRegistry: Record<string, DrawerContent> = {
   },
   'visual-search-ml': {
     lines: [
+      'Why visual search: users search by image not text — higher conversion, lower friction, better mobile UX',
+      'When to build it: catalog > 100k products, users struggle with text search, mobile-first audience',
+      'How it works: image → CNN embedding → vector store → ANN search → ranked results returned to user',
+      'Key components: image ingestion pipeline, embedding model (ResNet/EfficientNet/CLIP), vector database, re-ranking layer, serving API',
+      'Embedding model choice: CLIP is preferred — trained on image-text pairs, captures semantic similarity across modalities',
+      'Scaling challenge: indexing millions of embeddings in near-real-time as catalog updates continuously',
+      'Re-ranking: initial ANN results re-scored by price, popularity, inventory, or personalization signals',
+      'Evaluation: Precision@K (relevance), click-through rate, add-to-cart rate after visual search interaction',
+      'Interview signal: draw the end-to-end pipeline, explain each component’s latency budget and failure mode',
       {
         text: 'System Design: ',
         link: {
@@ -286,6 +324,15 @@ export const contentRegistry: Record<string, DrawerContent> = {
   },
   'google-street-blurring-ml': {
     lines: [
+      'Why: GDPR + global privacy regulations require PII blurring (faces, license plates) at planetary scale before publishing',
+      'When: any pipeline processing public imagery that may contain identifiable personal data',
+      'How it works: image ingestion → object detection (YOLO/Faster-RCNN) → bounding box extraction → blur/pixelate → re-stitch → publish',
+      'Scale challenge: Google processes billions of Street View frames — must be batch, not real-time, to be cost-feasible',
+      'Geospatial ingestion: frames tagged with lat/lng metadata, stored in geo-partitioned object storage for regional processing',
+      'False positive vs false negative tradeoff: better to over-blur than miss a face — recall prioritized over precision',
+      'Distributed processing: each geographic region processed independently in parallel, MapReduce-style',
+      'Model accuracy challenge: detect faces/plates in all lighting, angles, occlusion, weather conditions worldwide',
+      'Interview signal: explain the batch vs real-time decision, the recall-over-precision tradeoff, and the geo-partition strategy',
       {
         text: 'System Design: ',
         link: {
@@ -316,13 +363,13 @@ export const contentRegistry: Record<string, DrawerContent> = {
   // ─── Architecture — Foundation ───────────────────────────────────────────
   'arch-perf-matrices': {
     lines: [
-      'Load time: The time it takes for a page to load completely.',
-      'Time to first byte (TTFB): The time it takes for the server to send the first byte of data.',
-      'Request control: Managing and prioritizing requests to optimize performance.',
-      'DOM content: The time it takes for the DOM to be fully constructed.',
-      'Page size: The total size of the page, including all assets.',
-      'Round trip time (RTT): The time it takes for a request to travel from the client to the server and back.',
-      'Render block resources: Resources that prevent the page from rendering until they are loaded.',
+      'Load time: total time for page to fully render — target < 3s on mobile (Google Core Web Vitals threshold)',
+      'TTFB (Time to First Byte): server response speed — target < 200ms; high TTFB = slow backend or missing CDN',
+      'DOM Content Loaded: HTML parsed and DOM fully built — use when diagnosing JS-blocking render issues',
+      'Render-blocking resources: CSS/JS that pause rendering until loaded — fix with defer, async, or preload hints',
+      'Page size: total transferred bytes — target < 1MB for mobile; compress assets, lazy-load images, code-split bundles',
+      'RTT (Round Trip Time): network latency between client and server — reduce with CDN edge nodes closer to users',
+      'When to use each: TTFB for server-side perf diagnosis, DCL for JS load order issues, LCP for perceived user experience',
     ],
   },
   'arch-system-reliability': {
@@ -337,9 +384,13 @@ export const contentRegistry: Record<string, DrawerContent> = {
   },
   'arch-key-attributes': {
     lines: [
-      'Latency: How fast is your response to your request?',
-      'Throughput: The number of requests a system can process per unit of time.',
-      'Scalability: The ability of a system to handle increased load without degrading performance.',
+      'Latency: time from request to first byte of response — target < 100ms for interactive UIs, < 200ms for APIs',
+      'Throughput: requests per second the system can sustain under load — always measure at p95/p99, not average',
+      'Scalability: ability to maintain latency and throughput as load grows — vertical (bigger machine) vs horizontal (more machines)',
+      'When latency is the priority: user-facing APIs, real-time search, checkout flows, live dashboards',
+      'When throughput is the priority: batch processing jobs, event pipelines, log ingestion, analytics systems',
+      'When scalability is the constraint: unpredictable traffic spikes, cost optimization, global user growth',
+      'Trade-off: optimizing for ultra-low latency often limits throughput — single-threaded fast paths vs concurrent workloads',
     ],
   },
 
@@ -353,6 +404,9 @@ export const contentRegistry: Record<string, DrawerContent> = {
       'Compression: Reducing the size of data transmitted over the network.',
       'Connection Pools: Efficiently managing connections to minimize overhead.',
       'Asynchronous processing: Handling requests asynchronously to improve responsiveness.',
+      'When stateless wins: horizontally scalable services, microservices, REST APIs under unpredictable load',
+      'When stateful wins: WebSocket sessions, real-time collaboration, multiplayer gaming, persistent streaming connections',
+      'Decision rule: default to stateless; add stateful connections only when persistent context is a hard requirement',
     ],
   },
   'arch-design-patterns': {
