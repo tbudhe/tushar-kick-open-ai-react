@@ -92,6 +92,7 @@ export const contentRegistry: Record<string, DrawerContent> = {
       'GenAI needs: prompt engineering, temperature tuning, context window management, output parsing',
       'Agentic AI needs: tool registry, short/long-term memory, safety guardrails, retry logic, observability',
       'Interview signal: explain which layer your product lives at — and why you stopped (or did not stop) there',
+      'Eval: measure task completion rate and hallucination rate to determine if you need to move from GenAI to Agentic architecture',
     ],
   },
   'ai-product-maturity': {
@@ -105,6 +106,7 @@ export const contentRegistry: Record<string, DrawerContent> = {
       'When to move to Stage 2: need factual grounding, private knowledge base, or real-time retrieval',
       'When to move to Stage 3: agent needs to dynamically choose tools at runtime based on task context',
       'In this app: rag.service.ts is Stage 2; MCP would power a Stage 3 career automation agent',
+      'Eval: Stage 1 — response accuracy; Stage 2 — retrieval precision + faithfulness (RAGAS); Stage 3 — task success rate + tool call accuracy',
     ],
   },
   'fine-tuning-vs-rag-vs-prompting': {
@@ -213,6 +215,7 @@ export const contentRegistry: Record<string, DrawerContent> = {
       'Softmax: converts a vector of logits into probabilities summing to 1 — used in multi-class classification output layers',
       'GELU (Gaussian Error Linear Unit): smooth approximation of ReLU — used in BERT, GPT, and most modern transformers',
       'Rule of thumb: ReLU/GELU for hidden layers → Sigmoid for binary output → Softmax for multi-class output',
+      'Eval: monitor training loss curves and dead neuron % (ReLU dying) — switch to Leaky ReLU or GELU if > 10% neurons output zero permanently',
     ],
   },
   'design-patterns-for-ai': {
@@ -226,6 +229,7 @@ export const contentRegistry: Record<string, DrawerContent> = {
       'Memory Pattern: short-term (in-context window), long-term (vector store retrieval), episodic (session log)',
       'Prompt Versioning: treat system prompts like code — version control, A/B test, evaluate against golden test sets',
       'Anti-pattern: chaining LLM calls without intermediate validation — errors compound silently across steps',
+      'Eval: RAG — faithfulness score (RAGAS); CoT — answer accuracy on benchmarks; Guardrails — rejection rate, false positive rate on safe inputs',
     ],
   },
   'n8n-vs-langgraph': {
@@ -239,6 +243,7 @@ export const contentRegistry: Record<string, DrawerContent> = {
       'Key question: who controls the flow? n8n = the developer at design time; LangGraph = the model at runtime',
       'They compose: n8n can call a LangGraph agent as a single step inside a larger scheduled automation',
       'In this app: scheduler.service.ts mirrors n8n (deterministic); rag.service.ts mirrors LangGraph (AI-driven)',
+      'Eval: n8n — workflow success rate, step failure logs; LangGraph — agent task completion rate, number of loop iterations, human intervention rate',
     ],
   },
   'rag-vs-langchain-vs-langgraph': {
@@ -264,6 +269,7 @@ export const contentRegistry: Record<string, DrawerContent> = {
       'Inventory Optimization: Surface long-tail products through visual similarity',
       'Competitive Advantage: Differentiate through advanced search capabilities',
       'Data Collection: Gather visual preferences for personalization',
+      'Eval: conversion rate lift (target +15-25%), catalog utilization % (long-tail product discovery), session depth after visual search engagement',
     ],
   },
   'key-interview-questions': {
@@ -276,6 +282,7 @@ export const contentRegistry: Record<string, DrawerContent> = {
       'Performance: "How do you optimize search response time under 100ms?"',
       'Quality: "How do you measure and improve search result relevance?"',
       'A/B Testing: "How would you evaluate the business impact of visual search?"',
+      'Eval: track which questions stump you in mock interviews — use that as signal for which system design areas need deeper study',
     ],
   },
   'system-components': {
@@ -286,6 +293,7 @@ export const contentRegistry: Record<string, DrawerContent> = {
       'Caching Layer: Redis for frequent queries and embeddings',
       'ML Serving: Model inference infrastructure (TensorFlow Serving)',
       'Data Pipeline: Real-time image processing and indexing',
+      'Eval: ingestion latency (time to index new item), embedding freshness lag, vector search p95 latency, API error rate under load',
     ],
   },
   'success-metrics': {
@@ -428,6 +436,7 @@ export const contentRegistry: Record<string, DrawerContent> = {
       'Monolithic: All components interconnected and running as single service.',
       'Modular Monolithic: Separation of concerns using feature toggles.',
       'Microservices: Small, independent services communicating via APIs.',
+      'Eval: deployment frequency, lead time for changes, service failure blast radius — use DORA metrics to objectively compare architectures',
     ],
   },
   'arch-frontend-perf': {
@@ -478,6 +487,7 @@ export const contentRegistry: Record<string, DrawerContent> = {
       'Time-series Databases: Optimized for time-stamped data (InfluxDB, TimescaleDB).',
       'Horizontal Sharding: Distribute rows across partitions by a shard key.',
       'Vertical Sharding: Split columns across separate tables or databases.',
+      'Eval: query p95 latency, read/write throughput under load, storage cost per GB — run benchmark before committing to a database type',
     ],
   },
   'arch-kafka-vs-redis': {
@@ -486,6 +496,7 @@ export const contentRegistry: Record<string, DrawerContent> = {
       'Redis: In-memory data structure store — low-latency cache and pub/sub.',
       'Use Kafka for: Async event pipelines, audit logs, real-time stream processing.',
       'Use Redis for: Session caching, leaderboards, rate limiting, ephemeral queues.',
+      'Eval: message throughput (msgs/sec), consumer lag (Kafka), cache hit rate % (Redis), tail latency at p99',
     ],
   },
 
@@ -500,6 +511,7 @@ export const contentRegistry: Record<string, DrawerContent> = {
       'Orchestration: Deployment lifecycle automation via Kubernetes or managed equivalents.',
       'Region-based traffic management: Route users to the closest region for lower latency.',
       'Sticky sessions: Use load balancer session affinity for stateful services.',
+      'Eval: DORA metrics — deployment frequency, lead time, change failure rate, mean time to recovery (MTTR)',
     ],
   },
   'arch-networking': {
