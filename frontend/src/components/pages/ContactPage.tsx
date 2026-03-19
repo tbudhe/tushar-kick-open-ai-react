@@ -3,6 +3,8 @@ import { useSearchParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
 
 const contactSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -102,7 +104,31 @@ const ContactPage: React.FC = () => {
   return (
     <div className="contact-page">
       <section className="contact-header-card">
-        <h1>Contact</h1>
+        <div className="contact-header-title-row">
+          <h1>Contact</h1>
+          <div className="contact-social-icons">
+            <a
+              href="https://github.com/tbudhe"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub profile"
+              title="GitHub"
+              className="contact-social-link"
+            >
+              <GitHubIcon fontSize="small" />
+            </a>
+            <a
+              href="https://www.linkedin.com/in/tbudhe/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn profile"
+              title="LinkedIn"
+              className="contact-social-link"
+            >
+              <LinkedInIcon fontSize="small" />
+            </a>
+          </div>
+        </div>
         <p>
           Reach our team for sales, support, or collaboration. We typically respond within one business day.
         </p>
