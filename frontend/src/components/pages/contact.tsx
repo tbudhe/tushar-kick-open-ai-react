@@ -62,7 +62,7 @@ const ContactPage: React.FC = () => {
       }
 
       setVerified(true);
-      setStatus(`Verified. You can now send message to ${data.contactTarget || 'tbudhe@yunextgenai.com'}.`);
+      setStatus('Verification complete. You can now send your message.');
     } catch (error) {
       setVerified(false);
       setStatus(error instanceof Error ? error.message : 'Verification failed');
@@ -100,9 +100,9 @@ const ContactPage: React.FC = () => {
   return (
     <div className="ProfilePage" style={{ textAlign: 'left', padding: '12px' }}>
       <div className="panel-card job-carousel-panel" style={{ maxWidth: '900px' }}>
-        <h2 style={{ margin: '0 0 8px', fontSize: '1.3rem', fontWeight: 700, color: '#1e293b' }}>Contact Me</h2>
+        <h2 style={{ margin: '0 0 8px', fontSize: '1.3rem', fontWeight: 700, color: '#1e293b' }}>Contact</h2>
         <p style={{ margin: '0 0 16px', color: '#64748b', fontSize: '0.9rem' }}>
-          Two-step flow: verify identity first, then send message to tbudhe@yunextgenai.com.
+          Verify your email first, then send your message securely.
         </p>
 
         <div style={{ border: '1px solid #e5e7eb', borderRadius: '10px', padding: '14px', marginBottom: '12px', background: '#fafafa' }}>
@@ -163,18 +163,13 @@ const ContactPage: React.FC = () => {
           <h3 style={{ margin: '0 0 10px', fontSize: '1rem', fontWeight: 600, color: '#1e293b' }}>Step 2 - Send Message</h3>
 
           <div className="job-search-field" style={{ marginBottom: '10px' }}>
-            <label>To</label>
-            <input type="text" value="tbudhe@yunextgenai.com" className="job-search-input" readOnly />
-          </div>
-
-          <div className="job-search-field" style={{ marginBottom: '10px' }}>
             <label>Subject</label>
             <input
               type="text"
               value={subject}
               onChange={(e) => setSubject(e.target.value)}
               className="job-search-input"
-              placeholder="Write subject"
+              placeholder="What would you like to discuss?"
             />
           </div>
 

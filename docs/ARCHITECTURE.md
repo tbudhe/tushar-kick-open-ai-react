@@ -78,14 +78,27 @@ OpenAPI contract is generated via TSOA:
 
 ## Deployment
 
-Primary target: Google Cloud Run using Docker.
+Primary target: Railway.
+
+Production stack:
+- Railway hosts the Node.js app and serves the built frontend from the same process.
+- Porkbun manages DNS for `yunextgenai.com` and `www.yunextgenai.com`.
+- MongoDB Atlas stores application data.
+- Resend handles outbound verification and contact emails.
+- Google Workspace handles mailbox delivery for the custom domain.
 
 Required variables:
 - `DATABASE_URL` (or `MONGODB_URI` / `MONGO_URI`)
 - `NODE_ENV=production`
-- `SMTP_*` and `CONTACT_FROM_EMAIL` for contact flow
-- `TWILIO_*` for phone verification (optional but recommended)
-- Optional AI keys (e.g. `ANTHROPIC_API_KEY`)
+- `RESEND_API_KEY`
+- `CONTACT_FROM_EMAIL`
+- `SMTP_*` as fallback only
+- Optional AI keys (e.g. `CLAUDE_API_KEY`, `OPENAI_API_KEY`, `GEMINI_API_KEY`)
+
+Operational notes:
+- Phone verification is temporarily disabled in the public contact flow.
+- GitHub failure emails labeled `CI` come from GitHub Actions workflow runs, not from Railway runtime health checks.
+- DNS changes are not required for normal Railway code deploys. Reconfigure DNS only if Railway issues new custom-domain targets.
 
 Health endpoints:
 - `/health`

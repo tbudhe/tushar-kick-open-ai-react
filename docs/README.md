@@ -30,15 +30,23 @@ This folder is the source of truth for architecture, deployment, and day-by-day 
 - Backend API: Express + TypeScript (`backend/src`)
 - Server entrypoint: `server.ts` (root)
 - Deployment mode: Single-port Node server on `PORT` (default `3000`)
+- Hosting: Railway
+- Database: MongoDB Atlas
+- Outbound email: Resend
+- Mailboxes/domain email: Google Workspace
+- Custom domain: `yunextgenai.com` + `www.yunextgenai.com` via Porkbun DNS
 - API Docs: Swagger UI at `/api/docs/`
 
 ## Recommended Local Commands
 
 ```bash
 npm install
+npm run env:pull:railway
 npm run build
 npm start
 ```
+
+Use `npm run env:pull:railway` whenever Railway variables change. You do not need to run it after every code deploy unless the environment variables themselves were updated.
 
 For split-port development (optional):
 

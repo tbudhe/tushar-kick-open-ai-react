@@ -17,6 +17,7 @@ interface VerificationSession {
 const CONTACT_TARGET = 'tbudhe@yunextgenai.com';
 const CODE_TTL_MS = 10 * 60 * 1000;
 const MAX_ATTEMPTS = 5;
+const APP_MAIL_LABEL = 'YU-Ex-Gen-AI';
 const sessionStore = new Map<string, VerificationSession>();
 
 function hashCode(code: string) {
@@ -126,9 +127,9 @@ async function sendVerificationEmail(destination: string, code: string) {
       console.log(`[CONTACT] Sending verification email to ${destination} via Resend API`);
       await sendViaResend({
         to: destination,
-        subject: 'YuNextGenAI verification code',
-        text: `Your verification code is ${code}. It expires in 10 minutes.`,
-        html: `<p>Your verification code is <strong>${code}</strong>.</p><p>It expires in 10 minutes.</p>`,
+        subject: APP_MAIL_LABEL,
+        text: `Your ${APP_MAIL_LABEL} verification code is ${code}. It expires in 10 minutes.`,
+        html: `<p>Your ${APP_MAIL_LABEL} verification code is <strong>${code}</strong>.</p><p>It expires in 10 minutes.</p>`,
       });
       console.log(`[CONTACT] Verification email sent to ${destination} via Resend API`);
       return { sent: true, provider: 'resend' as const };
@@ -149,9 +150,9 @@ async function sendVerificationEmail(destination: string, code: string) {
     await transporter.sendMail({
       from,
       to: destination,
-      subject: 'YuNextGenAI verification code',
-      text: `Your verification code is ${code}. It expires in 10 minutes.`,
-      html: `<p>Your verification code is <strong>${code}</strong>.</p><p>It expires in 10 minutes.</p>`,
+      subject: APP_MAIL_LABEL,
+      text: `Your ${APP_MAIL_LABEL} verification code is ${code}. It expires in 10 minutes.`,
+      html: `<p>Your ${APP_MAIL_LABEL} verification code is <strong>${code}</strong>.</p><p>It expires in 10 minutes.</p>`,
     });
     console.log(`[CONTACT] Verification email sent to ${destination}`);
   } catch (error) {
@@ -245,16 +246,16 @@ export async function sendContactMessage(sessionId: string, subject: string, mes
       console.log(`[CONTACT] Sending contact message to ${CONTACT_TARGET} via Resend API`);
       await sendViaResend({
         to: CONTACT_TARGET,
-        subject: `[Contact Form] ${subject}`,
+        subject: `${APP_MAIL_LABEL}: ${subject}`,
         text: [
-          'Message received from verified contact flow.',
+          `${APP_MAIL_LABEL} message`,
           `Verification method: ${session.method}`,
           `Destination used for verification: ${session.destination}`,
           '',
           message,
         ].join('\n'),
         html: [
-          '<p>Message received from verified contact flow.</p>',
+          `<p><strong>${APP_MAIL_LABEL} message</strong></p>`,
           `<p><strong>Verification method:</strong> ${session.method}</p>`,
           `<p><strong>Destination used for verification:</strong> ${session.destination}</p>`,
           '<hr/>',
@@ -280,9 +281,9 @@ export async function sendContactMessage(sessionId: string, subject: string, mes
     await transporter.sendMail({
       from,
       to: CONTACT_TARGET,
-      subject: `[Contact Form] ${subject}`,
+      subject: `${APP_MAIL_LABEL}: ${subject}`,
       text: [
-        'Message received from verified contact flow.',
+        `${APP_MAIL_LABEL} message`,
         `Verification method: ${session.method}`,
         `Destination used for verification: ${session.destination}`,
         '',

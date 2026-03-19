@@ -48,6 +48,8 @@
     "dev:frontend": "vite --config frontend/vite.config.ts",
     "dev:backend": "ts-node server.ts",
     "dev:full": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "env:push:railway": "scripts/set-railway-env.sh",
+    "env:pull:railway": "node scripts/pull-railway-env.mjs",
     "build:contract": "tsoa spec",
     "build:frontend": "vite build --config frontend/vite.config.ts",
     "build": "rm -rf dist && npm run build:frontend && npm run build:server",

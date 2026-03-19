@@ -5,7 +5,7 @@ Build a beginner-friendly job-search automation agent that searches for jobs, ta
 
 ## Subscription Tiers (Free vs Paid)
 
-Note: Some historical timeline sections below still mention Railway because they reflect completed Day-1/Day-2 history. The active deployment target is Google Cloud Run (see DEPLOYMENT_INFRASTRUCTURE.md).
+Note: Large parts of this document are historical planning notes. Current production uses Railway for hosting, MongoDB Atlas for data, Resend for outbound application email, and Google Workspace for mailbox delivery/custom domain email.
 
 ### Free Tiers in Use
 
@@ -29,7 +29,7 @@ Note: Some historical timeline sections below still mention Railway because they
 - Career Hub routes are currently disabled in UI while code remains for future re-enable.
 - Profile is read-only in the UI.
 - Contact flow is available through verification + message send workflow.
-- Domain `yunextgenai.com` is purchased and queued for Cloud Run custom-domain mapping.
+- Domain `yunextgenai.com` is live on Railway custom domains with Porkbun DNS.
 
 ---
 
