@@ -86,6 +86,22 @@ export function createApp() {
 
   app.disable('x-powered-by');
   app.use(cors());
+
+  // 301 redirect apex domain → www so CSS, fonts, and viewport scaling are
+  // always evaluated on the canonical www origin. Prevents DNS-masked-forwarding
+  // / iframe rendering differences that cause system-ui font fallback and
+  // 14.4px scaled text on yunextgenai.com vs www.yunextgenai.com.
+  app.use((req, res, next) => {
+    const host = req.hostname;
+    const canonicalHosts = (process.env.CANONICAL_HOSTS || 'www.yunextgenai.com').split(',').map((h) => h.trim());
+    const apexHost = process.env.APEX_HOST || 'yunextgenai.com';
+    if (host === apexHost) {
+      const www = canonicalHosts[0];
+      return res.redirect(301, `https://${www}${req.originalUrl}`);
+    }
+    return next();
+  });
+
   app.use((_, res, next) => {
     res.setHeader('X-Content-Type-Options', 'nosniff');
     res.setHeader('X-Frame-Options', 'DENY');
