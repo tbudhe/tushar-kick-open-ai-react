@@ -82,8 +82,124 @@ export const contentRegistry: Record<string, DrawerContent> = {
       'When to use RL: Sequential decision-making where feedback arrives over time and actions matter',
     ],
   },
+  'ai-vs-genai-vs-agentic': {
+    lines: [
+      'Classical AI: rule-based systems + ML models trained on labeled data — deterministic, narrow outputs',
+      'Generative AI: LLMs (GPT, Gemini, Claude) + diffusion models — creates new text, images, code from patterns',
+      'Agentic AI: autonomous goal-pursuit using tools, memory, and multi-step planning — LLM drives the control loop',
+      'Agent loop: Observe → Plan → Act → Reflect — repeats until goal is achieved or budget is exhausted',
+      'Key distinction: Classical AI predicts, Generative AI creates, Agentic AI decides',
+      'GenAI needs: prompt engineering, temperature tuning, context window management, output parsing',
+      'Agentic AI needs: tool registry, short/long-term memory, safety guardrails, retry logic, observability',
+      'Interview signal: explain which layer your product lives at — and why you stopped (or did not stop) there',
+    ],
+  },
+  'ai-product-maturity': {
+    lines: [
+      'Stage 1 — MVP: single LLM call, hardcoded system prompt, no memory, no tools, no grounding',
+      'Stage 2 — RAG: vector store + retrieval layer grounds the LLM in private/real-time data, reduces hallucination',
+      'Stage 3 — MCP: Model Context Protocol (Anthropic, Nov 2024) — open standard for agent-to-tool communication',
+      'MCP analogy: “USB-C for AI agents” — universal connector between any LLM agent and any tool/data source',
+      'MCP vs custom function calling: protocol-level standardization vs one-off integrations per tool',
+      'When to stop at Stage 1: simple Q&A, content generation, no private data or live context needed',
+      'When to move to Stage 2: need factual grounding, private knowledge base, or real-time retrieval',
+      'When to move to Stage 3: agent needs to dynamically choose tools at runtime based on task context',
+      'In this app: rag.service.ts is Stage 2; MCP would power a Stage 3 career automation agent',
+    ],
+  },
+  'bias-vs-variance-tradeoff': {
+    lines: [
+      'Bias: error from wrong assumptions — model underfits, misses real patterns in data',
+      'Variance: error from sensitivity to training noise — model overfits, memorizes instead of generalizing',
+      'High bias + low variance: consistent but consistently wrong (classic underfitting)',
+      'Low bias + high variance: accurate on training data, fails on unseen data (classic overfitting)',
+      'The tradeoff: reducing bias tends to increase variance and vice versa — no free lunch',
+      'Techniques to reduce bias: more complex model, more features, deeper network, longer training',
+      'Techniques to reduce variance: regularization (L1/L2), dropout, early stopping, more training data',
+      'Ensemble methods: bagging reduces variance (Random Forest); boosting reduces bias (XGBoost, AdaBoost)',
+      'Total error = Bias² + Variance + Irreducible noise — you can only minimize the first two',
+    ],
+  },
+  'accuracy-precision-recall-f1': {
+    lines: [
+      'Accuracy = (TP+TN) / (TP+TN+FP+FN) — intuitive but misleading on imbalanced datasets',
+      'Precision = TP / (TP+FP) — of all predicted positives, how many were actually correct?',
+      'Recall = TP / (TP+FN) — of all actual positives, how many did the model catch?',
+      'F1 Score = 2 × (Precision × Recall) / (Precision + Recall) — harmonic mean, balances both',
+      'Use Precision when false positives are costly: spam filters, ad targeting, legal document flagging',
+      'Use Recall when false negatives are costly: cancer screening, fraud detection, safety systems',
+      'Use F1 when both precision and recall matter equally and class distribution is imbalanced',
+      'AUC-ROC: measures model ranking ability across all classification thresholds — threshold-independent',
+      'Confusion matrix: TP / FP / FN / TN — the foundation from which all these metrics are derived',
+    ],
+  },
+  'embeddings-vector-search': {
+    lines: [
+      'Embedding: a dense float vector representing semantic meaning (e.g. 1536 dimensions for OpenAI ada-002)',
+      'Similar meaning = similar direction in vector space, measured by cosine similarity or dot product',
+      'Embedding models: OpenAI text-embedding-ada-002, Cohere embed, BGE, sentence-transformers (open source)',
+      'Vector search: Approximate Nearest Neighbor (ANN) — finds top-k similar vectors at billion-scale speed',
+      'ANN algorithms: HNSW (Hierarchical Navigable Small World), IVF (Inverted File Index), LSH',
+      'Vector stores: pgvector (PostgreSQL), Pinecone, Weaviate, Chroma, Qdrant — each with different scale/cost trade-offs',
+      'RAG pipeline: embed query → retrieve top-k docs → inject into LLM prompt — grounding over memorization',
+      'In this app: rag.service.ts + rag-vector.model.ts implement this pipeline for resume and job matching',
+    ],
+  },
+  'transformer-attention-mechanism': {
+    lines: [
+      'Transformer (2017, “Attention Is All You Need”): replaced RNNs/LSTMs for sequence modeling tasks',
+      'Self-attention: each token attends to all other tokens simultaneously — captures long-range dependencies',
+      'Attention score = softmax(QKᵀ/√d) × V — Q(query), K(key), V(value) projected from the same input',
+      'Multi-head attention: run H attention heads in parallel with different learned projections, then concatenate',
+      'Positional encoding: adds position information since attention is order-agnostic by default',
+      'Encoder-only (BERT): bidirectional context — best for classification, NER, and embedding tasks',
+      'Decoder-only (GPT, Llama, Claude): causal (masked) attention — best for text generation',
+      'Encoder-Decoder (T5, BART): full context encoding + generation — best for translation and summarization',
+      'Scaling law: more parameters + more data = better performance — the empirical basis for GPT-4, Gemini, Claude',
+    ],
+  },
+  'design-patterns-for-ai': {
+    lines: [
+      'RAG Pattern: retrieval step grounds the LLM in private or real-time data before generation — reduces hallucination',
+      'Agent Loop Pattern: Observe → Plan → Act → Reflect — LLM drives the control flow, not the developer',
+      'Chain-of-Thought (CoT): prompt the LLM to reason step-by-step before answering — improves accuracy on complex tasks',
+      'Few-Shot Prompting: provide 2-5 input/output examples in the prompt to steer format and style without fine-tuning',
+      'Tool Use Pattern: LLM emits structured tool call → host executes → result injected back into context',
+      'Output Guardrails: validate, parse, and constrain LLM output before passing downstream — never trust raw text',
+      'Memory Pattern: short-term (in-context window), long-term (vector store retrieval), episodic (session log)',
+      'Prompt Versioning: treat system prompts like code — version control, A/B test, evaluate against golden test sets',
+      'Anti-pattern: chaining LLM calls without intermediate validation — errors compound silently across steps',
+    ],
+  },
+  'n8n-vs-langgraph': {
+    lines: [
+      'n8n: open-source, self-hostable visual workflow automation — think Zapier but with full code extensibility',
+      'n8n control flow: deterministic — you define every node and edge at design time; execution is predictable',
+      'n8n strengths: scheduled triggers, webhook ingestion, 400+ integrations, low-code, easy non-technical handoff',
+      'LangGraph: Python library for stateful multi-actor agent workflows modeled as directed graphs',
+      'LangGraph control flow: dynamic — the LLM decides which node(s) to visit at runtime based on task state',
+      'LangGraph strengths: complex reasoning chains, branching on LLM output, human-in-the-loop checkpoints',
+      'Key question: who controls the flow? n8n = the developer at design time; LangGraph = the model at runtime',
+      'They compose: n8n can call a LangGraph agent as a single step inside a larger scheduled automation',
+      'In this app: scheduler.service.ts mirrors n8n (deterministic); rag.service.ts mirrors LangGraph (AI-driven)',
+    ],
+  },
+  'rag-vs-langchain-vs-langgraph': {
+    lines: [
+      'Raw RAG: embed query → retrieve docs → inject into prompt manually — full control, zero framework overhead',
+      'LangChain: composable chain primitives (LLMChain, RetrievalQA, ConversationalChain) — fast prototyping, heavy abstraction',
+      'LangGraph: stateful graph of nodes + edges with conditional routing — built for production agentic systems',
+      'LangChain vs LangGraph: LangChain = linear pipelines; LangGraph = cyclic, stateful, resumable workflows',
+      'When raw RAG wins: simple retrieval + generation, you own the entire prompt, minimal dependencies',
+      'When LangChain wins: rapid prototyping, built-in memory modules, large ecosystem of community integrations',
+      'When LangGraph wins: multi-agent systems, human-in-the-loop approval, long-running tasks needing checkpointing',
+      'LlamaIndex alternative: stronger than LangChain for document parsing, chunking, and indexing pipelines',
+      'Production principle: abstract only what you must — start with raw RAG, add frameworks only when you hit limits',
+      'In this app: rag.service.ts is raw RAG — the natural next step is a LangGraph-based career automation agent',
+    ],
+  },
 
-  // ─── Playbooks ──────────────────────────────────────────────────────────
+  // ─── Playbooks ────────────────────────────────────────────────────────────────
   'business-objectives': {
     lines: [
       'Revenue Growth: Increase conversion rates by 15-25% through visual product discovery',
@@ -157,8 +273,18 @@ export const contentRegistry: Record<string, DrawerContent> = {
         },
       },
     ],
+  },  'gcp-ai-learning-path': {
+    lines: [
+      'Course 1 — Introduction to Generative AI: GenAI definition, how LLMs work, Vertex AI platform overview',
+      'Course 2 — Introduction to Large Language Models: LLM types (BERT, GPT, T5), prompting basics, fine-tuning vs prompting trade-offs',
+      'Course 3 — Introduction to Responsible AI: Google’s 7 AI principles, bias and fairness, human oversight and accountability',
+      'Course 4 — Prompt Design in Vertex AI: zero-shot, few-shot, and chain-of-thought prompting in Vertex AI Studio',
+      'Certification: Google Cloud Generative AI Fundamentals badge — awarded on course completion, no exam required',
+      'Key takeaway: understand the full stack from model types → responsible deployment → practical prompting',
+      'Practical next step: pair each course with hands-on Vertex AI Studio experiments to reinforce concepts',
+      'Portfolio signal: demonstrates cloud AI platform fluency beyond pure framework-level knowledge',
+    ],
   },
-
   // ─── Architecture — Foundation ───────────────────────────────────────────
   'arch-perf-matrices': {
     lines: [
