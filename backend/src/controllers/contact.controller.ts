@@ -76,6 +76,7 @@ export function verifyContactCodeController(req: Request, res: Response) {
 export async function sendContactMessageController(req: Request, res: Response) {
   try {
     const sessionId = String(req.body?.sessionId || '').trim();
+    const name = String(req.body?.name || '').trim();
     const subject = String(req.body?.subject || '').trim();
     const message = String(req.body?.message || '').trim();
 
@@ -83,7 +84,7 @@ export async function sendContactMessageController(req: Request, res: Response) 
       return sendError(res, 'sessionId, subject, and message are required', 400);
     }
 
-    const result = await sendContactMessage(sessionId, subject, message);
+    const result = await sendContactMessage(sessionId, subject, message, name);
     if (!result.ok) {
       return sendError(res, result.reason || 'message-send-failed', 400);
     }

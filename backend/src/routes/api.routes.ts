@@ -45,7 +45,7 @@ apiRouter.get('/jobs', getJobsController);
 apiRouter.post('/jobs/score', scoreJobsController);
 apiRouter.get('/profile', getProfileController);
 apiRouter.put('/profile', updateProfileController);
-apiRouter.post('/contact/request-code', requestContactVerificationController);
+apiRouter.post('/contact/request-code', contactFormRateLimit, requestContactVerificationController);
 apiRouter.post('/contact/verify-code', verifyContactCodeController);
 apiRouter.post('/contact/send-message', sendContactMessageController);
 apiRouter.post('/contact-form', contactFormRateLimit, submitContactFormController);

@@ -223,7 +223,7 @@ export function verifyCode(sessionId: string, code: string) {
   return { ok: true, destination: session.destination, method: session.method };
 }
 
-export async function sendContactMessage(sessionId: string, subject: string, message: string) {
+export async function sendContactMessage(sessionId: string, subject: string, message: string, name = '') {
   const session = sessionStore.get(sessionId);
   if (!session) return { ok: false, reason: 'session-not-found' as const };
   if (!session.verified) return { ok: false, reason: 'not-verified' as const };
@@ -249,18 +249,18 @@ export async function sendContactMessage(sessionId: string, subject: string, mes
         subject: `${APP_MAIL_LABEL}: ${subject}`,
         text: [
           `${APP_MAIL_LABEL} message`,
-          `Verification method: ${session.method}`,
-          `Destination used for verification: ${session.destination}`,
+          name ? `Name: ${name}` : '',
+          `Email: ${session.destination}`,
           '',
           message,
-        ].join('\n'),
+        ].filter(Boolean).join('\n'),
         html: [
           `<p><strong>${APP_MAIL_LABEL} message</strong></p>`,
-          `<p><strong>Verification method:</strong> ${session.method}</p>`,
-          `<p><strong>Destination used for verification:</strong> ${session.destination}</p>`,
+          name ? `<p><strong>Name:</strong> ${name}</p>` : '',
+          `<p><strong>Email:</strong> ${session.destination}</p>`,
           '<hr/>',
           `<pre>${message}</pre>`,
-        ].join(''),
+        ].filter(Boolean).join(''),
       });
       console.log('[CONTACT] Contact message sent successfully via Resend API');
       return { ok: true, delivered: true, provider: 'resend' as const };
@@ -284,11 +284,11 @@ export async function sendContactMessage(sessionId: string, subject: string, mes
       subject: `${APP_MAIL_LABEL}: ${subject}`,
       text: [
         `${APP_MAIL_LABEL} message`,
-        `Verification method: ${session.method}`,
-        `Destination used for verification: ${session.destination}`,
+        name ? `Name: ${name}` : '',
+        `Email: ${session.destination}`,
         '',
         message,
-      ].join('\n'),
+      ].filter(Boolean).join('\n'),
     });
     console.log('[CONTACT] Contact message sent successfully');
   } catch (error) {
