@@ -1,5 +1,5 @@
 import React from 'react';
-import VerticalMenu from '../menu/vertical-menu';
+import VerticalMenu from '../menu/VerticalMenu';
 
 interface MainLayoutProps {
   children: React.ReactNode;

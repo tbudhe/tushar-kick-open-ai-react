@@ -21,6 +21,8 @@ This folder is the source of truth for architecture, deployment, and day-by-day 
 - [Day 4 Verification](DAY4_VERIFICATION.md)
 - [Day 5 Completion](DAY5_COMPLETION.md)
 - [Day 5 Verification](DAY5_VERIFICATION.md)
+- [Day 6 Completion](DAY6_COMPLETION.md) *(Scheduling & Automation — intentionally deferred to backlog)*
+- [Day 6 Verification](DAY6_VERIFICATION.md)
 - [Day 7 Completion](DAY7_COMPLETION.md)
 - [Day 7 Verification](DAY7_VERIFICATION.md)
 

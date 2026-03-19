@@ -1,12 +1,12 @@
 import React from 'react';
 import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-dom';
 import Home from './components/pages/Home';
-import SystemPage from './components/pages/system';
-import AI from './components/pages/ai';
-import PracticeML from './components/pages/practice-ml';
+import SystemPage from './components/pages/System';
+import AI from './components/pages/Ai';
+import PracticeML from './components/pages/PracticeMl';
 import ContactPage from './components/pages/ContactPage';
 import TechnicalProfile from './components/pages/TechnicalProfile';
-import MainLayout from './components/layout/main-layout';
+import MainLayout from './components/layout/MainLayout';
 import { appRoutes, legacyRedirectRoutes } from './constants/routes';
 import './css/App.css';
 

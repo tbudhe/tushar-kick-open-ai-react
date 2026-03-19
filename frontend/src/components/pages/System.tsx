@@ -1,5 +1,5 @@
 import React from 'react';
-import TechnicalResourceHub from '../technical-resource-hub/technical-resource-hub';
+import TechnicalResourceHub from '../technical-resource-hub/TechnicalResourceHub';
 import ContentDrawer from '../content-drawer/ContentDrawer';
 import { TechnicalNavItem } from '../../constants/technical-navigation';
 

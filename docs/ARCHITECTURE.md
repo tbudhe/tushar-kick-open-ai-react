@@ -104,3 +104,52 @@ Health endpoints:
 - `/health`
 - `/heartbeat`
 - `/api/health`
+
+---
+
+## Contact Module Technical Flow
+
+The Contact module provides a verified message-send workflow between a visitor and the site owner.
+
+### Components
+
+| Layer | File | Responsibility |
+|-------|------|----------------|
+| Frontend page | `frontend/src/components/pages/ContactPage.tsx` | Form UI + submission |
+| Rate-limit middleware | `backend/src/middlewares/contact-form-rate-limit.ts` | Throttle per IP |
+| Controller | `backend/src/controllers/contact-form.controller.ts` | Validate + dispatch |
+| Service (form) | `backend/src/services/contact-form.service.ts` | Business logic, email send |
+| Service (audit) | `backend/src/services/contact-audit.service.ts` | Persist audit record |
+| Service (send) | `backend/src/services/contact.service.ts` | Core send & OTP logic |
+| Email template | `backend/src/emails/contact-email-template.tsx` | React-email template |
+
+### Request Flow
+
+```
+Browser (ContactPage)
+    │  POST /api/contact/send
+    ▼
+contact-form-rate-limit middleware   ← blocks > N requests / IP / window
+    │
+    ▼
+ContactFormController.send()
+    │  validates body (name, email, message)
+    ├─► ContactAuditService.record()  ← persists attempt to MongoDB
+    └─► ContactFormService.send()
+            │
+            ├─► Resend API  ← sends email to CONTACT_FROM_EMAIL inbox
+            │       email rendered via contact-email-template.tsx
+            └─► returns { success: true } to browser
+```
+
+### Scaling Notes
+
+- **Rate limiting**: configured in `contact-form-rate-limit.ts`; tune `windowMs` and `max`
+  to adjust throughput before enabling high-traffic campaigns.
+- **Phone verification**: stub exists in `contact.service.ts` but is intentionally disabled
+  in the public flow. Re-enable by wiring the OTP send/verify endpoints and adding the
+  phone field back to `ContactPage.tsx`.
+- **Spam protection**: add reCAPTCHA or hCaptcha as a middleware step before the controller
+  for production hardening.
+- **Storage**: audit records are written to MongoDB. Add a TTL index on the `createdAt`
+  field of the audit collection to auto-expire old records if storage is a concern.

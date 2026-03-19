@@ -1,6 +1,6 @@
 import React from 'react';
-import { DetailItem } from '../ml-card/ml-card';
-import TechnicalResourceHub from '../technical-resource-hub/technical-resource-hub';
+import { DetailItem } from '../ml-card/MlCard';
+import TechnicalResourceHub from '../technical-resource-hub/TechnicalResourceHub';
 import ContentDrawer from '../content-drawer/ContentDrawer';
 import { TechnicalNavItem } from '../../constants/technical-navigation';
 

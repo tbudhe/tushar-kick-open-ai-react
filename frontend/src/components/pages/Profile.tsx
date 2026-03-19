@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import ProfileCard from '../profile-card/profile-card';
+import ProfileCard from '../profile-card/ProfileCard';
 
 interface SkillGroup {
 	title: string;
