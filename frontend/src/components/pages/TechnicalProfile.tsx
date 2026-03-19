@@ -37,6 +37,37 @@ const EMPTY_PROFILE: ProfileData = {
   socialLinks: { linkedIn: '', github: '' },
 };
 
+const STATIC_SKILLS: SkillGroup[] = [
+  {
+    title: 'Full-stack & Web Development',
+    items: ['JavaScript', 'TypeScript', 'Node.js', 'Java', 'Kotlin', 'Python', 'HTML5', 'CSS', 'Bootstrap', 'AngularJS', 'REST APIs', 'SOAP APIs', 'GraphQL', 'Web API', 'XML', 'XSLT', 'jQuery', 'MongoDB', 'Redis'],
+  },
+  {
+    title: 'Microsoft / .NET & MEAN / MERN',
+    items: ['Microsoft Stack', '.NET', 'C#', 'ASP.NET', 'MVC', 'WCF', 'SQL Server', 'MEAN', 'MERN'],
+  },
+  {
+    title: 'Cloud Platforms',
+    items: ['AWS', 'Azure', 'Salesforce', 'Google Cloud Platform'],
+  },
+  {
+    title: 'Database Core',
+    items: ['Relational: replication, read replicas, failover', 'NoSQL: replica sets, sharding, partitioning', 'Indexing & query tuning', 'Consistency & durability tradeoffs'],
+  },
+  {
+    title: 'AI / ML Architecture & MLOps',
+    items: ['AI Strategy', 'Deep Learning Engineering', 'MLOps Pipeline Optimization', 'AI Consulting', 'Predictive Analytics', 'Statistical Modeling'],
+  },
+  {
+    title: 'Protocols & Real-time Communication',
+    items: ['TCP', 'HTTP/HTTPS', 'SMTP', 'gRPC', 'WebSocket', 'Socket.IO', 'WCF over TCP'],
+  },
+  {
+    title: 'Leadership & Communication',
+    items: ['Technical Leadership', 'Cross-functional Collaboration', 'Architecture Consulting', 'Mentorship'],
+  },
+];
+
 const TechnicalProfile: React.FC = () => {
   const [profile, setProfile] = useState<ProfileData>(EMPTY_PROFILE);
   const [isLoading, setIsLoading] = useState(true);
@@ -83,6 +114,22 @@ const TechnicalProfile: React.FC = () => {
               </div>
             </div>
             <p className="profile-summary">{profile.summary}</p>
+          </section>
+
+          <section className="technical-profile-panel">
+            <h2>Skills</h2>
+            <div className="profile-skills">
+              {STATIC_SKILLS.map((group) => (
+                <div key={group.title} className="profile-skill-group">
+                  <h3 className="profile-skill-group-title">{group.title}</h3>
+                  <div className="profile-skill-tags">
+                    {group.items.map((skill) => (
+                      <a key={skill} className="profile-skill-tag">{skill}</a>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
           </section>
 
           <section className="technical-profile-panel">

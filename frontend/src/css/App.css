@@ -1860,6 +1860,52 @@ body,
   margin-bottom: 5px;
 }
 
+.profile-skills {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.profile-skill-group {
+  border-left: 3px solid var(--color-timber-wheat, #A67C52);
+  padding-left: 14px;
+}
+
+.profile-skill-group-title {
+  margin: 0 0 10px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--color-timber-wheat, #A67C52);
+}
+
+.profile-skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.profile-skill-tag {
+  display: inline-block;
+  padding: 5px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(166, 124, 82, 0.4);
+  background: rgba(166, 124, 82, 0.08);
+  color: var(--color-text-secondary, #94a3b8);
+  font-size: 0.83rem;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: default;
+  transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+}
+
+.profile-skill-tag:hover {
+  border-color: var(--color-timber-wheat, #A67C52);
+  color: var(--color-timber-wheat, #A67C52);
+  background: rgba(166, 124, 82, 0.15);
+}
+
 .skill-badge--removable {
   display: inline-flex;
   align-items: center;
