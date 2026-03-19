@@ -71,6 +71,13 @@ const STATIC_SKILLS: SkillGroup[] = [
 const TechnicalProfile: React.FC = () => {
   const [profile, setProfile] = useState<ProfileData>(EMPTY_PROFILE);
   const [isLoading, setIsLoading] = useState(true);
+  const [collapsedCards, setCollapsedCards] = useState<Record<string, boolean>>({
+    'Walmart Global Tech': true,
+  });
+
+  const toggleCard = (key: string) => {
+    setCollapsedCards((prev) => ({ ...prev, [key]: !prev[key] }));
+  };
 
   useEffect(() => {
     fetch('/api/profile')
@@ -135,17 +142,34 @@ const TechnicalProfile: React.FC = () => {
           <section className="technical-profile-panel">
             <h2>Project Experience</h2>
             <div className="technical-experience-list">
-              {profile.experience.map((entry, index) => (
-                <article key={`${entry.company}-${entry.role}-${index}`} className="technical-experience-card">
-                  <header>
-                    <h3>{entry.company}</h3>
-                    <p>{entry.role}</p>
-                    <span>{entry.duration}</span>
-                  </header>
-                  <p>{entry.description}</p>
-                  {entry.projectContext && <p>{entry.projectContext}</p>}
-                </article>
-              ))}
+              {profile.experience.map((entry, index) => {
+                const cardKey = `${entry.company}-${index}`;
+                const isCollapsed = collapsedCards[entry.company] ?? false;
+                return (
+                  <article key={cardKey} className="technical-experience-card">
+                    <header className="exp-card-header" onClick={() => toggleCard(entry.company)}>
+                      <div className="exp-card-header-meta">
+                        <h3>{entry.company}</h3>
+                        <p>{entry.role}</p>
+                        <span>{entry.duration}</span>
+                      </div>
+                      <button
+                        className="exp-collapse-btn"
+                        aria-expanded={!isCollapsed}
+                        aria-label={isCollapsed ? 'Show details' : 'Hide details'}
+                      >
+                        {isCollapsed ? 'Show Details ▸' : 'Hide Details ▾'}
+                      </button>
+                    </header>
+                    {!isCollapsed && (
+                      <div className="exp-card-body">
+                        <p>{entry.description}</p>
+                        {entry.projectContext && <p>{entry.projectContext}</p>}
+                      </div>
+                    )}
+                  </article>
+                );
+              })}
               {profile.experience.length === 0 && (
                 <p>No experience entries available.</p>
               )}
