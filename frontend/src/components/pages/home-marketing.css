@@ -5,14 +5,14 @@
   --ink-strong: #f1f5f9;
   --ink-soft: #94a3b8;
   --card-bg: #161f29;
-  --accent: #C5934C;
-  --accent-dark: #8E4432;
+  --accent: #A67C52;
+  --accent-dark: #7D3A27;
   --stroke: #2a3a4f;
   width: 100%;
   min-height: calc(100vh - 64px);
   background:
-    radial-gradient(circle at 8% 12%, rgba(197, 147, 76, 0.07) 0, rgba(197, 147, 76, 0) 46%),
-    radial-gradient(circle at 88% 0, rgba(142, 68, 50, 0.06) 0, rgba(142, 68, 50, 0) 45%),
+    radial-gradient(circle at 8% 12%, rgba(166, 124, 82, 0.07) 0, rgba(166, 124, 82, 0) 46%),
+    radial-gradient(circle at 88% 0, rgba(125, 58, 39, 0.06) 0, rgba(125, 58, 39, 0) 45%),
     var(--bg-shell);
   border-radius: 24px;
   padding: 24px;
@@ -39,7 +39,7 @@
   width: 52px;
   height: 52px;
   border-radius: 14px;
-  background: linear-gradient(145deg, #C5934C 0%, #8E4432 100%);
+  background: linear-gradient(145deg, #A67C52 0%, #7D3A27 100%);
   color: #fff8f0;
   display: grid;
   place-items: center;
@@ -76,7 +76,7 @@
   margin: 0;
   display: inline-flex;
   align-items: center;
-  border: 1px solid rgba(197, 147, 76, 0.35);
+  border: 1px solid rgba(166, 124, 82, 0.35);
   color: var(--accent);
   font-size: 0.77rem;
   font-weight: 700;
@@ -85,7 +85,7 @@
   text-transform: uppercase;
   padding: 6px 10px;
   border-radius: 999px;
-  background: rgba(197, 147, 76, 0.1);
+  background: rgba(166, 124, 82, 0.1);
 }
 
 .home-hero h1 {
@@ -137,9 +137,9 @@
 }
 
 .home-btn-primary {
-  background: linear-gradient(160deg, #C5934C 0%, #8E4432 100%);
+  background: linear-gradient(160deg, #A67C52 0%, #7D3A27 100%);
   color: #fff8f0;
-  box-shadow: 0 8px 18px rgba(142, 68, 50, 0.3);
+  box-shadow: 0 8px 18px rgba(125, 58, 39, 0.3);
 }
 
 .home-btn-secondary {
@@ -149,14 +149,14 @@
 }
 
 .home-btn-secondary:hover {
-  border-color: #C5934C;
-  color: #C5934C;
+  border-color: #A67C52;
+  color: #A67C52;
 }
 
 .home-metric-card {
-  background: linear-gradient(180deg, #2D241E 0%, #1a1410 100%);
+  background: linear-gradient(180deg, #3E2B23 0%, #241810 100%);
   border-radius: 16px;
-  border: 1px solid rgba(197, 147, 76, 0.2);
+  border: 1px solid rgba(166, 124, 82, 0.2);
   padding: 16px;
   color: #f1ebe4;
 }
@@ -185,7 +185,7 @@
 
 .home-metric-card strong {
   font-size: 1.2rem;
-  color: #C5934C;
+  color: #A67C52;
   font-family: 'Space Grotesk', sans-serif;
 }
 
@@ -211,7 +211,7 @@
 
 .home-feature-card h3 {
   margin: 0 0 8px;
-  color: #C5934C;
+  color: #A67C52;
   font-size: 1.02rem;
   font-family: 'Space Grotesk', sans-serif;
 }
@@ -225,8 +225,8 @@
 }
 
 .home-proof-strip {
-  background: linear-gradient(120deg, #2D241E 0%, #1a1410 100%);
-  border: 1px solid rgba(197, 147, 76, 0.2);
+  background: linear-gradient(120deg, #3E2B23 0%, #241810 100%);
+  border: 1px solid rgba(166, 124, 82, 0.2);
   border-radius: 16px;
   padding: 14px 18px;
   color: #d4c4b8;
@@ -252,4 +252,3 @@
     grid-template-columns: 1fr;
   }
 }
-  width: 100%;
