@@ -128,7 +128,7 @@
 }
 
 .profile-meta-value a {
-  color: var(--color-primary);
+  color: var(--color-timber-wheat, #A67C52);
   text-decoration: none;
 }
 
@@ -155,7 +155,7 @@
 }
 
 .profile-social-link:hover {
-  color: var(--color-primary, #a67c52);
+  color: var(--color-timber-wheat, #A67C52);
   border-color: rgba(166, 124, 82, 0.4);
   background: rgba(166, 124, 82, 0.08);
   gap: var(--space-md);

@@ -1,5 +1,23 @@
 /* Design System - Enterprise Dark SaaS Color, Spacing & Typography Variables */
 
+/* ─── Override daisyUI theme tokens — Timberland palette takes precedence ─── */
+:root,
+[data-theme],
+[data-theme="timberland"] {
+  --color-primary: #A67C52;
+  --color-primary-content: #fff8f0;
+  --color-secondary: #7D3A27;
+  --color-secondary-content: #f1e8e4;
+  --color-accent: #3E2B23;
+  --color-accent-content: #f1f5f9;
+  --color-base-100: #111922;
+  --color-base-200: #161f29;
+  --color-base-300: #1b2733;
+  --color-base-content: #f1f5f9;
+  --color-neutral: #161f29;
+  --color-neutral-content: #94a3b8;
+}
+
 :root {
   /* Primary Colors — Enterprise Teal/Cyan */
   --color-primary: #a67c52;
