@@ -95,11 +95,6 @@ const TechnicalProfile: React.FC = () => {
 
   return (
     <div className="technical-profile-page">
-      <section className="technical-profile-header">
-        <h1>Engineer Profile</h1>
-        <p>Technical capability snapshot for architecture interviews and engineering review loops.</p>
-      </section>
-
       {isLoading ? (
         <section className="technical-profile-panel">
           <p>Loading technical profile...</p>
