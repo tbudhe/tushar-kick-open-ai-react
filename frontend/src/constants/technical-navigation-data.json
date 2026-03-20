@@ -1,0 +1,512 @@
+[
+  {
+    "id": "ai-vs-genai-vs-agentic",
+    "title": "AI vs Generative AI vs Agentic AI",
+    "category": "core-tech",
+    "summary": "Distinguish classical AI (rules + ML), Generative AI (content creation via LLMs/diffusion), and Agentic AI (autonomous multi-step reasoning with tools) — and when each architecture applies.",
+    "tags": [
+      "AI Concepts",
+      "Foundations"
+    ],
+    "complexity": "Foundational",
+    "readTimeMin": 5,
+    "updatedLabel": "Updated today"
+  },
+  {
+    "id": "ai-product-maturity",
+    "title": "AI Product Maturity: MVP → RAG → MCP",
+    "category": "core-tech",
+    "summary": "Trace the three-stage evolution from a basic LLM prompt (MVP) to retrieval-augmented generation (RAG) to fully agentic systems using Model Context Protocol (MCP) as the tool-use standard.",
+    "tags": [
+      "AI Concepts",
+      "Agent Systems"
+    ],
+    "complexity": "Intermediate",
+    "readTimeMin": 6,
+    "updatedLabel": "Updated today"
+  },
+  {
+    "id": "fine-tuning-vs-rag-vs-prompting",
+    "title": "Fine-Tuning vs RAG vs Prompting",
+    "category": "core-tech",
+    "summary": "Choose the right strategy when a base LLM falls short — understand when to fine-tune on your data, when RAG is a cheaper alternative, when few-shot prompting is enough, and when LoRA/QLoRA makes fine-tuning practical.",
+    "tags": [
+      "AI Concepts",
+      "LLM Tooling"
+    ],
+    "complexity": "Intermediate",
+    "readTimeMin": 6,
+    "updatedLabel": "Updated today"
+  },
+  {
+    "id": "supervised-vs-unsupervised-vs-rl",
+    "title": "Supervised vs Unsupervised vs Reinforcement Learning",
+    "category": "core-tech",
+    "summary": "Compare all three ML paradigms by data requirements, feedback mechanism, and real-world use cases.",
+    "tags": [
+      "ML Paradigms",
+      "Foundations"
+    ],
+    "complexity": "Foundational",
+    "readTimeMin": 6,
+    "updatedLabel": "Updated today"
+  },
+  {
+    "id": "bias-vs-variance-tradeoff",
+    "title": "Bias vs Variance Tradeoff",
+    "category": "core-tech",
+    "summary": "Understand the fundamental tension between a model that assumes too much (high bias) and one that memorizes noise (high variance), and how regularization, ensemble methods, and data size each move the needle.",
+    "tags": [
+      "Model Quality",
+      "Optimization"
+    ],
+    "complexity": "Foundational",
+    "readTimeMin": 5,
+    "updatedLabel": "Updated today"
+  },
+  {
+    "id": "overfitting-vs-underfitting",
+    "title": "Overfitting vs Underfitting",
+    "category": "core-tech",
+    "summary": "Diagnose bias-variance behavior and use validation signals to pick model complexity safely.",
+    "tags": [
+      "Model Quality",
+      "Validation"
+    ],
+    "complexity": "Foundational",
+    "readTimeMin": 5,
+    "updatedLabel": "Updated today"
+  },
+  {
+    "id": "accuracy-precision-recall-f1",
+    "title": "Accuracy, Precision, Recall & F1 Score",
+    "category": "core-tech",
+    "summary": "Choose the right classification metric for imbalanced datasets, fraud detection, and medical diagnosis — when accuracy lies and F1 tells the truth.",
+    "tags": [
+      "Model Quality",
+      "Evaluation"
+    ],
+    "complexity": "Foundational",
+    "readTimeMin": 5,
+    "updatedLabel": "Updated today"
+  },
+  {
+    "id": "decision-tree-random-forest-xgboost",
+    "title": "Decision Tree, Random Forest & XGBoost",
+    "category": "core-tech",
+    "summary": "From a single decision tree to bagged forests and boosted ensembles — understand how each builds on the last, when tree-based models beat neural networks, and why XGBoost wins most tabular data competitions.",
+    "tags": [
+      "Tree Models",
+      "Ensemble Methods",
+      "ML Paradigms"
+    ],
+    "complexity": "Intermediate",
+    "readTimeMin": 7,
+    "updatedLabel": "Updated today"
+  },
+  {
+    "id": "linear-logistic-regression",
+    "title": "Linear vs Logistic Regression",
+    "category": "core-tech",
+    "summary": "Understand linear regression for continuous output prediction and logistic regression for binary classification — the baseline algorithms every ML engineer must know before reaching for a more complex model.",
+    "tags": [
+      "Regression",
+      "Classification",
+      "ML Paradigms"
+    ],
+    "complexity": "Foundational",
+    "readTimeMin": 5,
+    "updatedLabel": "Updated today"
+  },
+  {
+    "id": "l1-vs-l2-regression",
+    "title": "L1 vs L2 Regression",
+    "category": "core-tech",
+    "summary": "Compare sparse feature selection and coefficient shrinkage strategies under real model constraints.",
+    "tags": [
+      "Regularization",
+      "Modeling"
+    ],
+    "complexity": "Intermediate",
+    "readTimeMin": 6,
+    "updatedLabel": "Updated today"
+  },
+  {
+    "id": "embeddings-vector-search",
+    "title": "Embeddings & Vector Search",
+    "category": "core-tech",
+    "summary": "Convert text, images, and code into dense vector representations and retrieve semantically similar results at scale using ANN algorithms — the core primitive behind RAG and semantic search.",
+    "tags": [
+      "Embeddings",
+      "Retrieval"
+    ],
+    "complexity": "Intermediate",
+    "readTimeMin": 6,
+    "updatedLabel": "Updated today"
+  },
+  {
+    "id": "transformer-attention-mechanism",
+    "title": "Transformer & Attention Mechanism",
+    "category": "core-tech",
+    "summary": "Understand how self-attention, multi-head attention, and positional encoding enable transformers to model long-range dependencies — the architecture powering every modern LLM.",
+    "tags": [
+      "GenAI",
+      "Foundations"
+    ],
+    "complexity": "Intermediate",
+    "readTimeMin": 7,
+    "updatedLabel": "Updated today"
+  },
+  {
+    "id": "activation-functions",
+    "title": "Activation Functions",
+    "category": "core-tech",
+    "summary": "Compare Softmax, ReLU, Sigmoid, and Tanh — understand what each activation does to a neuron's output, where each belongs in a network, and why the choice matters for training stability and model performance.",
+    "tags": [
+      "Neural Networks",
+      "Foundations"
+    ],
+    "complexity": "Foundational",
+    "readTimeMin": 5,
+    "updatedLabel": "Updated today"
+  },
+  {
+    "id": "design-patterns-for-ai",
+    "title": "Design Patterns for AI",
+    "category": "core-tech",
+    "summary": "Catalog reusable AI system patterns — RAG pipeline, agent loop, chain-of-thought, few-shot prompting, tool use, and output guardrails — with trade-offs and when-to-use guidance.",
+    "tags": [
+      "AI Concepts",
+      "Patterns"
+    ],
+    "complexity": "Intermediate",
+    "readTimeMin": 6,
+    "updatedLabel": "Updated today"
+  },
+  {
+    "id": "n8n-vs-langgraph",
+    "title": "n8n vs LangGraph: Automation vs Orchestration",
+    "category": "core-tech",
+    "summary": "Deterministic trigger-action automation (n8n) vs dynamic LLM-driven orchestration (LangGraph) — understand who controls the flow, when to use each, and how they can work together.",
+    "tags": [
+      "AI Concepts",
+      "Agent Systems"
+    ],
+    "complexity": "Intermediate",
+    "readTimeMin": 5,
+    "updatedLabel": "Updated today"
+  },
+  {
+    "id": "rag-vs-langchain-vs-langgraph",
+    "title": "RAG vs LangChain vs LangGraph",
+    "category": "core-tech",
+    "summary": "Compare raw embedding retrieval, full RAG pipelines, LangChain chain orchestration, and LangGraph stateful agent workflows — pick the right abstraction level for production LLM systems.",
+    "tags": [
+      "RAG",
+      "Frameworks",
+      "LLM Tooling"
+    ],
+    "complexity": "Advanced",
+    "readTimeMin": 8,
+    "updatedLabel": "Updated today"
+  },
+  {
+    "id": "gradient-descent-vs-sgd-vs-als",
+    "title": "Gradient Descent vs SGD vs ALS",
+    "category": "core-tech",
+    "summary": "Choose the right optimizer path based on data size, convergence profile, and matrix-factorization needs.",
+    "tags": [
+      "Optimization",
+      "Recommenders"
+    ],
+    "complexity": "Advanced",
+    "readTimeMin": 8,
+    "updatedLabel": "Updated today"
+  },
+  {
+    "id": "business-objectives",
+    "title": "Business Objectives",
+    "category": "playbooks",
+    "summary": "Align visual search design with conversion growth, discovery quality, and catalog utilization goals.",
+    "tags": [
+      "Business",
+      "Product"
+    ],
+    "complexity": "Foundational",
+    "readTimeMin": 4,
+    "updatedLabel": "Updated this week"
+  },
+  {
+    "id": "key-interview-questions",
+    "title": "Key Interview Questions",
+    "category": "playbooks",
+    "summary": "Prepare architecture and scalability responses for high-volume production ML system interviews.",
+    "tags": [
+      "Interview",
+      "Architecture"
+    ],
+    "complexity": "Intermediate",
+    "readTimeMin": 7,
+    "updatedLabel": "Updated this week"
+  },
+  {
+    "id": "system-components",
+    "title": "System Components",
+    "category": "playbooks",
+    "summary": "Break down ingestion, embedding, vector search, and serving layers in a practical production stack.",
+    "tags": [
+      "Infra",
+      "ML Pipeline"
+    ],
+    "complexity": "Intermediate",
+    "readTimeMin": 6,
+    "updatedLabel": "Updated this week"
+  },
+  {
+    "id": "success-metrics",
+    "title": "Success Metrics",
+    "category": "playbooks",
+    "summary": "Track outcome KPIs and latency-quality metrics to evaluate both business and system health.",
+    "tags": [
+      "KPI",
+      "Observability"
+    ],
+    "complexity": "Foundational",
+    "readTimeMin": 4,
+    "updatedLabel": "Updated this week"
+  },
+  {
+    "id": "visual-search-ml",
+    "title": "Visual Search - ML",
+    "category": "playbooks",
+    "summary": "Review architecture references and system diagrams for an end-to-end visual similarity platform.",
+    "tags": [
+      "Computer Vision",
+      "System Design"
+    ],
+    "complexity": "Advanced",
+    "readTimeMin": 9,
+    "updatedLabel": "Updated this week"
+  },
+  {
+    "id": "google-street-blurring-ml",
+    "title": "Google Street Blurring - ML",
+    "category": "playbooks",
+    "summary": "Explore a privacy-sensitive image processing pipeline with large-scale geospatial ingestion patterns.",
+    "tags": [
+      "Privacy",
+      "Distributed Systems"
+    ],
+    "complexity": "Advanced",
+    "readTimeMin": 10,
+    "updatedLabel": "Updated this week"
+  },
+  {
+    "id": "gcp-ai-learning-path",
+    "title": "Google Cloud AI Learning Path",
+    "category": "playbooks",
+    "summary": "Structured walkthrough of the 4-course GCP AI fundamentals path — Intro to GenAI, Intro to LLMs, Responsible AI, and Prompt Design in Vertex AI — with key takeaways and certification checkpoints.",
+    "tags": [
+      "Certification",
+      "Google Cloud"
+    ],
+    "complexity": "Foundational",
+    "readTimeMin": 8,
+    "updatedLabel": "Updated today"
+  },
+  {
+    "id": "arch-perf-matrices",
+    "title": "Performance Matrices",
+    "category": "architecture",
+    "summary": "Load time, TTFB, DOM readiness, render-blocking resources, and round-trip time baselines for production web systems.",
+    "tags": [
+      "Foundation",
+      "Performance"
+    ],
+    "complexity": "Foundational",
+    "readTimeMin": 4,
+    "updatedLabel": "Updated today"
+  },
+  {
+    "id": "arch-system-reliability",
+    "title": "System Reliability",
+    "category": "architecture",
+    "summary": "CAP theorem trade-offs, consistent hashing, load balancing, rate limiting, and observability stack selection.",
+    "tags": [
+      "Foundation",
+      "Reliability"
+    ],
+    "complexity": "Intermediate",
+    "readTimeMin": 6,
+    "updatedLabel": "Updated today"
+  },
+  {
+    "id": "arch-key-attributes",
+    "title": "Key System Attributes",
+    "category": "architecture",
+    "summary": "Latency, throughput, and scalability definitions used as primary evaluation axes in production system reviews.",
+    "tags": [
+      "Foundation",
+      "Scalability"
+    ],
+    "complexity": "Foundational",
+    "readTimeMin": 3,
+    "updatedLabel": "Updated today"
+  },
+  {
+    "id": "arch-api-performance",
+    "title": "API Performance",
+    "category": "architecture",
+    "summary": "Stateless vs stateful API design, connection pooling, caching strategies, compression, and async workload handling.",
+    "tags": [
+      "Design & APIs",
+      "Performance"
+    ],
+    "complexity": "Intermediate",
+    "readTimeMin": 5,
+    "updatedLabel": "Updated today"
+  },
+  {
+    "id": "arch-design-patterns",
+    "title": "Design Patterns",
+    "category": "architecture",
+    "summary": "MVC, MVP, 3-Tier, Singleton, Factory, Observer, Strategy — context on when each resolves coupling and maintainability issues.",
+    "tags": [
+      "Design & APIs",
+      "Patterns"
+    ],
+    "complexity": "Intermediate",
+    "readTimeMin": 6,
+    "updatedLabel": "Updated today"
+  },
+  {
+    "id": "arch-monolith-vs-micro",
+    "title": "Monolithic vs Microservices",
+    "category": "architecture",
+    "summary": "Trade-off analysis for monolithic, modular-monolithic, and microservices deployment topologies.",
+    "tags": [
+      "Design & APIs",
+      "Architecture"
+    ],
+    "complexity": "Intermediate",
+    "readTimeMin": 4,
+    "updatedLabel": "Updated today"
+  },
+  {
+    "id": "arch-frontend-perf",
+    "title": "Front-end Performance",
+    "category": "architecture",
+    "summary": "Minification, bundling, lazy loading, image optimization, and critical rendering path techniques for production SPA delivery.",
+    "tags": [
+      "Design & APIs",
+      "Front-end"
+    ],
+    "complexity": "Foundational",
+    "readTimeMin": 4,
+    "updatedLabel": "Updated today"
+  },
+  {
+    "id": "arch-graphql-vs-rest",
+    "title": "GraphQL vs REST",
+    "category": "architecture",
+    "summary": "Practical trade-offs between GraphQL flexible querying and REST simplicity, caching, and tooling support.",
+    "tags": [
+      "Design & APIs",
+      "Protocols"
+    ],
+    "complexity": "Foundational",
+    "readTimeMin": 3,
+    "updatedLabel": "Updated today"
+  },
+  {
+    "id": "arch-protocols",
+    "title": "Protocols",
+    "category": "architecture",
+    "summary": "HTTP, HTTPS, FTP, SMTP, and gRPC usage contexts and trade-offs in distributed system communication layers.",
+    "tags": [
+      "Design & APIs",
+      "Protocols"
+    ],
+    "complexity": "Foundational",
+    "readTimeMin": 3,
+    "updatedLabel": "Updated today"
+  },
+  {
+    "id": "arch-db-performance",
+    "title": "Database Performance",
+    "category": "architecture",
+    "summary": "Indexing strategies, query optimization, connection pooling, sharding, and replication for production data layers.",
+    "tags": [
+      "Backend & Storage",
+      "Database"
+    ],
+    "complexity": "Intermediate",
+    "readTimeMin": 5,
+    "updatedLabel": "Updated today"
+  },
+  {
+    "id": "arch-db-types",
+    "title": "Database Types",
+    "category": "architecture",
+    "summary": "Relational, NoSQL, in-memory, graph, and time-series databases compared with sharding and partitioning strategies.",
+    "tags": [
+      "Backend & Storage",
+      "Database"
+    ],
+    "complexity": "Intermediate",
+    "readTimeMin": 5,
+    "updatedLabel": "Updated today"
+  },
+  {
+    "id": "arch-kafka-vs-redis",
+    "title": "Kafka vs Redis",
+    "category": "architecture",
+    "summary": "Event streaming platform vs in-memory store: when to use distributed message queues vs caching layers.",
+    "tags": [
+      "Backend & Storage",
+      "Messaging"
+    ],
+    "complexity": "Intermediate",
+    "readTimeMin": 4,
+    "updatedLabel": "Updated today"
+  },
+  {
+    "id": "arch-devops",
+    "title": "DevOps & Deployment",
+    "category": "architecture",
+    "summary": "CI/CD, IaC, monitoring, containerization, orchestration, and region-based traffic routing for cloud-native deployments.",
+    "tags": [
+      "DevOps",
+      "Deployment"
+    ],
+    "complexity": "Intermediate",
+    "readTimeMin": 5,
+    "updatedLabel": "Updated today"
+  },
+  {
+    "id": "arch-networking",
+    "title": "Networking",
+    "category": "architecture",
+    "summary": "Load balancing, firewalls, VPNs, DNS, CDN, and network monitoring essentials for distributed systems.",
+    "tags": [
+      "DevOps",
+      "Networking"
+    ],
+    "complexity": "Foundational",
+    "readTimeMin": 4,
+    "updatedLabel": "Updated today"
+  },
+  {
+    "id": "arch-communication",
+    "title": "Communication Models",
+    "category": "architecture",
+    "summary": "Synchronous vs asynchronous communication patterns and their impact on system coupling and fault tolerance.",
+    "tags": [
+      "DevOps",
+      "Architecture"
+    ],
+    "complexity": "Foundational",
+    "readTimeMin": 3,
+    "updatedLabel": "Updated today"
+  }
+]

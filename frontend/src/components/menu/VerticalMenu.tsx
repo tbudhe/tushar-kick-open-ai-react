@@ -7,6 +7,7 @@ import AccountTreeIcon from '@mui/icons-material/AccountTree';
 import HubIcon from '@mui/icons-material/Hub';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import EngineeringIcon from '@mui/icons-material/Engineering';
+import PodcastsIcon from '@mui/icons-material/Podcasts';
 import {
   appRoutes,
   sidebarNavigationConfig,
@@ -76,6 +77,7 @@ const VerticalMenu: React.FC<VerticalMenuProps> = ({ collapsed, setCollapsed }) 
     architecture: <AccountTreeIcon fontSize="small" />,
     'core-tech': <HubIcon fontSize="small" />,
     playbooks: <MenuBookIcon fontSize="small" />,
+    insights: <PodcastsIcon fontSize="small" />,
   };
 
   const activeItems = sidebarNavigationConfig[menuContext];

@@ -6,6 +6,7 @@ import AI from './components/pages/Ai';
 import PracticeML from './components/pages/PracticeMl';
 import ContactPage from './components/pages/ContactPage';
 import TechnicalProfile from './components/pages/TechnicalProfile';
+import InsightsPage from './components/pages/Insights';
 import MainLayout from './components/layout/MainLayout';
 import { appRoutes, legacyRedirectRoutes } from './constants/routes';
 import './css/App.css';
@@ -28,12 +29,7 @@ const App: React.FC = () => {
             <Route path={appRoutes.systemDesign} element={<SystemPage />} />
             <Route path={appRoutes.aiStudio} element={<AI />} />
             <Route path={appRoutes.mlPlaybooks} element={<PracticeML />} />
-            {/* Career Automation — temporarily disabled (re-enable with imports below)
-                 import JobSearch from './components/pages/JobSearch';
-                 import ApplicationsPage from './components/pages/Applications';
-                <Route path="/job-search" element={<JobSearch />} />
-                <Route path="/applications" element={<ApplicationsPage />} />
-            */}
+            <Route path={appRoutes.insights} element={<InsightsPage />} />
           </Routes>
       </MainLayout>
     </Router>

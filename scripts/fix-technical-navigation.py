@@ -1,3 +1,7 @@
+#!/usr/bin/env python3
+"""Fix technical-navigation.ts to use JSON import instead of inline data."""
+
+content = """\
 import { appRoutes } from './routes';
 import rawNavData from './technical-navigation-data.json';
 
@@ -65,3 +69,9 @@ export const matchesTechnicalSearch = (item: TechnicalNavItem, query: string): b
     item.tags.some((tag) => tag.toLowerCase().includes(normalized))
   );
 };
+"""
+
+target = "/Users/tusharbudhe/Documents/git-repos/tushar-kick-open-ai-react/frontend/src/constants/technical-navigation.ts"
+with open(target, "w") as f:
+    f.write(content)
+print(f"Written {len(content.splitlines())} lines to technical-navigation.ts")

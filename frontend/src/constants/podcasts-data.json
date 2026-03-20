@@ -1,0 +1,36 @@
+[
+  {
+    "id": "ai-vs-genai-vs-agentic-ai",
+    "topic": "AI vs Generative AI vs Agentic AI",
+    "summary": "A deep-dive conversation on how classical AI, GenAI, and Agentic AI differ in architecture, use-case fit, and production maturity — with real examples from product teams.",
+    "tags": ["AI Concepts", "Foundations", "Product Strategy"],
+    "guest": {
+      "name": "Tushar Budhe",
+      "linkedIn": "https://www.linkedin.com/in/tushar-budhe"
+    },
+    "video": {
+      "youtubeFullUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "youtubeShortsUrl": "https://www.youtube.com/shorts/dQw4w9WgXcQ"
+    },
+    "transcriptText": "Welcome to the show. Today we are talking about one of the most misunderstood distinctions in AI right now — the difference between classical AI, Generative AI, and Agentic AI. Classical AI refers to rule-based systems and supervised ML models trained on labeled data. They are deterministic and narrow. Generative AI — think GPT, Gemini, Claude — creates new content from patterns. And Agentic AI is the next evolution: autonomous systems that set goals, use tools, and reason across multiple steps to complete tasks. The key insight is that each layer builds on the previous one. Most companies are still at Layer 1 or 2. Very few have cracked Layer 3 in production. We discuss what it actually takes to get there.",
+    "audioUrl": "",
+    "updatedDate": "Mar 2026"
+  },
+  {
+    "id": "rag-in-production",
+    "topic": "RAG in Production: What Nobody Tells You",
+    "summary": "Lessons learned shipping Retrieval-Augmented Generation to real users — chunking strategies, embedding model choices, reranking, and why faithfulness scores matter more than accuracy.",
+    "tags": ["RAG", "LLM Tooling", "Engineering"],
+    "guest": {
+      "name": "Tushar Budhe",
+      "linkedIn": "https://www.linkedin.com/in/tushar-budhe"
+    },
+    "video": {
+      "youtubeFullUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "instagramUrl": "https://www.instagram.com/reel/placeholder/"
+    },
+    "transcriptText": "RAG sounds simple on paper. Embed your docs, store them in a vector DB, retrieve the top-k at query time, inject into the prompt. Ship it. But in production, that is where it gets interesting. The first thing you hit is chunking strategy. Too small and you lose context. Too large and you dilute relevance. Then you pick an embedding model and realize that ada-002 is great but BGE-large might outperform it for your domain. Then you add a reranker. Then you realize your faithfulness score — how often the model actually cites what was retrieved — is only 70%. That is a problem. In this episode we walk through every step of a production RAG pipeline and the failure modes nobody warns you about.",
+    "audioUrl": "",
+    "updatedDate": "Mar 2026"
+  }
+]

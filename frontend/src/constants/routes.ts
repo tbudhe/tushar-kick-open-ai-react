@@ -6,6 +6,7 @@ export const appRoutes = {
   systemDesign: '/architecture',
   mlPlaybooks: '/playbooks',
   technicalProfile: '/engineer-profile',
+  insights: '/insights',
   // Career Automation — routes exist but are disabled in App.tsx
   jobSearch: '/job-search',
   applications: '/applications',
@@ -30,6 +31,7 @@ export const menuLabels = {
   systemDesign: 'Architecture',
   mlPlaybooks: 'Playbooks',
   technicalProfile: 'Engineer Profile',
+  insights: 'Insights',
   careerHubInactive: 'Career Automation (Soon)',
 } as const;
 
@@ -49,7 +51,8 @@ export type SidebarMenuItemId =
   | 'engineer-profile'
   | 'architecture'
   | 'core-tech'
-  | 'playbooks';
+  | 'playbooks'
+  | 'insights';
 
 export interface SidebarMenuItem {
   id: SidebarMenuItemId;
@@ -61,6 +64,7 @@ export const sidebarNavigationConfig: Record<SidebarMenuContext, SidebarMenuItem
   business: [
     { id: 'solutions', label: menuLabels.home, to: appRoutes.home },
     { id: 'ai-engine', label: menuLabels.aiStudio, to: appRoutes.aiStudio },
+    { id: 'insights', label: menuLabels.insights, to: appRoutes.insights },
     { id: 'contact', label: menuLabels.contact, to: navTargets.contactBusiness },
   ],
   technical: [
