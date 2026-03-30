@@ -7,6 +7,7 @@ import apiRouter from './routes/api.routes';
 import publicRouter from './routes/public.routes';
 import { apiRateLimit } from './middlewares/api-rate-limit';
 import { errorHandler, notFoundHandler } from './middlewares/error-handler';
+import { initVideoScheduler } from './services/video-scheduler.service';
 
 const NODE_ENV = process.env.NODE_ENV || 'development';
 
@@ -159,6 +160,8 @@ export function createApp() {
   });
 
   app.use(errorHandler);
+
+  initVideoScheduler();
 
   return app;
 }

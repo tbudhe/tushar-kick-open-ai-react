@@ -1,24 +1,41 @@
 import React from 'react';
-import PodcastHub from '../podcast-hub/PodcastHub';
-import PodcastDrawer from '../podcast-hub/PodcastDrawer';
-import { Podcast } from '../../types/podcast';
-import podcastsData from '../../constants/podcasts-data.json';
+import VideoHub from '../video-hub/VideoHub';
+import VideoDrawer from '../video-hub/VideoDrawer';
+import { Video } from '../../types/video';
+import videosSeedData from '../../constants/videos-seed.json';
 
-const podcasts: Podcast[] = podcastsData as Podcast[];
+const videosFallback: Video[] = videosSeedData as unknown as Video[];
 
 const InsightsPage: React.FC = () => {
-  const [selectedPodcast, setSelectedPodcast] = React.useState<Podcast | null>(null);
+  const [selectedVideo, setSelectedVideo] = React.useState<Video | null>(null);
+  const [videos, setVideos] = React.useState<Video[]>(videosFallback);
+
+  React.useEffect(() => {
+    fetch('/api/videos')
+      .then((res) => {
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return res.json() as Promise<{ videos: Video[] }>;
+      })
+      .then((data) => {
+        if (Array.isArray(data.videos) && data.videos.length > 0) {
+          setVideos(data.videos);
+        }
+      })
+      .catch(() => {
+        // Silently keep seed fallback — videosFallback already set as initial state
+      });
+  }, []);
 
   return (
     <div style={{ display: 'grid', gap: '16px' }}>
-      <PodcastHub
-        podcasts={podcasts}
-        onSelect={setSelectedPodcast}
-        selectedId={selectedPodcast?.id ?? null}
+      <VideoHub
+        videos={videos}
+        onSelect={setSelectedVideo}
+        selectedId={selectedVideo?.videoId ?? null}
       />
-      <PodcastDrawer
-        podcast={selectedPodcast}
-        onClose={() => setSelectedPodcast(null)}
+      <VideoDrawer
+        video={selectedVideo}
+        onClose={() => setSelectedVideo(null)}
       />
     </div>
   );

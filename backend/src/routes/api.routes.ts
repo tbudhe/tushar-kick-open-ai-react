@@ -24,6 +24,7 @@ import {
 	verifyContactCodeController,
 } from '../controllers/contact.controller';
 import { submitContactFormController } from '../controllers/contact-form.controller';
+import { getVideosController, syncVideosController } from '../controllers/video.controller';
 
 const apiRouter = Router();
 
@@ -49,5 +50,7 @@ apiRouter.post('/contact/request-code', contactFormRateLimit, requestContactVeri
 apiRouter.post('/contact/verify-code', verifyContactCodeController);
 apiRouter.post('/contact/send-message', sendContactMessageController);
 apiRouter.post('/contact-form', contactFormRateLimit, submitContactFormController);
+apiRouter.get('/videos', getVideosController);
+apiRouter.post('/videos/sync', syncVideosController);
 
 export default apiRouter;

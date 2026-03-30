@@ -2579,3 +2579,35 @@ button.technical-resource-link {
   color: #a67c52;
   background: rgba(166, 124, 82, 0.06);
 }
+
+/* Video hub */
+.video-hub-channel-link {
+  color: var(--color-primary, #a67c52);
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+}
+
+.video-hub-channel-link:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}
+
+.video-drawer-coming-soon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 48px 24px;
+  border: 1px dashed var(--color-border, #2a3a4f);
+  border-radius: 8px;
+  margin-bottom: 24px;
+  color: var(--color-text-primary, #f1f5f9);
+  opacity: 0.6;
+  text-align: center;
+}
+
+.video-drawer-coming-soon p {
+  margin: 0;
+  font-size: 1rem;
+}

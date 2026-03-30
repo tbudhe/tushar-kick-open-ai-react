@@ -1,0 +1,72 @@
+[
+  {
+    "videoId": "YUBoardroom_001",
+    "title": "Building a High-Performance Business Team",
+    "channelId": "UCYUBoardroom",
+    "channelName": "YU Boardroom",
+    "description": "Key strategies for assembling and leading high-performance teams in competitive markets. Covers hiring frameworks, culture building, and retention tactics used by top-tier organizations.",
+    "publishedAt": "2026-02-10",
+    "thumbnailUrl": "https://img.youtube.com/vi/YUBoardroom_001/hqdefault.jpg",
+    "youtubeUrl": "https://www.youtube.com/@YUBoardroom",
+    "embedUrl": "",
+    "tags": ["Leadership", "Team Building", "HR Strategy"],
+    "category": "Business Strategy",
+    "source": "manual"
+  },
+  {
+    "videoId": "YUBoardroom_002",
+    "title": "AI Adoption in the Modern Enterprise",
+    "channelId": "UCYUBoardroom",
+    "channelName": "YU Boardroom",
+    "description": "A boardroom perspective on how Fortune 500 companies are structuring AI adoption — governance, ROI measurement, vendor selection, and the human change management component.",
+    "publishedAt": "2026-02-20",
+    "thumbnailUrl": "https://img.youtube.com/vi/YUBoardroom_002/hqdefault.jpg",
+    "youtubeUrl": "https://www.youtube.com/@YUBoardroom",
+    "embedUrl": "",
+    "tags": ["AI Strategy", "Digital Transformation", "Enterprise"],
+    "category": "AI & Technology",
+    "source": "manual"
+  },
+  {
+    "videoId": "YUBoardroom_003",
+    "title": "Startup to Scale: Fundraising Strategies That Work",
+    "channelId": "UCYUBoardroom",
+    "channelName": "YU Boardroom",
+    "description": "A practitioner's guide to Series A–C fundraising. Pitch deck structure, investor sequencing, due diligence prep, and what VCs are really evaluating in 2026.",
+    "publishedAt": "2026-03-01",
+    "thumbnailUrl": "https://img.youtube.com/vi/YUBoardroom_003/hqdefault.jpg",
+    "youtubeUrl": "https://www.youtube.com/@YUBoardroom",
+    "embedUrl": "",
+    "tags": ["Fundraising", "Startups", "Venture Capital"],
+    "category": "Finance & Growth",
+    "source": "manual"
+  },
+  {
+    "videoId": "YUBoardroom_004",
+    "title": "Product-Led Growth: Lessons from SaaS Leaders",
+    "channelId": "UCYUBoardroom",
+    "channelName": "YU Boardroom",
+    "description": "How PLG companies like Slack, Figma, and Notion built viral adoption loops. Breaking down pricing, onboarding, and the product metrics that drive enterprise expansion.",
+    "publishedAt": "2026-03-10",
+    "thumbnailUrl": "https://img.youtube.com/vi/YUBoardroom_004/hqdefault.jpg",
+    "youtubeUrl": "https://www.youtube.com/@YUBoardroom",
+    "embedUrl": "",
+    "tags": ["Product Strategy", "SaaS", "Growth"],
+    "category": "Product & Growth",
+    "source": "manual"
+  },
+  {
+    "videoId": "YUBoardroom_005",
+    "title": "Navigating Global Markets: Risk & Opportunity",
+    "channelId": "UCYUBoardroom",
+    "channelName": "YU Boardroom",
+    "description": "Executive insights on international expansion — market entry frameworks, regulatory risk, currency hedging, and building local partnerships in high-growth regions.",
+    "publishedAt": "2026-03-20",
+    "thumbnailUrl": "https://img.youtube.com/vi/YUBoardroom_005/hqdefault.jpg",
+    "youtubeUrl": "https://www.youtube.com/@YUBoardroom",
+    "embedUrl": "",
+    "tags": ["Global Expansion", "Risk Management", "Strategy"],
+    "category": "Business Strategy",
+    "source": "manual"
+  }
+]
