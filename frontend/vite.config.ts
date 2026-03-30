@@ -16,4 +16,10 @@ export default defineConfig({
     outDir: path.resolve(__dirname, '../dist/build'),
     emptyOutDir: true,
   },
+  test: {
+    environment: 'jsdom',
+    globals: true,
+    setupFiles: ['./src/setupTests.ts'],
+    include: ['src/**/*.{test,spec}.{ts,tsx}'],
+  },
 });
