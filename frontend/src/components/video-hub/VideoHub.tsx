@@ -1,4 +1,5 @@
 import React from 'react';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import { Video } from '../../types/video';
 
 interface VideoHubProps {
@@ -55,6 +56,7 @@ const VideoHub: React.FC<VideoHubProps> = ({ videos, onSelect, selectedId }) => 
           <thead>
             <tr>
               <th>Title</th>
+              <th>Host</th>
               <th>Category</th>
               <th>Tags</th>
               <th>Published</th>
@@ -77,6 +79,21 @@ const VideoHub: React.FC<VideoHubProps> = ({ videos, onSelect, selectedId }) => 
                   </button>
                 </td>
                 <td>
+                  <span className="podcast-guest-name">{video.hostName ?? '—'}</span>
+                  {video.hostLinkedIn && (
+                    <a
+                      href={video.hostLinkedIn}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="podcast-guest-linkedin"
+                      aria-label={`${video.hostName} on LinkedIn`}
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <LinkedInIcon style={{ width: 14, height: 14 }} />
+                    </a>
+                  )}
+                </td>
+                <td>
                   <span className="resource-badge">{video.category}</span>
                 </td>
                 <td>
@@ -91,7 +108,7 @@ const VideoHub: React.FC<VideoHubProps> = ({ videos, onSelect, selectedId }) => 
             ))}
             {filtered.length === 0 && (
               <tr>
-                <td colSpan={4}>
+                <td colSpan={5}>
                   <div className="technical-resource-empty">No videos match this search.</div>
                 </td>
               </tr>

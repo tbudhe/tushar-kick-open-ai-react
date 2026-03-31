@@ -11,7 +11,9 @@
     "embedUrl": "",
     "tags": ["Leadership", "Team Building", "HR Strategy"],
     "category": "Business Strategy",
-    "source": "manual"
+    "source": "manual",
+    "hostName": "Marcus Reid",
+    "hostLinkedIn": "https://www.linkedin.com/in/marcus-reid"
   },
   {
     "videoId": "YUBoardroom_002",
@@ -25,7 +27,9 @@
     "embedUrl": "",
     "tags": ["AI Strategy", "Digital Transformation", "Enterprise"],
     "category": "AI & Technology",
-    "source": "manual"
+    "source": "manual",
+    "hostName": "Priya Nair",
+    "hostLinkedIn": "https://www.linkedin.com/in/priya-nair"
   },
   {
     "videoId": "YUBoardroom_003",
@@ -39,7 +43,9 @@
     "embedUrl": "",
     "tags": ["Fundraising", "Startups", "Venture Capital"],
     "category": "Finance & Growth",
-    "source": "manual"
+    "source": "manual",
+    "hostName": "Daniel Torres",
+    "hostLinkedIn": "https://www.linkedin.com/in/daniel-torres"
   },
   {
     "videoId": "YUBoardroom_004",
@@ -53,7 +59,9 @@
     "embedUrl": "",
     "tags": ["Product Strategy", "SaaS", "Growth"],
     "category": "Product & Growth",
-    "source": "manual"
+    "source": "manual",
+    "hostName": "Sophia Chen",
+    "hostLinkedIn": "https://www.linkedin.com/in/sophia-chen"
   },
   {
     "videoId": "YUBoardroom_005",
@@ -67,6 +75,8 @@
     "embedUrl": "",
     "tags": ["Global Expansion", "Risk Management", "Strategy"],
     "category": "Business Strategy",
-    "source": "manual"
+    "source": "manual",
+    "hostName": "James Okafor",
+    "hostLinkedIn": "https://www.linkedin.com/in/james-okafor"
   }
 ]

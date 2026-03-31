@@ -1,9 +1,11 @@
 import React from 'react';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import { Video } from '../../types/video';
 
 interface VideoDrawerProps {
   video: Video | null;
   onClose: () => void;
+  allVideos?: Video[];
 }
 
 const YouTubeIcon: React.FC = () => (
@@ -12,8 +14,13 @@ const YouTubeIcon: React.FC = () => (
   </svg>
 );
 
-const VideoDrawer: React.FC<VideoDrawerProps> = ({ video, onClose }) => {
+const VideoDrawer: React.FC<VideoDrawerProps> = ({ video, onClose, allVideos = [] }) => {
   const isOpen = video !== null;
+
+  const channelClips = React.useMemo(
+    () => allVideos.filter((v) => v.channelId === video?.channelId && v.videoId !== video?.videoId),
+    [allVideos, video],
+  );
 
   React.useEffect(() => {
     if (!isOpen) return;
@@ -56,7 +63,22 @@ const VideoDrawer: React.FC<VideoDrawerProps> = ({ video, onClose }) => {
             <div className="content-drawer-header">
               <div className="content-drawer-header-info">
                 <h2 className="content-drawer-title">{video.title}</h2>
-                <p className="content-drawer-summary">{video.channelName}</p>
+                {(video.hostName) && (
+                  <div className="podcast-guest">
+                    <span className="podcast-guest-name">{video.hostName}</span>
+                    {video.hostLinkedIn && (
+                      <a
+                        href={video.hostLinkedIn}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="podcast-guest-linkedin"
+                        aria-label={`${video.hostName} on LinkedIn`}
+                      >
+                        <LinkedInIcon style={{ width: 14, height: 14 }} />
+                      </a>
+                    )}
+                  </div>
+                )}
                 <div className="content-drawer-meta">
                   {video.tags.map((tag) => (
                     <span key={tag} className="resource-badge">{tag}</span>
@@ -112,9 +134,8 @@ const VideoDrawer: React.FC<VideoDrawerProps> = ({ video, onClose }) => {
                 </div>
               )}
 
-              {/* Links */}
+              {/* Watch on YouTube — primary CTA */}
               <div className="podcast-section">
-                <h3 className="podcast-section-title">Watch on YouTube</h3>
                 <div className="podcast-publish-links">
                   <a
                     href={video.youtubeUrl}
@@ -126,18 +147,47 @@ const VideoDrawer: React.FC<VideoDrawerProps> = ({ video, onClose }) => {
                     <YouTubeIcon />
                     Watch on YouTube
                   </a>
-                  <a
-                    href={`https://www.youtube.com/@YUBoardroom`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="podcast-publish-link"
-                    aria-label="Visit YU Boardroom channel"
-                  >
-                    <YouTubeIcon />
-                    Visit Channel
-                  </a>
                 </div>
               </div>
+
+              {/* More from this channel */}
+              {channelClips.length > 0 && (
+                <div className="podcast-section">
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
+                    <h3 className="podcast-section-title" style={{ margin: 0 }}>More from this channel</h3>
+                    <a
+                      href="https://www.youtube.com/@YUBoardroom"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="video-hub-channel-link"
+                      style={{ fontSize: '0.8125rem' }}
+                    >
+                      Visit channel →
+                    </a>
+                  </div>
+                  <div className="shorts-strip" role="list" aria-label="More from this channel">
+                    {channelClips.map((clip) => (
+                      <a
+                        key={clip.videoId}
+                        href={clip.youtubeUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="shorts-card"
+                        role="listitem"
+                        aria-label={clip.title}
+                      >
+                        <img
+                          src={clip.thumbnailUrl}
+                          alt={clip.title}
+                          loading="lazy"
+                          onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none'; }}
+                        />
+                        <span className="shorts-card-title">{clip.title}</span>
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              )}
 
             </div>
           </>

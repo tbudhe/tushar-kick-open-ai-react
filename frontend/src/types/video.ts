@@ -12,4 +12,6 @@ export interface Video {
   tags: string[];
   category: string;
   source: 'youtube_api' | 'manual';
+  hostName?: string;
+  hostLinkedIn?: string;
 }

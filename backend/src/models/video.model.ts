@@ -13,6 +13,8 @@ export interface VideoDocument extends mongoose.Document {
   tags: string[];
   category: string;
   source: 'youtube_api' | 'manual';
+  hostName?: string;
+  hostLinkedIn?: string;
 }
 
 const videoSchema = new mongoose.Schema(
@@ -29,6 +31,8 @@ const videoSchema = new mongoose.Schema(
     tags: { type: [String], default: [] },
     category: { type: String, default: 'Business' },
     source: { type: String, enum: ['youtube_api', 'manual'], default: 'manual' },
+    hostName: { type: String, default: '' },
+    hostLinkedIn: { type: String, default: '' },
   },
   {
     collection: 'videos',

@@ -36,6 +36,7 @@ const InsightsPage: React.FC = () => {
       <VideoDrawer
         video={selectedVideo}
         onClose={() => setSelectedVideo(null)}
+        allVideos={videos}
       />
     </div>
   );
