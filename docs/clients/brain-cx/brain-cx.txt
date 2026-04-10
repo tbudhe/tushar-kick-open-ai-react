@@ -1,0 +1,657 @@
+Tushar Budhe
+17:28:22
+Uh, I'm good, Tariq. Uh, with that said, I will quickly introduce myself.
+I'm Tushar Budhe I have done Bachelor of Engineering from back home in the year 2009.
+I work with 3 companies, EY, Fidelity, now currently working at a Walmart. I'm planning to set up my own.
+B2B SaaS businesses, and I'm going through the podcast and learning from the people.
+Uh, that's one thing. If I can solve, like, one of our client, uh…
+You know, challenges or issues, that would be great. Otherwise, from that podcast, I will get some idea.
+And I will talk to my board of directors, uh, to get some inputs from you, and from there, if we can make something better for this world, I'm trying to do that.
+Mm-hmm.
+Tariq Alinur
+17:29:04
+Okay. What topics are you focused on on the podcast?
+there are any specific topics? Yeah.
+Tushar Budhe
+17:29:10
+Uh, sure.
+Yeah, I have seen that, like, you have almost, like, 15 years of experience with IBR and, uh, you know, the old, uh, BPOs integrating with the AI nowadays.
+And you get almost, like, 300 milliseconds in redundancy, where the person speaks, you quickly responds them.
+Tariq Alinur
+17:29:22
+Mm-hmm.
+Tushar Budhe
+17:29:29
+Uh, like…
+augmentation over the replacement AI handle the 80% of your, you know, current calls.
+Tariq Alinur
+17:29:34
+Mm-hmm.
+Tushar Budhe
+17:29:38
+Uh, this is, like, mainly focus area we would be discussing on the podcast.
+Tariq Alinur
+17:29:43
+Okay. Does the con… do you already have content on the podcast? Do you have other clients already on there, or have you done a…
+Have you been doing this for a while?
+Tushar Budhe
+17:29:51
+Uh, actually, what is happening, Tariq, uh, I am here on H1B visa.
+Tariq Alinur
+17:29:54
+Mm-hmm.
+Mm-hmm.
+Tushar Budhe
+17:29:57
+So, I am not supposed to public anything apart from my company.
+So, I am doing Seacor Foundation currently, and even I am looking board of directors for my company. If you are interested, I would be glad to put you in the board of directors.
+Uh, and I have to transition my visa from H1 to either O1, or H1B needs to transfer to my company.
+Tariq Alinur
+17:30:12
+Okay.
+Tushar Budhe
+17:30:20
+Uh, that's where the things are kind of stuck, so… I will get my company approval maybe in the next 30 days.
+Uh, I have to hire the board of directors first, they will hire me.
+I will do my visa transfer. So there is, like, things going on. Behind the scene, I'm working.
+But I cannot show publicly that I am working on the things, you know.
+Tariq Alinur
+17:30:40
+Oh, okay. So the podcast is new, you don't have a podcast out there yet.
+Tushar Budhe
+17:30:41
+No.
+I already have 3 clients, which has a podcast, but I wasn't able to publish it just because of United States rules, which will go against my immigration policy.
+Tariq Alinur
+17:30:49
+Mm-hmm.
+Yeah.
+Yeah, makes sense.
+Tushar Budhe
+17:30:58
+So once I will got things settled up, I will have my own identity, uh, I will start, uh, doing it publicly.
+Tariq Alinur
+17:31:07
+Okay. So what's your business? Maybe tell me a little bit about it. What do you guys do?
+Tushar Budhe
+17:31:07
+This is… yeah.
+Currently, I am the only one engineer, so what I was thinking, uh, maybe you can correct me if I'm wrong.
+Tariq Alinur
+17:31:15
+Okay.
+Tushar Budhe
+17:31:19
+So, what I was thinking, go with the B2B business owners, understand their problems.
+And I am from AI background, like, uh, from the Walmart, I was doing a little bit of AI.
+Initially. And after that, I moved to, like, machine learning, artificial intelligence, generative AI, and authentic AI.
+These are the 4 models where I can work independently, but I didn't have a team yet.
+Because once my company will form board of directors will be there, then I can hire somebody to work on the things.
+till the time those things are stuck, I am just looking for the client problems which they are facing currently have.
+And is there a possibility where I can find out a solution for them, like a sidecar, where I can fix something on their product as a sidecar, and they can do everything as it is, and my product will.
+be just, like, uh, you maybe heard about, like, uh, Permethyas, Grafana, these are the tools which help to create the matrix. So, similar to that, uh, I will pass something on their sidecar, their application will not get impacted.
+Everything to learn from their application, and give them a matrix initial level, and second level will be, like.
+Uh, do the hallucination algorithms, why it is doing hallucination, uh, then, uh.
+with the AI, like, precision calculations, accuracy, these are all the calculations has to be handled through my sidecar. This is my plan.
+So that I can learn from the businesses, I can do tie-ups. Initially, I will pass my sidecar, I will learn from them.
+And then my sidecar will be working on those, uh, direct, uh, business impact. This is what I am thinking.
+Uh…
+Tariq Alinur
+17:32:53
+Yeah, interesting. So you don't have a product yet, you're in the process of building the product.
+It sounds like. Or do you have an actual product already?
+Tushar Budhe
+17:33:00
+Yes.
+Actual product shouldn't take that long, I feel. Maybe it should just take.
+4 to 6 weeks maximum I'm talking about, if we need to implement that kind of product.
+Tariq Alinur
+17:33:11
+Mm-hmm.
+Tushar Budhe
+17:33:13
+Uh, it is not a big thing, uh, implementing a product in the world of AI, but just it is very important to understand, you know, all the dynamics, uh, how those products build, where your product will exist.
+Uh, you have to make sure that you are not doing hallucination in that product. So, these are the things which I am learning. And I am just focusing on B2B and SaaS company currently.
+Uh, to enter into the market, and we will see, uh, uh, maybe after, like, 6 months or a year down the line. I have few products related to the e-commerce on supply chain.
+Tariq Alinur
+17:33:35
+Mm-hmm.
+Tushar Budhe
+17:33:46
+Which is in my brain, but I cannot directly jump on it, because it's also come with cost. Once I will have a revenue.
+On my business, I can also elaborate to the more product line.
+Tariq Alinur
+17:33:56
+Yeah.
+Have you thought through how you're gonna actually get clients? What's your client acquisition strategy? Have you thought through that yet?
+Tushar Budhe
+17:34:05
+Uh, yeah, I have one AISDR toolkit, which is built on ChatGPT and Cloud.
+Uh, which, uh, generated the leads on the internet from LinkedIn, and I send the email to those people automatically.
+Maybe you, uh, heard about, uh, open call.
+Tariq Alinur
+17:34:22
+Yeah. Yeah. Yeah.
+Tushar Budhe
+17:34:22
+Recently, NVIDIA CEO was talking about it, so I was using that internally.
+Tariq Alinur
+17:34:25
+Mm-hmm.
+Tushar Budhe
+17:34:30
+Uh, to get everything set up, to get the clients, and somehow get the communication going all in this layer.
+From here, uh, I will still need… I will be still using AI to do the research about your companies and other things, but, uh, currently it is just, like, simple web application, you can say, which is running on my laptop.
+Tariq Alinur
+17:34:48
+Have you had any success in actually getting clients using it? Just curious, uh, has it generated any leads?
+Tushar Budhe
+17:34:51
+Uh…
+Yes, it is. I have, like, almost, uh, maybe…
+Tariq Alinur
+17:34:56
+Hmm.
+Tushar Budhe
+17:34:59
+13,000 leads. In last week, I got 4 calls.
+Tariq Alinur
+17:35:03
+Wow, that's really good. It's good. Yeah, you hit on something that's working then, because I'll tell you, cold email is now working. We've been trying. We've had so many other vendors we've used, and it has not worked well.
+Tushar Budhe
+17:35:07
+Okay, this is…
+Tariq Alinur
+17:35:15
+Um, even with buying intent leads has been a bit of a struggle. Um, so, if you've cracked a nut on how to do that, that's really good, actually.
+So… yeah.
+Tushar Budhe
+17:35:25
+If you want, I can share that… I can create one sidecar container for you, where you can host it anywhere.
+And if you want…
+Tariq Alinur
+17:35:33
+So explain, explain the sidecar for me because I don't think I really know that technology, yeah.
+Tushar Budhe
+17:35:36
+Sidecur is what happened, um, sure. So whenever this AI get hosted, either it will co-hosted Azure, AWS.
+There are some other small companies as well, maybe Railway, which is the cheapest one, but.
+Tariq Alinur
+17:35:45
+Mm-hmm.
+Tushar Budhe
+17:35:50
+It is not that powerful as compared to, of course, Google Cloud, Azure, and AWS are the bigger ones.
+Tariq Alinur
+17:35:54
+Right. Right.
+Tushar Budhe
+17:35:57
+But those goes as a container only, finally, the Kubernetes pod, inside the Docker container, correct?
+And we can pass. It is just like a train. Most of the people even don't know the Docker volume concept. What is…
+I'm from technical background, engineering background, so I know how those concepts work. Docker volume is, like.
+Tariq Alinur
+17:36:13
+Mm-hmm.
+Tushar Budhe
+17:36:17
+Suppose you have one application, I can append another application on your back, I can apply… and I can apply third application on your back.
+But the way it will work, when your server is getting started, is making sure all your previous train tracks are attached.
+Tariq Alinur
+17:36:27
+Mm-hmm.
+Tushar Budhe
+17:36:32
+And then it is just engine attached to the train, and it just go on the fly.
+So, that's the concept which I'm using for my product development, and that's why I'm talking about the sidecar, where my container will be the last.
+It will attach, your application will start, everything will come to the my container. Uh, means it is go through all the containers, but my container will be also one of there, which will be doing a roll-up.
+basically, for the… maybe you can say, like, uh, lead generation for email, uh.
+If you want it, uh…
+That would be one.
+Tariq Alinur
+17:37:04
+Hmm, interesting. Yeah, no, that's a very good use case for lead generation part. Um, I'm just trying to think, you know, to help you.
+you know, think through what are some of the solutions that you may be thinking about, and if there's any opportunities with what we're working on. That's why I'm asking the question.
+So, um, yeah, I mean, to give you a little bit of background of what we're doing, we're concentrating on voice AI, um, but, you know, our voice AI tools.
+Tushar Budhe
+17:37:20
+Sure, sure, no problem.
+Tariq Alinur
+17:37:32
+You know, can be replacing contact centers, obviously. You can also use it on websites.
+Tushar Budhe
+17:37:36
+Yes.
+Tariq Alinur
+17:37:39
+Um, you know, as a voice chat as well, and then we're in the process of building avatars with the voice AI built into it as well, so it's just another way to interact with customers on a website.
+Tushar Budhe
+17:37:49
+I see.
+Tariq Alinur
+17:37:52
+Um, so that's the area we're playing in, and, you know, most of our customers are.
+are really, like, high-trust type environments, you know, like universities, um, healthcare providers, things like that. So we have a lot of compliance.
+Um, you know, our team, uh, our engineers are not allowing us to do anything with OpenClaw right now, because there's a lot of concern about the security.
+around that. So Nvidia just came out with their own version, which is actually, I think, a lot safer, so I was planning to experiment a bit with that.
+Tushar Budhe
+17:38:18
+Hmm.
+Tariq Alinur
+17:38:25
+They have their own version of OpenClaw, if you will. But, you know, why we haven't done OpenClaw is strictly because of security. I think there's great applications for it, right? I mean, there's…
+Tushar Budhe
+17:38:28
+Yes.
+Tariq Alinur
+17:38:38
+creating and building your own agents in a company, um, I think there's huge opportunities there. Um, but, you know, I mean, when we… the type of businesses we work with.
+Tushar Budhe
+17:38:41
+Hmm.
+Tariq Alinur
+17:38:48
+There's so much compliance and security that, you know, we've got to be very locked down in our approach.
+Um, so that's why we're a little bit more apprehensive than doing it, yeah.
+Tushar Budhe
+17:38:55
+Sure.
+Sure. And there is also, like, Blandia and, uh, Rital…
+AI, which is also, like, competitor for you. Uh, how do you feel, like, uh, where you stand during their.
+Tariq Alinur
+17:39:05
+Yes.
+So those… I'm glad you mentioned that. So Retail, Bland, and Vappy are all competitors.
+The best way to describe them, right, they are all built by engineers. They're an engineering platform, right? And if a company has AI experts.
+Tushar Budhe
+17:39:24
+Hmm.
+Tariq Alinur
+17:39:28
+Um, and people in their organization that knows how to build on it, then great, those are good tools.
+But our application, we've built this for CX people, people in the contact center, to build a voice AI agent, so our approach is very different. We've built it more from a CX background, not from an engineering background.
+But along the journey of building our own, we realized there's a lot of components within the infrastructure that's missing at Bland and retail, so we really focused on turn-taking, getting it under 300 milliseconds as an example.
+There's SIP connectivity, you know, we built our own SIP connectivity. There's a lot of little things that just make the tool work a lot more efficiently.
+But lastly, we've built an interface that is a lot easier to use, where you can speak to the AI and build the AI agent from it. Um, and so those are some of the subtle differences, but.
+Tushar Budhe
+17:40:14
+Hmm.
+Okay.
+Tariq Alinur
+17:40:26
+when our approach is, is when we go into a client, they don't have necessarily people to go build these AI agents. We're doing it for them.
+Tushar Budhe
+17:40:30
+Hmm.
+Tariq Alinur
+17:40:37
+And we're doing it because we're coming with decades of experience in call centers. I started India's first call center back in 1999, as an example.
+Tushar Budhe
+17:40:42
+Exactly.
+Tariq Alinur
+17:40:47
+Um, you know, I was the CEO, JP Morgan, ran their call centers, I was with Apple, so…
+We… all of my team have decades of experience running call centers.
+That is really different than somebody that just dropped out of Stanford that's never worked, taken a phone call in his life.
+Now, they may be good engineers and they're smart people, but that doesn't mean they understand what a great conversation sounds like.
+And so, I think that's been really what's different for us, is we really focus on the customer experience side of it.
+Tushar Budhe
+17:41:13
+Hmm.
+Tariq Alinur
+17:41:20
+And that is very different than, you know, a retailer brand, which is just the tech.
+And, you know, it's fine, but it's just, there are a lot of gaps in that technology, and once people start using it.
+you know, I will tell you that when you look at Bland, retail, VAPI, Sierra.AI.
+the amount of programs of people that have started pilots with them and then canceled is very high. Um, so a lot of people have done demos with them and built, you know, demo products.
+And then canceled it. They haven't moved forward. And there's a lot of reasons for it, because companies don't, again, have the people internally that know how to build on these tools.
+And it's not really built from a CX perspective, so we've never lost a client. I'll give you that example. Everyone that we've had come to us.
+Tushar Budhe
+17:42:08
+Nice.
+Tariq Alinur
+17:42:10
+has converted from a demo into a live client, and I think it's because we really understand how to build this.
+Or a real good, you know, customer experience. So, that's how to think about what's different about us.
+Tushar Budhe
+17:42:24
+I see. And who are, like, mainly clients? You already, uh, talk about, like, healthcare, education.
+Tariq Alinur
+17:42:25
+Yeah.
+We, we have several, we have several universities that we work for, um, as well as a couple healthcare providers, a behavioral health company as well.
+We even do things like translation services as well, too, where, um, they're using our AI to translate, you know, for Spanish customers and so on.
+Tushar Budhe
+17:42:38
+Bye.
+Oh, wow.
+Nice! That's amazing.
+Tariq Alinur
+17:42:48
+So, yeah.
+Tushar Budhe
+17:42:49
+Uh, one of my clients, uh, generally, uh, looking for that kind of solution if needed.
+Tariq Alinur
+17:42:50
+Yeah.
+Tushar Budhe
+17:42:55
+I will definitely, uh, make you connected with that client, and maybe you can.
+Tariq Alinur
+17:42:59
+Yeah, I appreciate that. Yeah, I appreciate it. You know, again, if you run across anything like that, I can tell you with a high degree of confidence that our platform.
+Tushar Budhe
+17:43:00
+Because he's…
+Tariq Alinur
+17:43:08
+Number 1 is the most compliant. We've hit all this, you know, SOC 2 and PCI, all of those things, but number 2, it is really…
+you know, from a back-and-forth conversation, I think we've really nailed it. Um, and so I think those are the things that are important, really, you know.
+Tushar Budhe
+17:43:26
+No.
+Tariq Alinur
+17:43:27
+So I… again, if I can help you in any way, happy to try to help you. I don't know how I can help you, but, um, you know, I'm just trying to give you some background on us, yeah.
+Tushar Budhe
+17:43:31
+Sure. No, no, no, I'm just looking for a date, uh…
+Uh, I was just checking, because this is just, like, introduction call, so we can jump on the podcast, uh, next time. I'm just checking, uh, would you be available this Friday?
+Tariq Alinur
+17:43:37
+Mm-hmm. Sure.
+Tushar Budhe
+17:43:44
+Uh, around 2PM to 2:30.
+Tariq Alinur
+17:43:47
+Um, let me… let me get back to you on that. The podcasts were only… to be quite honest with you, I'm only… I'm very selective in who I do podcasts with right now, because we're using that for.
+Tushar Budhe
+17:43:57
+Okay.
+Tariq Alinur
+17:43:59
+marketing purposes. I wouldn't want to get you in trouble if we used that, you know, if we promoted it or anything like that. So, I only do it when I know that, um, you know, both parties are winning from that, and I can use it for, you know.
+Tushar Budhe
+17:44:08
+Yeah.
+Tariq Alinur
+17:44:14
+for LinkedIn purposes and things like that. So, I don't know this would be a good fit for me, just given the scenario.
+Tushar Budhe
+17:44:17
+That's fine.
+Tariq Alinur
+17:44:21
+Yeah.
+Tushar Budhe
+17:44:22
+No, it's fine. Even podcasts don't work out, it's okay. And about, like, you were saying that, uh, you're about, uh.
+Tariq Alinur
+17:44:24
+Yeah.
+Yeah.
+Tushar Budhe
+17:44:30
+your email and your response about your email marketing is very less. Uh…
+I can have something to you to demo, maybe? Can we have a setup for some discovery call where we can directly discuss how my product is working? Can you integrate with your systems?
+Tariq Alinur
+17:44:46
+Yeah, I'd love to see it. I mean, if you want to show me a demo of that, happy to have another call with you, and maybe you could just walk me through what you're doing on the lead acquisition side. That is a problem, not just for my company, but other companies, too, that.
+Tushar Budhe
+17:44:55
+Sure.
+Tariq Alinur
+17:44:59
+I think we haven't found a good solution around that yet.
+Tushar Budhe
+17:45:03
+I think that my product is working, but it is just not public.
+Tariq Alinur
+17:45:04
+No.
+Yeah. Well, happy to take a look at it and give you feedback on it, too.
+Tushar Budhe
+17:45:10
+Okay.
+Tariq Alinur
+17:45:12
+So… yeah, if you… let me grab my calendar, maybe we can… where… where are you living? What area?
+Tushar Budhe
+17:45:12
+Sure. Uh, this…
+Tariq Alinur
+17:45:18
+of the U.S.
+Tushar Budhe
+17:45:18
+Uh, New Jersey? New Jersey.
+Tariq Alinur
+17:45:20
+Oh, you're in… oh, so you're in the Eastern time zone. Okay, um, yeah.
+Tushar Budhe
+17:45:22
+Yes.
+Friday 2pm.
+Tariq Alinur
+17:45:25
+What… Friday, let me see here…
+Yeah, I'm available, too.
+Um, I have a call from 1 to 2, so yes, I can do it right after 2 o'clock is fine, yeah.
+Tushar Budhe
+17:45:33
+Hmm.
+Okay. And, uh, the thing is…
+Tariq Alinur
+17:45:40
+Let's do 2.15, because that gives me a few minutes, because I have a call ending right at 2 o'clock.
+Just to give me a little bit of buffer, we could do 2.15.
+Tushar Budhe
+17:45:49
+2:15, okay, that's fine.
+Tariq Alinur
+17:45:50
+Yeah.
+Tushar Budhe
+17:45:52
+Mm-hmm. You want email template and lead generation.
+Tariq Alinur
+17:45:57
+Yeah, yeah, give me, um… I'd love to see a demo of it, or you can walk me through what you're doing.
+Tushar Budhe
+17:46:02
+Sure, sounds good. Uh, I will show you, no, almost.
+Tariq Alinur
+17:46:03
+Okay.
+All right, you have my email, so if you want to send me an invite, then I'll join you there, okay?
+Tushar Budhe
+17:46:10
+Yes, I will send you the invite maybe next 2-3 minutes.
+Tariq Alinur
+17:46:13
+Alright, thank you, good talking to you. Yeah.
+Tushar Budhe
+17:46:14
+Thank you so much. Bye soon.
+
+
+Questions & Feedback
+2 Responses
+Does the client want a discovery call?
+Yes, the client (Tariq) agreed to a discovery call to see a demo of Tushar's lead acquisition product.
+
+Supporting Quotes:
+"Yeah, I'd love to see it. I mean, if you want to show me a demo of that, happy to have another call with you, and maybe you could just walk me through what you're doing on the lead acquisition side."
+Does the client want a demo?
+Yes, the client (Tariq) explicitly stated he would love to see a demo of Tushar's lead acquisition product.
+Supporting Quotes:
+"Yeah, I'd love to see it. I mean, if you want to show me a demo of that, happy to have another call with you, and maybe you could just walk me through what you're doing on the lead acquisition side."
+
+Pain Points & Challenges
+The prospect is currently facing challenges with lead generation and client acquisition, specifically with cold email campaigns not yielding desired results.
+
+" I'll tell you, cold email is now working. We've been trying. We've had so many other vendors we've used, and it has not worked well."
+" Even with buying intent leads has been a bit of a struggle."
+Goals & Objectives
+The prospect aims to improve their lead acquisition strategy and find a more effective solution for generating leads, especially through email marketing.
+
+" I'd love to see a demo of that, or you can walk me through what you're doing on the lead acquisition side. That is a problem, not just for my company, but other companies, too, that I think we haven't found a good solution around that yet."
+Decision Process
+Timeline
+
+Immediate for demo, potentially longer for implementation.
+
+" Can we have a setup for some discovery call where we can directly discuss how my product is working? Can you integrate with your systems?"
+" Let's do 2.15, because that gives me a few minutes, because I have a call ending right at 2 o'clock. Just to give me a little bit of buffer, we could do 2.15."
+Budget Information
+Budget Range
+
+N/A
+
+Previous Solutions Tried
+The prospect has previously used various vendors and methods for cold email campaigns, but these have been largely unsuccessful.
+
+" We've had so many other vendors we've used, and it has not worked well."
+Competitive Landscape
+Bland
+
+And there is also, like, Blandia and, uh, Rital… AI, which is also, like, competitor for you.
+
+The best way to describe them, right, they are all built by engineers. They're an engineering platform.
+
+There's a lot of components within the infrastructure that's missing at Bland and retail.
+
+When you look at Bland, retail, VAPI, Sierra.AI, the amount of programs of people that have started pilots with them and then canceled is very high.
+
+Rital
+
+And there is also, like, Blandia and, uh, Rital… AI, which is also, like, competitor for you.
+
+The best way to describe them, right, they are all built by engineers. They're an engineering platform.
+
+There's a lot of components within the infrastructure that's missing at Bland and retail.
+
+When you look at Bland, retail, VAPI, Sierra.AI, the amount of programs of people that have started pilots with them and then canceled is very high.
+
+Vappy
+
+So Retail, Bland, and Vappy are all competitors.
+
+When you look at Bland, retail, VAPI, Sierra.AI, the amount of programs of people that have started pilots with them and then canceled is very high.
+
+Sierra.AI
+
+When you look at Bland, retail, VAPI, Sierra.AI, the amount of programs of people that have started pilots with them and then canceled is very high.
+
+Concerns & Objections
+The prospect has significant concerns regarding the security and compliance of AI tools, particularly mentioning OpenClaw.
+
+" Our engineers are not allowing us to do anything with OpenClaw right now, because there's a lot of concern about the security around that."
+" Why we haven't done OpenClaw is strictly because of security."
+The prospect is apprehensive about using AI solutions that lack compliance and security, especially given their client base in high-trust environments.
+
+" The type of businesses we work with, there's so much compliance and security that, you know, we've got to be very locked down in our approach."
+
+
+-----
+Client Details: 
+Company Profile: BrainCX AI
+BrainCX isn't just another chatbot company. They focus on human-quality Voice AI agents specifically for high-trust industries (Healthcare, Finance, Higher Ed).
+The Hook: They replace clunky "Press 1 for Sales" IVR systems with AI that sounds and reacts like a top-tier human agent.
+The Tech Edge: They claim a sub-300ms turn-taking latency. Most competitors have a 2–3 second "awkward pause" after a user speaks; BrainCX eliminates that.
+The Mission: Tariq’s philosophy is "Augmentation over Replacement"—using AI to handle the repetitive 80% of calls so humans can handle the complex 20%.
+
+👤 The Guest: Tariq Alinur
+Role: CEO of BrainCX AI.
+Background: 15+ years in global contact centers. He understands the "old world" of BPO (Business Process Outsourcing) and is now disrupting it with AI.
+POV: He is vocal about why 95% of AI initiatives fail (usually due to bad data or trying to replace humans entirely rather than augmenting them).
+
+⚖️ The Quick Audit: Pros & Cons
+
+Feature
+
+
+The Pro (Value Prop)
+
+
+The Con (Potential Risk)
+
+
+Speed & Trust
+
+
+Superior Latency: Their sub-300ms response time is a massive differentiator in "high-trust" sectors where delays feel robotic/untrustworthy.
+
+
+Market Crowdedness: The "Voice AI Agent" space is exploding. They are competing against giants like Bland AI and Retell AI, plus legacy players like Genesys.
+
+
+
+
+🎙️ 10-Minute Intro Call Script
+0:00 - 0:02 | The "Vibe Check" & Warm Up
+"Tariq, great to finally connect. I’ve been looking at BrainCX—specifically that sub-300ms latency you guys hit. In a world of laggy chatbots, that’s a breath of fresh air."
+Reference: Mention you saw his take on "AI as augmentation, not replacement." It shows you’ve done the homework.
+0:02 - 0:05 | Pitching the "Why You?"
+"We’re doing this episode on Rethinking Market Penetration. Most people talk about broad SaaS, but I want to talk about how you penetrate High-Trust industries like Healthcare. It’s a harder nut to crack, and you’ve clearly found the key."
+0:05 - 0:08 | The Collaboration Details
+The Value: "This is 100% content-driven. You get the raw files, the edited social clips, and the backlinks. We want to position you as the expert who actually understands the 'human' side of AI."
+The Process: "No prep needed on your end. We’ll do a 45-min recording later, but today is just to see if our 'Market Penetration' angle aligns with your current growth goals."
+0:08 - 0:10 | Closing & Next Steps
+"Does that sound like a conversation you'd be interested in leading?"
+Confirm the recording date/time or send the calendar link.
+
+Customer Background
+Tushar Budhe is a solo engineer currently on H1B visa working at Walmart, with previous experience at EY and Fidelity. 1 He holds a Bachelor of Engineering from 2009 and has expertise in machine learning, artificial intelligence, generative AI, and authentic AI. 2 Tushar is in the process of forming a B2B SaaS company focused on AI solutions, currently establishing a board of directors to enable H1B to O1 visa transition. 34 He has built an internal AISDR toolkit using ChatGPT and Claude for automated lead generation, which has generated approximately 13,000 leads with 4 calls in the last week. 5 He cannot publicly launch products or podcasts until visa transfer is complete, expected within 30 days. 4
+Customer Needs & Frictions
+Lead generation challenges - Tushar identified that cold email and lead acquisition is a significant pain point, noting interest in solutions that work effectively. 56 He mentioned having a client looking for translation services solutions. 7
+Product development approach - Tushar plans to use a "sidecar" container methodology where his AI solution attaches to existing client applications without disrupting core functionality, similar to tools like Prometheus and Grafana. 28 Initial focus is on learning from B2B businesses through tie-ups, then addressing hallucination algorithms, precision calculations, and accuracy metrics. 8 Product implementation timeline estimated at 4-6 weeks maximum. 89
+Market positioning uncertainty - Tushar is still in discovery phase, seeking to understand client problems before building specific products, with future plans for e-commerce and supply chain solutions once revenue is established. 9
+Our Opportunities
+Lead generation demo scheduled - Tariq expressed strong interest in Tushar's lead acquisition tool, noting that cold email hasn't been working well for his company despite trying multiple vendors and buying intent leads. 56 Tariq specifically requested a demo to see how the email template and lead generation system works. 1011
+Potential integration or partnership - Tushar offered to create a sidecar container for Tariq's company that could be hosted anywhere for lead generation purposes. 612 This represents an opportunity to potentially become a client or testing partner.
+Referral potential - Tushar indicated he has clients who may need translation services and offered to make connections. 7
+Open Questions or Objections
+Podcast declined - Tariq declined the podcast invitation, stating he is selective about podcast appearances and only participates when both parties benefit from marketing promotion, which wouldn't work given Tushar's visa restrictions. 1013
+Competitive landscape discussion - Tushar asked about positioning against Bland, Retail AI, and Vapi. 14 Tariq differentiated his platform as built for CX professionals rather than engineers, with decades of call center experience, achieving sub-300ms turn-taking, custom SIP connectivity, and zero client churn. 151617 He noted competitors have high pilot cancellation rates due to lack of CX focus and requirement for internal AI expertise. 17
+Security and compliance concerns - Tariq mentioned his team won't use OpenClaw due to security concerns in high-trust environments (universities, healthcare), though Nvidia's new version may be safer. 1418 The platform has achieved SOC 2 and PCI compliance. 7
+Budget & Timeline
+No budget discussion - No explicit budget, procurement process, or buying authority was discussed during this introductory call.
+Company formation timeline - Tushar's company approval expected in next 30 days, after which board of directors will hire him and enable visa transfer. 4
+Next Steps / Close Plan
+Demo scheduled for Friday 2:15 PM ET - Tariq agreed to a product demonstration of Tushar's lead generation and email template system on Friday at 2:15 PM Eastern time. 11 Tushar will send calendar invite within 2-3 minutes of call ending. 19
+Demo focus - Walk through lead acquisition tool, email marketing approach, and potential integration with Tariq's systems. 1011
+Mutual evaluation - This is positioned as a discovery call to explore if there's fit for Tushar's sidecar solution while Tariq evaluates the lead generation tool for his own needs. 10
+—---—---—---—---—---—---—---—---—---—---—---—---—---—---—---
+Additional details 
+
+Call Context
+Prospect and company information
+Hide Details
+Tariq Alinur, CEO
+tariq@braincx.ai
+Call Date:
+Tuesday, April 7, 2026
+Prospect Information
+Name & Title
+Tariq Alinur, CEO
+Email
+tariq@braincx.ai
+LinkedIn
+LinkedIn Profile
+Company Information
+Company
+BrainCX AI, B2B, IVP
+Website
+https://braincx.com/
+Headcount
+not_sure
+Revenue
+Not Sure
+Headquarters
+West Palm Beach, Florida
+LinkedIn
+Company Profile https://www.linkedin.com/company/braincx/about/

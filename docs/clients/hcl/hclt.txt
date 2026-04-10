@@ -1,0 +1,210 @@
+Transcript for Podcast Call
+--------------------------------------------------------------------------------
+Speaker 0: How are doing today, Tush?
+
+Speaker 1: Hello. Hi, Eric. I'm good. How are you? I'm good.
+
+Thank you. So the format will be the same. We can edit next time, whatever we want. Okay. And we can directly jump on the interview.
+
+Okay. Okay? So with that said, I would like to introduce Eric. Welcome, Eric. It's It's great to have you here.
+
+I'm really excited that the way you drive Excel software journey today. How are you doing?
+
+Speaker 0: I'm doing very well. Thank you. Thank you. It's great to be here, and glad to glad to talk about this.
+
+Speaker 1: Sure. As we know, Eric has almost, like, thirty years of experience now working as a director of sales at Excel Software. He has experience with IBM, especially in p two p SaaS, the more insight will will be devoting to the AI integration. So that would be my main focus if we can tell our audience How would b two b SaaS software start converting into AI integrations? What are your approaches?
+
+What are the challenges you are having currently?
+
+Speaker 0: Yeah. Yeah. Okay. Thanks for thanks for asking. So so a lot of, you know, a lot of things have have been kind of flying around, a lot of announcements that have been made recently.
+
+You know, when I think about AI and and and AI in in software, I think about it at a at a couple of different levels. One level is, you know, how is AI impacting the process of creating software and releasing software? And so we'll talk a little bit about that. And then, the second place that AI, I think, has made a tremendous impact is on kind of the customer experience. What do the users of these this software and in my case, I'm primarily focused in in HCL software on our our commerce brand software, so ecommerce sites for both b to b and b to c customers.
+
+And so the the impact on the experience, I think, is another large impact area. And then I would say the third impact area that I'm seeing AI, change things is really on, you know, I would say, kinda analytics and understanding data and then being able to present that data and then making business decisions based on that data. So it's kind of a it's kind of a three legged stool is the way that I the the way that I view things. So I'll start with I'll start with the the software development process. And I would say at HCL Software, we have, you know, we have a core group of development team, core group of, you know, product management.
+
+So we're kinda following, you know, a lot of the the standards in the way that we develop software. The good news about HCL is that HCL, as an organization grew out of the software engineering space. So even within our services side of our house, a lot of those services were, dedicated to software engineering, writing software for other people. A lot of the products that, are a part of HCL software today were acquired mostly from IBM, back in the 2019 time frame. And, for years, we had, used HCL technologies to actually help us do the software development.
+
+So, we had contracted that engineering and manufacturing out to, HCL. And so the acquisition of that to for HCL was, you know, pretty simple now. So we had a very well defined, well developed software engineering process that we'd worked out with a lot of our customers that we were doing, and and it was very easy for us to to when we acquired those products to adopt that same, discipline. So we had a really good disciplined process for doing development. And, kind of the way that we talk about it is, what we call frugal development, which is, kind of the antithesis of what a lot of, I would say, you know, West Coast in The US, venture capital funded, software startup organizations are.
+
+But, but but we take that that approach. And so a part of that frugal development approach is, okay. Now we've got new tools like AI. How do we leverage AI in that software development process in a way that develops the kind of quality product that that that we have to develop? We're not developing new products.
+
+We're developing you know, primarily, they're some of them are very mature products. You know, some of them have been around for thirty, forty years. And so, you know, some of that is, okay. So how do we modernize these platforms? And so there's a lot of, AI development tools that help us do that.
+
+How do we then, leverage new capabilities from those modern those modern architectures. You know, things like, containers and Kubernetes and, and kind of, you know, the the movement from monolithic types of j two, double e applications to, composable, types of applications. And so we use AI extensively in in the process to really kind of accelerate our adoption of those, those modern architectures. So the ability to leverage things like GraphQL to to to provide, you know, a level of integration that, would take, you know, months and months of development to to do the integration with graph GraphQL and AI, we're able to set up those integrations in those environments, and do them much more quickly. So, it's really helped in the in the along the integration lines.
+
+Also, kind of new functionalities, especially functionalities that also involve some kind of AI. So one of our philosophies in in our development process is how do we embed AI into the, you know, the classic functionality that we have. And so, for instance, one of the things that we've been able to do in our commerce platform is use AI and AI modeling and modern cloud technologies and integration between kind of the the the classic on premise deployments and cloud deployments to do AI, to train models, to, you know, to take data from the commerce platform, data like, you know, customer, interactions and what are they browsing and that that kind of information. Pump that into, an AI engine and have that AI engine do things like personalized recommendations. Right?
+
+So Sure. So we have five different models that we have, AI models that we work that we work with clients to implement. And each one of those AI models is not a a giant intergalactic LLM. It leverages LLM technology and some of the LLMs that are out there, but it's augmented by the data that that that we provide, and each customer's data is completely separated. So, a recommendation that comes on, say, things that are frequently bought together, which is one of the models.
+
+That's all based on their data. It's the it's the the products that they sell. It's what sells together within the context of that customer. And so that's an you know, that's not only a way to leverage AI to add advanced functionalities and embed that into the software itself, But that's where we kinda cross over into, oh, okay. How is AI transforming the user experience?
+
+And and so that is one of the ways, especially in a commerce environment. Right? How do you how do you get that level of of interaction that they get when they go to Amazon and they see frequently bought together and they see, you know, new items and they see all of those things that they're used to seeing in some of those more advanced, more modern architectures, how do we do the same thing? But how do we do it, quickly and and, you know, within a budget that is not, you know, multiple billions of dollars like what you'd see from some of the biggest online sites. So so that's a part of how it's changing.
+
+And and that's true not only of the consumer side of things in commerce, but we're also embedding into our our platform for the users to be able to begin to, kind of natively do their jobs more effectively and more efficiently. So for instance, one of the biggest challenges in commerce is how do I manage my catalog? How do I manage my catalog data? I've got 47 different, you know you know, versions of descriptions and and and descriptive words and synonyms for for what this is called and long descriptions. And and now with the advent of, you know, things like ChatGPT and Google Gemini and some of the other, you know, agentic kinds of of, of technology out there, Now I've got to do, you know, answer engine optimization.
+
+So how do I have, you know, relevant semantic information in kind of machine readable format so that so that I can share that information with those engines and have those engines, you know, come up with my product or my, you know, my site or my capability more often. So that's a part of it. And a lot of that can be supported with AI and generative AI in creating that information. Right? So how do I create better images?
+
+How do I, you know, how do I manage those those things? So that's kind of the second one. And then the third one is obviously yeah. Yeah. The the ability to, for for customers and employees to leverage AI kinda natively, whatever it is, and use that in their day to day jobs to be able to do it.
+
+So
+
+Speaker 1: So what are current bottlenecks, you are having, in this year? How are you planning to fix it? How are you planning your transitions, to recover from those bottlenecks?
+
+Speaker 0: Yeah. So so we're in the process of a a major transformation. I kinda hinted at it a little bit where, you know, modern technologies are much more composable to be able to do that. And and so the original version of the software that we have was written as a j two double e application on, at the time, WebSphere application server, which was the application server that was owned by IBM. And and so you start out with a very monolithic, well connected, well integrated piece of software, you know, that's been developed.
+
+So you have modules, then each module works together very closely. But it's really what what they call the, you know, a monolithic application. So it was all kind of there. And a couple of things happened in the industry that have changed that. One is, obviously, cloud and the ability to kind of dynamically scale things up in containerization and, you know, those kinds of modern technologies and modern architectures.
+
+And so one of the first things that we did was we containerized the application. So Mhmm. That's that's that's good, and it allows you to scale that up, but you're scaling up very, very large chunks of things. So you're not always optimized in the way that you're using your resources and the way that you're you're operating because, you know, you still have a monolithic application under the covers. It's just now replicated many, many, many, many times.
+
+And so one of the the things that we've been looking at, what we've been doing is is is looking at those modern architectures, looking at what we call composable commerce, and how how we can and we adopted something that, you know, Gartner came up with, which is called package business capability. So we also observed and saw that with a lot of microservices architectures that were out in the marketplace, there was service sprawl. And there was, you know, certain assumptions in terms of transactionally that, you know, a microservices architect architected solution looks at. Like, for instance, that, hey. If I have a transaction, I'm gonna I'm gonna, you you know, I'm gonna be able to have a compensating transaction that will make sure that it gets, you know, fixed.
+
+Well, that doesn't always happen. Right? And so that's one of the big myths of microservices architectures is that compensating transactions always work because they don't. And so what we what we really took was, you know, years and years of transactional integrity in our monolithic application and integrating the pieces working together and doing all of the backups and the rollbacks and the roll forwards and, you know, and making sure that, literally, you never lose a transaction because that's the worst thing that you can do in a in a commerce platform is lose a transaction. So how do you take that same kind of transactional integrity and apply it in these new models?
+
+And it's not easy. Yeah. And so what what what we call it is integrated composable commerce. So you don't have to build all the connections in between everything. We're building all of the connections in between everything.
+
+We're using modern methods to do that. We're using eventing. We're using, you know, APIs. We're using, GraphQL as as as we talked about to move data around, and to to to kind of manage the multiple things that has to happen in order to ensure that the transaction is gonna take place. If I'm putting something in a cart, what are all of the APIs that I have to call, and how do I monitor, manage, and make sure that all of those APIs take place?
+
+Because it's not just, you know, shoot something out of a one service and over to a service. When you're talking about package capabilities, it's it's managing that whole function of of, for instance, cart management. Right? Or the whole function of, you know, how do I do a search? Or the whole function of, okay.
+
+I wanna build a catalog, and then I wanna publish that catalog, you know, in its various states with various dates, times, prices, you know, kinda all of that stuff. And so how do I bring all of that stuff together? And and that's kind of what we call integrated composable commerce. But it's very challenging. It's very challenging because, you know, AI can produce code, but does it produce code that actually can manage transactional integrity and not lose orders.
+
+Right?
+
+Speaker 1: It has a hallucination. That's the biggest problem with AI.
+
+Speaker 0: Right.
+
+Speaker 1: And then you have, like, piece PCBs, which is, like, package business capabilities. And then Yeah. If it goes weird, then it will be, like, a bottlenecks. So Yeah. What are your plans in next one year to come out with those bottlenecks?
+
+Can you tell with our audience? And what if our audience already solved that problem? Would you consider it as a solution?
+
+Speaker 0: Yeah. So there's a there there's there's a couple of things, and there's another issue that I'll bring up, which is one of the biggest challenges that we've that that we've always faced is, you know, customers kind of live at different levels of of upgrading. Right? Yep. Yep.
+
+And and many of our customers live on premise. So so what we're doing is we're developing everything or as much as we can in a cloud native architecture that can be deployed either on prem, in a hyperscaler cloud, or or in a, you know, hybrid cloud environment to be able to do that. So that's one of the things is the services, the PVCs, everything that we're doing is is is cloud native so that it has the maximum deployment options. Right? So that's one thing.
+
+Another big challenge that we face is, you know, because we're not okay. Well, we're only doing it SaaS. Right? So you gotta run what we what we put out there. That's great.
+
+And then I only have one version, but that's not practical for
+
+Speaker 1: Yeah.
+
+Speaker 0: The kind of business that we run and the kind of you know, we have a lot of clients, especially enterprise clients, that have told me directly, you know, I don't want any SaaS. Right? I wanna run this on my beautiful infrastructure that I have built. I have clients that walk out of the front of their building and look over and see the data center next door and say that that that's where my stuff is right there. I can put my hand on it.
+
+I'm I trust it. I'm very I like it a lot. So so, you know, to to support the most number of customers, we have to, you know, we have to do those kinds of things. And and so one of the things that we've done in terms of our architecture is we've really separated the the package business capabilities kind of are are, you know, you can't change the actual package business capabilities. You can do a lot of things in between, and you can create your own versions of package business capabilities that do, you know, highly customized things that differentiate you as a business.
+
+And they will, and then we've created a an orchestration framework that allows you to, you know, move messages between the two to do events, to publish and subscribe. All the the standard kind of, you know, integration patterns that we've developed over the last twenty five, thirty years that we know are are, valid integration patterns. We're kinda supporting all of that within this framework, so that you can create your customizations and you can do your customizations, and they'll live right next to the package business capabilities that that do the functional pieces that are in that integrated, composable commerce model. So it's it's tough because, you know, you can't just go in and add a line of code in the middle of the code. And and by the way, we we've always let customers do that with our code.
+
+So you could add you could add customizations right in the middle of
+
+Speaker 1: Yep.
+
+Speaker 0: Our monolithic application all day long, and that was a blessing and a curse. It was a blessing because it was easy to do some things, and it was a curse because once you did it now how are you gonna move to the next version that I don't have your code in my stuff? That, you know, preserving upgradability was a a challenge and, you know, and we developed a a method for dealing with that in that each PBC that that we publish. And you can choose to use it or not use it. You could choose to use third party capabilities, you know, and we have all the mechanisms to to you know, if someone else develops, you you know, a module out there that does something that's whiz bang and, you know, has API connectivity and you needed to, you can do Kafka messages to it and all that kind of stuff.
+
+Speaker 1: Yep.
+
+Speaker 0: That's all, that's all within the realm of our ability to integrate with that. And, you know but if you like our catalog out of the box functionality, if you like our you know, we have a a content management system that we are are kind of putting in for commerce specifically that, we we call Studio that allows you to build pages and, you know, manage content like a like a content management system or like a, you know, some kind of a experience environment like our our own DX or TX. So if you wanna use our PVCs, great. If you don't wanna use our PVCs, that's fine. You can take that one PVC and replace it, and still, you can use the rest.
+
+Right? So so that was one of the challenges is making the the PVCs immutable where you can't change them. You can do all kinds of customization, but you do it kind of within a framework of of doing customization, which is a little bit different. But all the tools, all the architecture are the very latest in terms of being able to do that. And then the other challenge is scale.
+
+Right? How do you scale, you know, as I talked about before, the monolithic application, you could you could containerize it, which we did, and you could have multiple instances of it, but that's not a very efficient use of things. If if you're really challenged with, you know, you need better search performance from your search mechanism. How do I have those containers be able to be, you know, twenty, forty, sixty, eighty of those containers? Because you need that kind of performance during your peak periods.
+
+But I don't have to scale everything twenty, forty, sixty, eighty times. Right? So so there are parts of it that you need and you can scale up and you you know, the old the old term that we used to use was, right, you had to build the church for Sunday. Right?
+
+Speaker 1: Sunday
+
+Speaker 0: was the big day that you went in that everybody came in for church, and so you build a big church. And the other six days of the week, you don't use it for anything. So, so what we've done is by componentizing it, we've allowed us to scale different different parts of the application that need to scale bigger than other parts independently. Now that creates a challenge. The challenge is DevOps.
+
+Right? So how do I manage one, instead of managing one application, now I'm managing 18 or 20 different PVCs. How do I manage each one of those performance and scalability? And then how do I upgrade? You know, the nice part is I can you know, we can very rapidly modify a PVC, and we're in a continuous continuous development process instead of a cyclical quarterly development process or biannually development process.
+
+You know, we can do know, we can we can run sprints just like you can run sprints
+
+Speaker 1: Exactly.
+
+Speaker 0: Custom development, And we can release a sprint and and release a monthly release of a PVC if we wanted to. And so the the the the challenge and the beauty is, okay. Now I only have to deploy that one PVC. Right? Remember, I've taken all the customizations out of it, so, everything is going to you know, a new version of a PVC is gonna have all the functionality that you may be using plus more.
+
+Right? And we only have to, you know, in our in our Helm charts or in our YAML charts, we only have to deploy that one container. And you can deploy that container in a hot manner where you can have old containers and new containers operating together until you, you know, until you get everything upgraded to a new container. So you have zero downtime. So benefits there, but the management, things like site reliability engineering becomes, of critical importance.
+
+Things like people who really understand Kubernetes and containerization and and, you know, and spinning containers up and and then bringing them down or auto scaling, right, of of different containers. But it's a lot harder to manage 20 or 30 different, you know, independent services than it is to manage. And that that's one of the real big challenges with some of the microservices architectures that we've been playing with for the last five, ten years is what what do you do when you have a thousand thousand services, each one its own container that can scale independently? How do you manage that? Well, now instead of having, you know, 20 developers doing development for you, you've got a 150, you know, site reliability engineers and DevOps people managing the environment.
+
+So and and guess what? Those DevOps people and site reliability engineers are not cheaper than the systems engineers that you had Yeah. You know, putting code lines in your code. Right? So it's it's it's it's kind of we're we're trying to manage between, you know, the ability to have a total cost of ownership that is reasonable
+
+Speaker 1: Sure.
+
+Speaker 0: With the flexibility of a modern, you know, microservices architected enterprise grade transactional integrity kind of of of application that you wanna run your business on.
+
+Speaker 1: Sure. One quick question, Eric, about we are talking about b to b customers. Would you mind giving me the example of your specific customers where you are, like, director of sales, where you are seeing that the customer is struggling with, you know, their sales, their growth, and their revenue, how the AI will help them, and what are the challenges you are having, and what are you doing to work?
+
+Speaker 0: Sure. Sure. So, one of the I I would say one of the challenges that, our b to b customers have is that the way that b to b buyers buy now has, has changed a lot because those b to b buyers are b to c buyers and have been exposed to you know, it's like one once you you know, the the the b to b sites that are out there or, you know, trying to sell b to b is you know, if you're trying to sell in the same way that you tried to sell twenty, thirty years ago Mhmm. Your your your buyers have changed. Right?
+
+Yes. You know, they want that same kind of interface where they can go and they can say, you know, hey. What, you know, here's something that I that I want. What else do I need to buy with this? Right?
+
+That's the kind of thing that we've been you know, that have been coming out in b to b. Most most b to c sites are have already done that done that for years, and we have trained, you know, the the the consumers that they can get that. They can just see that. It's right there on the page down below. And and, you know, how do you do that?
+
+B to b does have some uniquenesses. It has some things that are are different. Right? You have to have contract pricing. A lot of businesses want to manage what you can buy.
+
+You know? So there's certain, catalog entitlements that you have to have in the b to b world. But a lot of the you know, a lot of what we're trying to do is bring all of those b to c capabilities that are just as important in a b to b relationship, but still maintain the, you know, the the the uniqueness of b to b. So, a lot of the way that we do things is we write things for b to b because the b to b requirements are typically more complex. And then and then we, you know, we turn those features and capabilities off for the b to c model.
+
+And it's a bit of a balance too. Right? Because b to b is you know, there's a lot of new b to c sites that are out there that are doing new crazy things with AI being able to do that. And and we wanna be we want our b to c customers to be able to use those those exciting new capabilities, and we're embedding it in what we're doing. But we always look at it for an eye of, hey, how can we do this for b to b and the and the uniquenesses of b to b.
+
+Right? In other words, hey, I'm not taking a credit card. Right? Maybe maybe they are, maybe they're not. I mean, some some b to b customers do take credit cards.
+
+They're they're business credit cards. Some do not. Some only do it on account. Right? So I gotta have account.
+
+I gotta have financials. I got I've got to, you know, one of the other challenges of b to b in particular is, okay. So how do I, you know, capture the order, maybe go through a quoting process where there are potentially humans involved in it or agents, you know, these new AI agents kinda coming in that that could they're not really doing it yet, but could negotiate, right, on behalf of that business. You know, they have their agent that talks to our agent, and together they get together, and you do that. And somewhere you have a human in the loop just to make sure that, you know, there's not hallucinations going on on both sides.
+
+And so so so that's a big area that I see us us us figuring out. It's a little early yet in terms of AI for that. But but the ability to, you know, integrate to that back end system. So I got a quote. I got a I got a quote.
+
+It's been accepted. I turned it into an order. You know? So I've captured that information. Now how do I get that information into SAP so that I can do the fulfillment out of my warehouse?
+
+You know, that is the warehouse that services that b to b customer. Right? Because I have specific stock that I put in place, you know. So there's this whole supply chain logistics piece of this, you know, that goes in, and and AI is helping us do that. Right?
+
+So AI can help us in better integration. So as SAP, as Oracle, as Blue Yonder, and some of these other major ERPs add kind of agentic capabilities themselves. You know, maybe it's the customer's agent talks to our agent, talks to the SAP agent that's our agent as well, and they all exchange the information, do what they need to do in order to be more effective and more efficient and not have to have, you know, human beings do a lot of manual work to be able to do that. So today, in a lot of b to b sense, they're still doing that. Right?
+
+They're still doing swivel chair, you know, what we used to call swivel chair. Right? So I've got I've got a screen over here where I get the order in the ecommerce environment, and then I swivel over here or I go to a new a new window on there, you know, and I go into SAP and I cut and paste the order. I do whatever I, you know, whatever I do. Those are things that are going to be, no longer sustainable in a world where AI is a part of what you do.
+
+Speaker 1: Yes. And we are running out of time right now. Thank you so much. Hello.
+
+Speaker 0: Yeah.
+
+Speaker 1: Are you yeah. So it was amazing. We had, like, there were a lot of discussion. Eric, it's been incredible incredibly insightful discussion. Thank you so much for sharing the journey.
+
+Speaker 0: Yeah. My pleasure.
+
+Speaker 1: It's here solutions, especially with the AI innovations. And about the next steps, like, we are discussing, I will set up some, like, discovery call next week somewhere. Uh-huh. If you can give me some time slots, I would like to be happy to send you the invite soon. Okay.
+
+For this want
+
+Speaker 0: you want me to look right now and just do it right now?
+
+Speaker 1: Or you wanna send me an email? I can send you in the email.
+
+Speaker 0: Yeah. Yeah. Send me an email.
+
+Speaker 1: We will do the podcast reviews as well as we will see if you offer clients has already solved those problems, if that's helpful for your solution in that discovery call. Yeah. And once again, thank you so much. You're welcome. It's been pleasure meeting with you.
+
+Thank you for all your insights, and welcome to AI AI Transitions.
+
+Speaker 0: Yeah. I love it. Thanks.
+
+Speaker 1: Thank you. Bye.
+
+Speaker 0: Hi.
+
+----------------------------------------------------------------
+
+Client Details:
+
+Prospect Information Name & Title : Erik Bergeman, Customer Success Executive and Sales Director
+
+Email: erik.bergeman@hcl-software.com
+
+LinkedIn Profile :https://www.linkedin.com/in/erikbergeman/
+
+Company Information : HCL Software, Software, B2B, SaaS, B2C, eCommerce
+
+Website: https://www.hcl-software.com/
+
+
+Revenue: >$1B
+
+LinkedIn: https://www.linkedin.com/company/hclsoftware/
